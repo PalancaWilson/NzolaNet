@@ -1,0 +1,140 @@
+<div class="login-container">
+
+    <app-auth-layout></app-auth-layout>
+
+    <div class="right-side">
+
+        <div class="form-container">
+
+            <span class="small-text">
+                // REGISTO
+            </span>
+
+            <h1>
+                CRIA A TUA CONTA
+            </h1>
+
+            <p>
+                Junta-te ao NzolaNet em menos de um minuto
+            </p>
+
+            <div class="form-row">
+
+                <div class="form-field">
+                    <label for="nome">
+                        NOME
+                    </label>
+
+                    <div class="input-group">
+                        <i class="bi bi-person"></i>
+
+                        <input
+                            id="nome"
+                            type="text"
+                            placeholder="Digite o seu nome"
+                        >
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label for="sobrenome">
+                        SOBRENOME
+                    </label>
+
+                    <div class="input-group">
+                        <i class="bi bi-person"></i>
+
+                        <input
+                            id="sobrenome"
+                            type="text"
+                            placeholder="Digite o seu sobrenome"
+                        >
+                    </div>
+                </div>
+
+            </div>
+
+            <label for="email">
+                EMAIL
+            </label>
+
+            <div class="input-group">
+                <i class="bi bi-envelope"></i>
+
+                <input
+                    id="email"
+                    type="email"
+                    placeholder="tu@nzolanet.app"
+                >
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-field">
+                    <label for="dataNascimento">
+                        DATA DE NASCIMENTO
+                    </label>
+
+                    <div class="input-group">
+                        <i class="bi bi-calendar-event"></i>
+
+                        <input
+                            id="dataNascimento"
+                            type="date"
+                        >
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label for="localizacao">
+                        LOCALIZAÇÃO
+                    </label>
+
+                    <div class="input-group">
+                        <i class="bi bi-geo-alt"></i>
+
+                        <input
+                            id="localizacao"
+                            type="text"
+                            placeholder="Ex: Luanda"
+                        >
+                    </div>
+                </div>
+
+            </div>
+
+            <label for="password">
+                PALAVRA-PASSE
+            </label>
+
+            <div class="input-group">
+                <i class="bi bi-lock"></i>
+
+                <input
+                    id="password"
+                    type="password"
+                    placeholder="Pelo menos 8 caracteres"
+                >
+
+                <i class="bi bi-eye"></i>
+            </div>
+
+            <button class="login-btn" type="button">
+                <i class="bi bi-lightning-charge-fill"></i>
+
+                CRIAR CONTA
+            </button>
+
+            <div class="register-link">
+                Já tens conta?
+
+                <a routerLink="/login">
+                    Entra aqui
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

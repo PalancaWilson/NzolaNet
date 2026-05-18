@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+.login-container {
+    min-height: calc(100vh - 20px);
+    margin: 10px;
+    display: flex;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #fafafd;
+    border: 1px solid #e8e8ef;
+    font-family: "Inter", sans-serif;
+}
+
+.right-side {
+    width: 50%;
+    background: #fafafd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 70px 56px;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 560px;
+}
+
+.small-text {
+    display: block;
+    margin-bottom: 16px;
+    color: #4b5168;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.form-container h1 {
+    font-family: "Anton", sans-serif;
+    color: #03030c;
+    font-size: 47px;
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+}
+
+.form-container p {
+    margin-top: 12px;
+    margin-bottom: 52px;
+    color: #515970;
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+label {
+    display: block;
+    margin-bottom: 12px;
+    color: #4b5168;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+label:not(:first-of-type) {
+    margin-top: 30px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.form-field {
+    width: 100%;
+}
+
+.form-field label {
+    margin-top: 30px;
+}
+
+.form-row:first-of-type .form-field label {
+    margin-top: 0;
+}
+
+.input-group {
+    width: 100%;
+    height: 58px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #fff;
+    border: 1px solid #e2e3ea;
+    border-radius: 19px;
+}
+
+.input-group:focus-within {
+    border-color: #d237e5;
+    box-shadow: 0 0 0 4px rgba(210, 55, 229, 0.1);
+}
+
+.input-group i {
+    color: #656b7c;
+    font-size: 20px;
+}
+
+.input-group input {
+    width: 80%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #111421;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.input-group input::placeholder {
+    color: #7b8190;
+}
+
+input[type="date"] {
+    color: #111421;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.55;
+}
+
+.login-btn {
+    width: 100%;
+    height: 70px;
+    margin-top: 22px;
+    border: none;
+    border-radius: 21px;
+    background: linear-gradient(135deg, #c92ee7, #d236df);
+    color: #fff;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    font-family: "Anton", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    box-shadow: 0 25px 45px rgba(201, 46, 231, 0.2);
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 30px 55px rgba(201, 46, 231, 0.28);
+}
+
+.login-btn i {
+    font-family: initial;
+    font-size: 20px;
+}
+
+.register-link {
+    margin-top: 40px;
+    text-align: center;
+    color: #4f566b;
+    font-size: 18px;
+}
+
+.register-link a {
+    color: #03030c;
+    font-weight: 900;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    color: #d237e5;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 900px) {
+    .login-container {
+        min-height: 100vh;
+        margin: 0;
+        border-radius: 0;
+        flex-direction: column;
+    }
+
+    .right-side {
+        width: 100%;
+        padding: 42px 24px;
+    }
+
+    .form-container h1 {
+        font-size: 38px;
+    }
+}
+
+@media (max-width: 640px) {
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .form-row:first-of-type .form-field:not(:first-child) label {
+        margin-top: 30px;
+    }
+}

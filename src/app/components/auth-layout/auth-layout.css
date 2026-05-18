@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.login-container {
+    min-height: calc(100vh - 20px);
+    margin: 10px;
+    display: flex;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #fafafd;
+    border: 1px solid #e8e8ef;
+    font-family: "Inter", sans-serif;
+}
+
+/* LEFT */
+
+.left-side {
+    width: 900%;
+    padding: 58px;
+    color: #fff;
+    background: linear-gradient(135deg, #c52ee8 0%, #d936df 48%, #c52ee8 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.logo {
+    font-family: "Anton", sans-serif;
+    font-size: 66px;
+    line-height: 0.85;
+    font-weight: 400;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+}
+
+.meta {
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.slogan h1 {
+    font-family: "Anton", sans-serif;
+    font-size: 88px;
+    line-height: 0.86;
+    font-weight: 400;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+}
+
+.slogan h1 span {
+    color: rgba(255, 255, 255, 0.42);
+}
+
+.slogan p {
+    margin-top: 34px;
+    max-width: 560px;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 1.55;
+}
+

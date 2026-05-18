@@ -1,0 +1,41 @@
+.create-post {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+
+textarea {
+    width: 100%;
+    border: none;
+    resize: none;
+    height: 100px;
+    outline: none;
+    font-size: 18px;
+}
+
+button {
+    margin-top: 20px;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    background: #d946ef;
+    color: white;
+    font-weight: bold;
+}
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icons {
+    display: flex;
+    gap: 20px;
+}
+
+.icons i {
+    color: #d946ef;
+    font-size: 22px;
+    cursor: pointer;
+}

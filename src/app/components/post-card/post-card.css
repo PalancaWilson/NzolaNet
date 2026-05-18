@@ -1,0 +1,36 @@
+.post-card {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+
+.image {
+    height: 250px;
+    background: #ececec;
+    border-radius: 20px;
+    margin: 20px 0;
+}
+
+.actions {
+    display: flex;
+    gap: 30px;
+    color: gray;
+    font-weight: 600;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actions span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.actions i {
+    color: #d946ef;
+}
