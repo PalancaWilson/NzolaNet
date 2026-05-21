@@ -1,19 +1,15 @@
 .sidebar {
-    width: 260px;
-    background: white;
+    width: 250px;
+    background: f7f7f7;
     padding: 25px 20px;
-    border-right: 1px solid #efefef;
+    padding: 25px 20px 25px 85px;
+    border-right: 1px solid oklch(98.5% .003 285);
     position: sticky;
-    top: 0;
-    height: 100vh;
+    top: 100px;
+    height: calc(100vh - 85px);
+    overflow-y: auto;
 }
 
-.logo {
-    font-size: 35px;
-    font-weight: bold;
-    color: #c92df1;
-    margin-bottom: 50px;
-}
 
 .sidebar ul {
     list-style: none;

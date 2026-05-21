@@ -1,27 +1,99 @@
-<div class="create-post">
 
-    <textarea 
-        placeholder="O que estás a pensar?"
-    ></textarea>
+<div class="create-post-card">
 
-    <div class="post-actions">
+    <div class="post-top">
 
-        <div class="icons">
+        <img
+            src="../assets/images/avatar.jpg"
+            alt="Avatar"
+            class="avatar"
+        >
 
-            <i class="bi bi-image"></i>
+        <textarea
 
-            <i class="bi bi-camera-video"></i>
+            [(ngModel)]="text"
 
-            <i class="bi bi-emoji-smile"></i>
+            [maxLength]="limit"
 
-            <i class="bi bi-geo-alt"></i>
+            placeholder="O que estás a pensar?"
+
+            rows="2"
+
+        ></textarea>
+
+    </div>
+
+    <div class="post-bottom">
+
+        <!-- ICONES -->
+
+        <div class="actions">
+
+            <button>
+                <i class="bi bi-image"></i>
+            </button>
+
+            <button>
+                <i class="bi bi-camera-video"></i>
+            </button>
+
+            <button>
+                <i class="bi bi-emoji-smile"></i>
+            </button>
+
+            <button>
+                <i class="bi bi-geo-alt"></i>
+            </button>
 
         </div>
 
-        <button>
-            Publicar
-        </button>
+        <!-- CONTADOR -->
+
+        <div class="post-info">
+
+            <span
+                class="counter"
+
+                [class.danger]="text.length > limit - 20"
+            >
+
+                {{ text.length }}/{{ limit }}
+
+            </span>
+
+            <button
+
+                class="publish-btn"
+
+                [disabled]="!text.trim()"
+
+            >
+
+                Bazar agora
+
+            </button>
+
+        </div>
 
     </div>
 
 </div>
+
+<!-- TABS -->
+
+<div class="feed-tabs">
+
+    <button class="active">
+        Para ti
+    </button>
+
+    <button>
+        A seguir
+    </button>
+
+    <button>
+        Em alta
+    </button>
+
+</div>
+

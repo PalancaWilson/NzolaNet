@@ -1,0 +1,67 @@
+
+
+.layout {
+
+    min-height: 100vh;
+
+    background: oklch(98.5% .003 285);
+}
+
+/* MAIN */
+
+.main-content {
+
+    display: flex;
+
+    align-items: flex-start;
+}
+
+/* FEED */
+
+.feed-container {
+
+    flex: 1;
+
+    padding: 40px 60px;
+}
+
+/* HEADER */
+
+.feed-header {
+
+    margin-bottom: 30px;
+}
+
+.feed-header h1 {
+
+    font-size: 56px;
+
+    font-weight: 900;
+
+    color: #09090f;
+
+    line-height: 1;
+}
+
+.feed-header p {
+
+    margin-top: 10px;
+
+    color: #7c7c88;
+
+    font-size: 18px;
+}
+
+/* POSTS */
+
+.posts {
+
+    margin-top: 30px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 24px;
+}
+

@@ -5,10 +5,11 @@ import { Topbar } from '../../components/topbar/topbar';
 import { CreatePost } from '../../components/create-post/create-post';
 import { PostCard } from '../../components/post-card/post-card';
 
+
 @Component({
-  selector: 'app-freed',
+  selector: 'app-feed',
   imports: [Sidebar, Topbar, CreatePost, PostCard],
-  templateUrl: './freed.html',
-  styleUrl: './freed.css',
+  templateUrl: './feed.html',
+  styleUrl: './feed.css',
 })
-export class Freed {}
+export class Feed {}

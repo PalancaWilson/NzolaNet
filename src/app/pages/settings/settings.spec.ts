@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Freed } from './freed';
+import { Settings } from './settings';
 
-describe('Freed', () => {
-  let component: Freed;
-  let fixture: ComponentFixture<Freed>;
+describe('Settings', () => {
+  let component: Settings;
+  let fixture: ComponentFixture<Settings>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Freed],
+      imports: [Settings],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Freed);
+    fixture = TestBed.createComponent(Settings);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

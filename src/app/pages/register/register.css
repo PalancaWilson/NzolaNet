@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 .login-container {
-    min-height: calc(100vh - 20px);
+    min-height: 100vh;
     margin: 10px;
     display: flex;
     overflow: hidden;
@@ -12,7 +12,7 @@
 }
 
 .right-side {
-    width: 50%;
+    flex: 1;
     background: #fafafd;
     display: flex;
     align-items: center;
@@ -53,6 +53,72 @@
     line-height: 1.4;
 }
 
+
+
+.profile-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.profile-preview {
+    position: relative;
+    width: 130px;
+    height: 130px;
+}
+
+.profile-preview img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+
+    border: 5px solid #f3d4ff;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.profile-preview label {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(to right,
+            #c92df1,
+            #d946ef);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+    transition: 0.3s;
+}
+
+.profile-preview label:hover {
+    transform: scale(1.1);
+}
+
+.profile-upload span {
+    margin-top: 15px;
+    color: gray;
+    font-size: 14px;
+}
+
+
+
+
 label {
     display: block;
     margin-bottom: 12px;
@@ -61,6 +127,8 @@ label {
     font-weight: 800;
     letter-spacing: 2px;
     text-transform: uppercase;
+  
+
 }
 
 label:not(:first-of-type) {
@@ -87,7 +155,7 @@ label:not(:first-of-type) {
 
 .input-group {
     width: 100%;
-    height: 58px;
+    height: 60px;
     padding: 0 20px;
     display: flex;
     align-items: center;

@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
-import { Freed } from './pages/freed/freed';
+import { Feed } from './pages/feed/feed';
 import { Profile } from './pages/profile/profile';
 
 export const routes: Routes = [
@@ -22,8 +22,8 @@ export const routes: Routes = [
         component: Register
     },
     {
-        path:'freed',
-        component: Freed
+        path:'feed',
+        component: Feed
     },
     {
         path:'profile',
