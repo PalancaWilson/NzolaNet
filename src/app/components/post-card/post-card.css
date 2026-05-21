@@ -1,36 +1,251 @@
 .post-card {
+    max-width: 600px;
+    width: 100%;
     background: white;
-    padding: 20px;
-    border-radius: 20px;
-    margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    padding: 12px;
+    transition: all 0.2s ease;
+    margin: 0 auto;
 }
 
-.image {
-    height: 250px;
-    background: #ececec;
-    border-radius: 20px;
-    margin: 20px 0;
+.post-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
 }
 
-.actions {
-    display: flex;
-    gap: 30px;
-    color: gray;
-    font-weight: 600;
-}
-
+/* Cabeçalho reduzido */
 .post-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.actions span {
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-bottom: 8px;
 }
 
-.actions i {
-    color: #d946ef;
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #c92df1, #8b5cf6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    flex-shrink: 0;
 }
+
+.user-info {
+    flex: 1;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.user-name span {
+    color: #71767b;
+    font-weight: 400;
+    font-size: 13px;
+}
+
+.verified-badge {
+    color: #1da1f2;
+    font-size: 14px;
+}
+
+.post-time {
+    color: #71767b;
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+/* Conteúdo reduzido */
+.post-content {
+    margin-bottom: 12px;
+    padding-left: 48px;
+}
+
+.post-text {
+    font-size: 14px;
+    line-height: 1.4;
+    color: #0f1419;
+    margin-bottom: 8px;
+}
+
+/* Imagem reduzida */
+.post-media {
+    margin-top: 8px;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.post-media:hover {
+    transform: scale(1.01);
+}
+
+.post-media img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    max-height: 350px;
+}
+
+/* Ações reduzidas */
+.post-actions {
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #eff3f4;
+    border-bottom: 1px solid #eff3f4;
+    padding: 4px 0;
+    margin-bottom: 8px;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 30px;
+    color: #536471;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.action-btn i {
+    font-size: 16px;
+    transition: transform 0.2s ease;
+}
+
+.action-btn:hover {
+    background: rgba(201, 45, 241, 0.08);
+    color: #c92df1;
+}
+
+.action-btn:hover i {
+    transform: scale(1.05);
+}
+
+.like-btn.liked {
+    color: #f91880;
+}
+
+.like-btn.liked i {
+    color: #f91880;
+}
+
+.like-btn:hover {
+    background: rgba(249, 24, 128, 0.08);
+    color: #f91880;
+}
+
+.retweet-btn:hover {
+    background: rgba(0, 186, 124, 0.08);
+    color: #00ba7c;
+}
+
+.share-btn:hover {
+    background: rgba(29, 161, 242, 0.08);
+    color: #1da1f2;
+}
+
+.action-btn:active {
+    transform: scale(0.96);
+}
+
+/* Estatísticas reduzidas */
+.post-stats {
+    display: flex;
+    gap: 16px;
+    padding-left: 48px;
+    font-size: 13px;
+    color: #536471;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.stat strong {
+    color: #0f1419;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.stat i {
+    font-size: 13px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .post-card {
+        padding: 10px;
+    }
+
+    .post-content,
+    .post-stats {
+        padding-left: 0;
+    }
+
+    .action-btn span {
+        display: none;
+    }
+
+    .action-btn i {
+        font-size: 18px;
+    }
+
+    .action-btn {
+        padding: 6px;
+    }
+
+    .avatar {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+
+    .post-text {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-name {
+        font-size: 13px;
+    }
+
+    .user-name span {
+        font-size: 11px;
+    }
+
+    .post-text {
+        font-size: 13px;
+    }
+
+    .post-stats {
+        font-size: 12px;
+        gap: 12px;
+    }
+
+    .stat strong {
+        font-size: 12px;
+    }
+}
+
+

@@ -1,35 +1,71 @@
 <div class="post-card">
-
+    <!-- Cabeçalho -->
     <div class="post-header">
-
-        <h3>Marco Aurélio</h3>
-
-        <i class="bi bi-three-dots"></i>
-
+        <div class="avatar">
+            {{ getInitials() }}
+        </div>
+        <div class="user-info">
+            <div class="user-name">
+                {{ post.authorName }}
+                @if (post.isVerified) {
+                    <i class="fas fa-check-circle verified-badge"></i>
+                }
+                <span>@{{ post.authorUsername }}</span>
+            </div>
+            <div class="post-time">
+                <span>{{ post.timestamp }}</span>
+            </div>
+        </div>
     </div>
 
-    <p>
-        Acabei de chegar ao evento de tecnologia.
-    </p>
-
-    <div class="image"></div>
-
-    <div class="actions">
-
-        <span>
-            <i class="bi bi-lightning-charge-fill"></i>
-            421 Bazes
-        </span>
-
-        <span>
-            <i class="bi bi-chat"></i>
-            24 Comentários
-        </span>
-
-        <span>
-            <i class="bi bi-share"></i>
-        </span>
-
+    <!-- Conteúdo -->
+    <div class="post-content">
+        <div class="post-text">
+            {{ post.content }}
+        </div>
+        
+        <!-- Imagem da publicação -->
+        @if (post.imageUrl) {
+            <div class="post-media">
+                <img [src]="post.imageUrl" alt="Imagem da publicação de {{ post.authorName }}">
+            </div>
+        }
     </div>
 
+    <!-- Ações -->
+    <div class="post-actions">
+        <button class="action-btn like-btn" [class.liked]="post.liked" (click)="toggleLike()">
+            <i [class.far]="!post.liked" [class.fas]="post.liked" class="fa-heart"></i>
+            <span>Bazar</span>
+        </button>
+        
+        <button class="action-btn comment-btn" (click)="onComment()">
+            <i class="far fa-comment"></i>
+            <span>Comentar</span>
+        </button>
+        
+        <button class="action-btn retweet-btn">
+            <i class="fas fa-retweet"></i>
+            <span>Repostar</span>
+        </button>
+        
+        <button class="action-btn share-btn" (click)="onShare()">
+            <i class="far fa-share-square"></i>
+            <span>Compartilhar</span>
+        </button>
+    </div>
+
+    <!-- Estatísticas -->
+    <div class="post-stats">
+        <div class="stat">
+            <i class="far fa-heart"></i>
+            <strong>{{ post.likes }}</strong>
+            <span>bazes</span>
+        </div>
+        <div class="stat">
+            <i class="far fa-comment"></i>
+            <strong>{{ post.comments }}</strong>
+            <span>comentários</span>
+        </div>
+    </div>
 </div>

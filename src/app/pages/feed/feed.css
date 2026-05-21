@@ -1,67 +1,189 @@
+/* Reset e configurações globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+}
 
 
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #f5f5f5;
+}
+
+/* Layout Principal */
 .layout {
-
-    min-height: 100vh;
-
-    background: oklch(98.5% .003 285);
-}
-
-/* MAIN */
-
-.main-content {
-
+    height: 100vh;
     display: flex;
-
-    align-items: flex-start;
+    flex-direction: column;
+    overflow: hidden;
 }
 
-/* FEED */
+/* TOPBAR - Fixo no topo */
+app-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: white;
+    flex-shrink: 0;
+    /* Impede que o topbar encolha */
+}
 
-.feed-container {
-
+/* Conteúdo principal (sidebar + feed + right-sidebar) */
+.main-content {
+    display: flex;
     flex: 1;
-
-    padding: 40px 60px;
+    overflow: hidden;
+    /* Importante: contém a rolagem dentro do feed */
+    position: relative;
 }
 
-/* HEADER */
+/* SIDEBAR - Fixa na esquerda */
+app-sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    height: calc(100vh - 70px);
+    /* Ajuste conforme altura do topbar */
+    overflow-y: auto;
+    
+}
 
+/* Esconde scrollbar da sidebar (opcional) */
+app-sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+
+app-sidebar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+app-sidebar::-webkit-scrollbar-thumb {
+    background: #c92df1;
+    border-radius: 4px;
+}
+
+/* FEED CONTAINER - Única área com rolagem */
+.feed-container {
+    flex: 1;
+    overflow-y: auto;
+    /* Só o feed tem rolagem vertical */
+    overflow-x: hidden;
+    padding: 20px;
+    background: #f5f5f5;
+}
+
+
+/* Estilização da scrollbar do feed */
+.feed-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.feed-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.feed-container::-webkit-scrollbar-thumb {
+    background: #c92df1;
+    border-radius: 4px;
+}
+
+.feed-container::-webkit-scrollbar-thumb:hover {
+    background: #a822cf;
+}
+
+/* Cabeçalho do Feed */
 .feed-header {
-
-    margin-bottom: 30px;
+    margin-bottom: 24px;
+    color: #a822cf;
+   
 }
 
 .feed-header h1 {
-
-    font-size: 56px;
-
-    font-weight: 900;
-
-    color: #09090f;
-
-    line-height: 1;
+    font-size: 28px;
+    color: #a822cf;
+    margin-bottom: 8px;
 }
 
 .feed-header p {
-
-    margin-top: 10px;
-
-    color: #7c7c88;
-
-    font-size: 18px;
+    color: #666;
+    font-size: 14px;
 }
 
-/* POSTS */
-
+/* Posts container */
 .posts {
-
-    margin-top: 30px;
-
     display: flex;
-
     flex-direction: column;
-
-    gap: 24px;
+    gap: 20px;
+    margin-top: 20px;
 }
 
+/* RIGHT SIDEBAR - Fixa na direita */
+app-right-sidebar {
+    width: 400px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    height: calc(100vh - 70px);
+    /* Ajuste conforme altura do topbar */
+    overflow-y: auto;
+    background: white;
+    border-left: 1px solid #e0e0e0;
+    padding: 20px;
+}
+
+/* Esconde scrollbar da right-sidebar (opcional) */
+app-right-sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+
+app-right-sidebar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+app-right-sidebar::-webkit-scrollbar-thumb {
+    background: #c92df1;
+    border-radius: 4px;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    app-sidebar {
+        width: 220px;
+    }
+
+    app-right-sidebar {
+        width: 280px;
+    }
+}
+
+@media (max-width: 768px) {
+    app-sidebar {
+        position: fixed;
+        left: -260px;
+        transition: left 0.3s ease;
+        z-index: 99;
+        height: 100vh;
+    }
+
+    app-sidebar.open {
+        left: 0;
+    }
+
+    app-right-sidebar {
+        display: none;
+    }
+
+    .feed-container {
+        padding: 16px;
+    }
+}

@@ -1,0 +1,45 @@
+<div class="sidebar-widgets">
+  
+  <div class="widget-card follow-widget">
+    <h3 class="widget-title">QUEM SEGUIR</h3>
+    
+    <div class="suggestions-list">
+      @for (user of suggestions; track user.id) {
+        <div class="user-suggest-item">
+          <img src="../../../assets/imagens/avatar-marco.jpg" alt="">
+          <div class="user-info">
+            <span class="user-name">{{ user.name }}</span>
+            <span class="user-subtitle">{{ user.subtitle }}</span>
+          </div>
+          <button class="btn-follow" (click)="followUser(user.id)">Seguir</button>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="widget-card notification-widget">
+    <div class="widget-header">
+      <h3 class="widget-title"><i class="icon-bell"></i> NOTIFICAÇÕES</h3>
+      <span class="notification-badge-dot"></span>
+    </div>
+
+    <div class="notifications-list">
+      @for (notif of notifications; track notif.id) {
+        <div class="notification-item">
+          <div class="icon-container" [ngClass]="notif.type">
+            <i [class]="getNotificationIcon(notif.type)"></i>
+          </div>
+          <div class="notification-content">
+            <p class="notification-text">
+              <span class="bold-name">{{ notif.senderName }}</span> {{ notif.text }}
+            </p>
+            <span class="notification-time">{{ notif.time }}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <button class="btn-view-all" (click)="viewAllNotifications()">VER TODAS</button>
+  </div>
+
+</div>
