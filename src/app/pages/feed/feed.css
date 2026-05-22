@@ -25,15 +25,7 @@ body {
     overflow: hidden;
 }
 
-/* TOPBAR - Fixo no topo */
-app-topbar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: white;
-    flex-shrink: 0;
-    /* Impede que o topbar encolha */
-}
+
 
 /* Conteúdo principal (sidebar + feed + right-sidebar) */
 .main-content {
@@ -44,18 +36,7 @@ app-topbar {
     position: relative;
 }
 
-/* SIDEBAR - Fixa na esquerda */
-app-sidebar {
-    width: 260px;
-    flex-shrink: 0;
-    position: sticky;
-    top: 0;
-    align-self: flex-start;
-    height: calc(100vh - 70px);
-    /* Ajuste conforme altura do topbar */
-    overflow-y: auto;
-    
-}
+
 
 /* Esconde scrollbar da sidebar (opcional) */
 app-sidebar::-webkit-scrollbar {

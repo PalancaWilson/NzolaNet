@@ -1,1 +1,114 @@
-<p>notifications works!</p>
+<div class="notifications-page">
+    
+    <!-- TOPBAR -->
+    <app-topbar></app-topbar>
+    
+    <!-- SIDEBAR -->
+    <app-sidebar></app-sidebar>
+    
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div class="notifications-main">
+        
+        <!-- Cabeçalho -->
+        <div class="notifications-header">
+            <h1>Notificações</h1>
+            <button class="mark-all-btn" (click)="markAllAsRead()">
+                <i class="bi bi-check2-all"></i>
+                Marcar todas como lidas
+            </button>
+        </div>
+
+        <!-- Filtros Laterais (como na imagem) -->
+        <div class="notifications-layout">
+            
+            <!-- Sidebar de Filtros (esquerda) -->
+            <aside class="notifications-sidebar">
+                <div class="filter-section">
+                    <h3>ATIVIDADE RECENTE</h3>
+                    <nav class="filter-nav">
+                        <a class="filter-link active" (click)="setFilter('all')">
+                            <i class="bi bi-bell"></i>
+                            Todas
+                        </a>
+                        <a class="filter-link" (click)="setFilter('baze')">
+                            <i class="bi bi-heart"></i>
+                            Bazes
+                        </a>
+                        <a class="filter-link" (click)="setFilter('comment')">
+                            <i class="bi bi-chat"></i>
+                            Comentários
+                        </a>
+                        <a class="filter-link" (click)="setFilter('follower')">
+                            <i class="bi bi-person-plus"></i>
+                            Seguidores
+                        </a>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Lista de Notificações (direita) -->
+            <div class="notifications-content">
+                <div class="notifications-list">
+                    @for (notification of filteredNotifications; track notification.id) {
+                        <div 
+                            class="notification-item" 
+                            [class.unread]="!notification.read"
+                            (click)="markAsRead(notification)">
+                            
+                            <div class="notification-avatar">
+                                <img [src]="notification.user.avatar || 'assets/default-avatar.png'" [alt]="notification.user.name">
+                                <div class="notification-icon-badge" [style.background-color]="getNotificationColor(notification.type)">
+                                    <i [class]="getNotificationIcon(notification.type)"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="notification-details">
+                                <div class="notification-text">
+                                    <strong>{{ notification.user.name }}</strong>
+                                    <span class="username">{{ notification.user.username }}</span>
+                                    
+                                    @switch (notification.type) {
+                                        @case ('baze') {
+                                            <span>deu <strong>baze</strong> à tua publicação</span>
+                                            <span class="post-title">{{ notification.postTitle }}</span>
+                                        }
+                                        @case ('comment') {
+                                            <span>comentou:</span>
+                                            <span class="comment-text">“{{ notification.content }}”</span>
+                                        }
+                                        @case ('follower') {
+                                            <span>começou a <strong>seguir-te</strong></span>
+                                        }
+                                        @case ('reply') {
+                                            <span>{{ notification.content }}</span>
+                                            <span class="post-title">{{ notification.postTitle }}</span>
+                                        }
+                                    }
+                                </div>
+                                
+                                <div class="notification-time">
+                                    <i class="bi bi-clock"></i>
+                                    {{ notification.timestamp }}
+                                </div>
+                            </div>
+                            
+                            @if (!notification.read) {
+                                <div class="unread-dot"></div>
+                            }
+                        </div>
+                    }
+                    
+                    @if (filteredNotifications.length === 0) {
+                        <div class="empty-state">
+                            <i class="bi bi-inbox"></i>
+                            <p>Nenhuma notificação</p>
+                        </div>
+                    }
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+</div>
