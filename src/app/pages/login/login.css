@@ -26,6 +26,21 @@
     max-width: 560px;
 }
 
+
+.erro {
+
+    display: block;
+
+    margin-top: 8px;
+
+    color: #ff3b30;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
 .small-text {
     display: block;
     margin-bottom: 16px;

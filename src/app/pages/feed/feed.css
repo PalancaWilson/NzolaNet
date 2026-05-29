@@ -38,20 +38,6 @@ body {
 
 
 
-/* Esconde scrollbar da sidebar (opcional) */
-app-sidebar::-webkit-scrollbar {
-    width: 4px;
-}
-
-app-sidebar::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-app-sidebar::-webkit-scrollbar-thumb {
-    background: #c92df1;
-    border-radius: 4px;
-}
-
 /* FEED CONTAINER - Única área com rolagem */
 .feed-container {
     flex: 1;

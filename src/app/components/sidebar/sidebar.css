@@ -1,34 +1,54 @@
 .sidebar {
     width: 250px;
-    background: f7f7f7;
-    padding: 25px 20px;
+    background: white;
     padding: 25px 20px 25px 85px;
-    border-right: 1px solid oklch(98.5% .003 285);
     position: sticky;
     top: 100px;
     height: calc(100vh - 85px);
     overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
 }
-
 
 .sidebar ul {
     list-style: none;
     padding: 0;
+    margin: 0;
+    flex: 1;
 }
 
-.sidebar li {
+/* Estilo para os links (substituindo o li) */
+.sidebar ul a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     padding: 15px;
     margin-bottom: 10px;
     border-radius: 12px;
     cursor: pointer;
     font-weight: 600;
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s;
 }
 
-.active {
+.sidebar ul a:hover {
+    color: #d946ef;
+}
+
+/* Estado ativo do link */
+.sidebar ul a.active {
     background: #f5d8ff;
     color: #c92df1;
 }
 
+/* Ícones dentro dos links */
+.sidebar ul a i {
+    font-size: 1.2rem;
+    width: 24px;
+}
+
+/* Botão Publicar */
 .publish-btn {
     background: linear-gradient(135deg, #c92df1, #8b5cf6);
     color: white;
@@ -44,6 +64,7 @@
     justify-content: center;
     gap: 8px;
     width: 100%;
+    margin-top: 20px;
 }
 
 .publish-btn:hover {
@@ -55,33 +76,12 @@
     font-size: 18px;
 }
 
-.logo-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 40px;
-}
-
-.logo-container img {
-    width: 180px;
-    object-fit: contain;
-}
-
-.sidebar li {
-    transition: 0.3s;
-}
-
-.sidebar li:hover {
-    background: #f7e4ff;
-    color: #d946ef;
-}
-
-
 /* Botão Terminar Sessão */
 .logout-btn {
     background: none;
     border: 1px solid #e0e0e0;
     color: #d32f2f;
-    padding: 5px 20px;
+    padding: 12px 20px;
     border-radius: 30px;
     font-weight: 500;
     font-size: 14px;
@@ -109,4 +109,33 @@
 
 .logout-btn:active {
     transform: translateY(0);
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.logo-container img {
+    width: 180px;
+    object-fit: contain;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .sidebar {
+        padding: 20px 16px;
+        width: 100%;
+        position: fixed;
+        left: -100%;
+        top: 0;
+        height: 100vh;
+        z-index: 1000;
+        transition: left 0.3s ease;
+    }
+    
+    .sidebar.open {
+        left: 0;
+    }
 }

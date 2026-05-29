@@ -1,1 +1,204 @@
-<p>profile works!</p>
+
+<div class="layout">
+
+    <!-- TOPO -->
+    <app-topbar></app-topbar>
+
+    <!-- CONTEÚDO -->
+    <div class="content-area">
+
+        <!-- SIDEBAR -->
+        <app-sidebar></app-sidebar>
+
+        <!-- PERFIL -->
+        <main class="profile-container">
+
+            <!-- HEADER -->
+
+            <section class="profile-header">
+
+                <!-- CAPA -->
+
+                <div class="cover-photo">
+
+                    <button class="cover-btn">
+
+                        <i class="bi bi-camera"></i>
+
+                    </button>
+
+                </div>
+
+                <!-- INFO -->
+
+                <div class="profile-info">
+
+                    <!-- FOTO -->
+
+                    <div class="avatar-container">
+
+                        <img
+                            src="https://i.pravatar.cc/300"
+                            alt="Foto Perfil"
+                            class="avatar"
+                        >
+
+                        <button class="avatar-btn">
+
+                            <i class="bi bi-camera-fill"></i>
+
+                        </button>
+
+                    </div>
+
+                    <!-- DADOS -->
+
+                    <div class="profile-details">
+
+                        <h1>
+                            JOÃO MENDES
+                        </h1>
+
+                        <span class="username">
+
+                            @JOAO_MENDES • ENTROU EM MAIO 2026
+
+                        </span>
+
+                        <p class="bio">
+
+                            Designer de produto a transformar ideias
+                            em coisas tocáveis. Café, código e vinis
+                            em rotação constante.
+
+                        </p>
+
+                        <!-- META -->
+
+                        <div class="profile-meta">
+
+                            <span>
+
+                                <i class="bi bi-geo-alt"></i>
+
+                                Lisboa, Portugal
+
+                            </span>
+
+                            <span>
+
+                                <i class="bi bi-link-45deg"></i>
+
+                                joaomendes.design
+
+                            </span>
+
+                            <span>
+
+                                <i class="bi bi-calendar3"></i>
+
+                                Membro desde 14 Maio 2026
+
+                            </span>
+
+                        </div>
+
+                        <!-- ESTATÍSTICAS -->
+
+                        <div class="stats">
+
+                            <div class="stat">
+
+                                <h2>142</h2>
+
+                                <p>PUBLICAÇÕES</p>
+
+                            </div>
+
+                            <div class="stat">
+
+                                <h2>2481</h2>
+
+                                <p>SEGUIDORES</p>
+
+                            </div>
+
+                            <div class="stat">
+
+                                <h2>318</h2>
+
+                                <p>A SEGUIR</p>
+
+                            </div>
+
+                            <div class="stat">
+
+                                <h2>9204</h2>
+
+                                <p>BAZES</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- BOTÕES -->
+
+                    <div class="profile-actions">
+
+                        <button class="follow-btn">
+
+                            <i class="bi bi-person-plus"></i>
+
+                            SEGUIR
+
+                        </button>
+
+                        <button class="edit-btn">
+
+                            <i class="bi bi-gear"></i>
+
+                            Editar perfil
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- TABS -->
+
+            <section class="profile-tabs">
+
+                <button class="active">
+                    Publicações
+                </button>
+
+                <button>
+                    Multimédia
+                </button>
+
+                <button>
+                    Bazes
+                </button>
+
+            </section>
+
+            <!-- POSTS -->
+
+            <section class="posts-section">
+
+                <app-post-card></app-post-card>
+
+                <app-post-card></app-post-card>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</div>
