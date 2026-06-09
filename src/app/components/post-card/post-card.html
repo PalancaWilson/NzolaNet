@@ -1,71 +1,92 @@
 <div class="post-card">
-    <!-- Cabeçalho -->
-    <div class="post-header">
-        <div class="avatar">
-            {{ getInitials() }}
-        </div>
-        <div class="user-info">
-            <div class="user-name">
-                {{ post.authorName }}
-                @if (post.isVerified) {
-                    <i class="fas fa-check-circle verified-badge"></i>
-                }
-                <span>@{{ post.authorUsername }}</span>
-            </div>
-            <div class="post-time">
-                <span>{{ post.timestamp }}</span>
-            </div>
-        </div>
-    </div>
 
-    <!-- Conteúdo -->
-    <div class="post-content">
-        <div class="post-text">
-            {{ post.content }}
-        </div>
-        
-        <!-- Imagem da publicação -->
-        @if (post.imageUrl) {
-            <div class="post-media">
-                <img [src]="post.imageUrl" alt="Imagem da publicação de {{ post.authorName }}">
-            </div>
+  <!-- Cabeçalho -->
+  <div class="post-header">
+    @if (post.author.avatar) {
+      <img class="avatar avatar-img" [src]="post.author.avatar" [alt]="post.author.nome">
+    } @else {
+      <div class="avatar">{{ getInitials() }}</div>
+    }
+
+    <div class="user-info">
+      <div class="user-nome">
+        {{ post.author.nome }}
+        @if (post.author.badge === 'verified') {
+          <i class="bi bi-patch-check-fill verified-badge"></i>
         }
+        @if (post.author.badge === 'creator') {
+          <span class="badge-creator">CREATOR</span>
+        }
+        <span>&#64;{{ post.author.username }}</span>
+      </div>
+      <div class="post-time">{{ post.timeAgo }}</div>
     </div>
+  </div>
 
-    <!-- Ações -->
-    <div class="post-actions">
-        <button class="action-btn like-btn" [class.liked]="post.liked" (click)="toggleLike()">
-            <i [class.far]="!post.liked" [class.fas]="post.liked" class="fa-heart"></i>
-            <span>Bazar</span>
-        </button>
-        
-        <button class="action-btn comment-btn" (click)="onComment()">
-            <i class="far fa-comment"></i>
-            <span>Comentar</span>
-        </button>
-        
-        <button class="action-btn retweet-btn">
-            <i class="fas fa-retweet"></i>
-            <span>Repostar</span>
-        </button>
-        
-        <button class="action-btn share-btn" (click)="onShare()">
-            <i class="far fa-share-square"></i>
-            <span>Compartilhar</span>
-        </button>
-    </div>
+  <!-- Conteúdo -->
+  <div class="post-content">
+    <div class="post-text">{{ post.content }}</div>
 
-    <!-- Estatísticas -->
-    <div class="post-stats">
-        <div class="stat">
-            <i class="far fa-heart"></i>
-            <strong>{{ post.likes }}</strong>
-            <span>bazes</span>
-        </div>
-        <div class="stat">
-            <i class="far fa-comment"></i>
-            <strong>{{ post.comments }}</strong>
-            <span>comentários</span>
-        </div>
+    @if (post.tags?.length) {
+      <div class="post-tags">
+        @for (tag of post.tags; track tag) {
+          <span class="tag">#{{ tag }}</span>
+        }
+      </div>
+    }
+
+    @if (post.image) {
+      <div class="post-media">
+        <img [src]="post.image" [alt]="'Imagem de ' + post.author.nome">
+      </div>
+    }
+  </div>
+
+  <!-- Ações -->
+  <div class="post-actions">
+    <button class="action-btn like-btn" [class.liked]="post.liked" (click)="toggleLike()">
+      <i class="bi" [class.bi-heart]="!post.liked" [class.bi-heart-fill]="post.liked"></i>
+      <span>Bazar</span>
+    </button>
+
+    <button class="action-btn comment-btn" (click)="onComment()">
+      <i class="bi bi-chat"></i>
+      <span>Comentar</span>
+    </button>
+
+    <button class="action-btn retweet-btn">
+      <i class="bi bi-repeat"></i>
+      <span>Repostar</span>
+    </button>
+
+    <button class="action-btn save-btn" [class.saved]="post.saved" (click)="toggleGuardar()">
+      <i class="bi" [class.bi-bookmark]="!post.saved" [class.bi-bookmark-fill]="post.saved"></i>
+      <span>Guardar</span>
+    </button>
+
+    <button class="action-btn share-btn" (click)="onShare()">
+      <i class="bi bi-share"></i>
+      <span>Partilhar</span>
+    </button>
+  </div>
+
+  <!-- Estatísticas -->
+  <div class="post-stats">
+    <div class="stat">
+      <i class="bi bi-heart"></i>
+      <strong>{{ post.likes }}</strong>
+      <span>bazes</span>
     </div>
+    <div class="stat">
+      <i class="bi bi-chat"></i>
+      <strong>{{ post.comments }}</strong>
+      <span>comentários</span>
+    </div>
+    <div class="stat">
+      <i class="bi bi-repeat"></i>
+      <strong>{{ post.shares }}</strong>
+      <span>repostas</span>
+    </div>
+  </div>
+
 </div>

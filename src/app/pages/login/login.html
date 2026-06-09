@@ -1,163 +1,102 @@
-
 <div class="login-container">
 
-    <app-auth-layout></app-auth-layout>
+  <app-auth-layout></app-auth-layout>
 
-    <div class="right-side">
+  <div class="right-side">
 
-        <form
-            class="form-container"
-            [formGroup]="loginForm"
-            (ngSubmit)="entrar()"
+    <form class="form-container" [formGroup]="loginForm" (ngSubmit)="entrar()">
+
+      <span class="small-text">// ACESSO</span>
+      <h1>BEM-VINDO DE VOLTA</h1>
+      <p>Entra com o teu email para continuares a bazar.</p>
+
+      <!-- ERRO DO SERVIDOR -->
+      @if (erroServidor()) {
+        <div class="alert-error">
+          <i class="bi bi-exclamation-circle"></i>
+          {{ erroServidor() }}
+        </div>
+      }
+
+      <!-- EMAIL -->
+      <label for="email">EMAIL</label>
+      <div class="input-group" [class.input-error]="emailCtrl.touched && emailCtrl.invalid">
+        <i class="bi bi-envelope"></i>
+        <input
+          id="email"
+          type="email"
+          placeholder="tu@nzolanet.app"
+          formControlName="email"
+          autocomplete="email"
         >
+      </div>
 
-            <span class="small-text">
-                // ACESSO
-            </span>
+      @if (emailCtrl.touched) {
+        @if (emailCtrl.errors?.['required']) {
+          <small class="error">O email é obrigatório.</small>
+        }
+        @if (emailCtrl.errors?.['email']) {
+          <small class="error">Introduz um email válido.</small>
+        }
+      }
 
-            <h1>
-                BEM-VINDO DE VOLTA
-            </h1>
+      <!-- PASSWORD -->
+      <label for="senha">PALAVRA-PASSE</label>
+      <div class="input-group" [class.input-error]="passwordCtrl.touched && passwordCtrl.invalid">
+        <i class="bi bi-lock"></i>
+        <input
+          id="senha"
+          [type]="mostrarPassword() ? 'text' : 'senha'"
+          placeholder="Mínimo 6 caracteres"
+          formControlName="senha"
+          autocomplete="current-password"
+        >
+        <i
+          class="bi"
+          [class.bi-eye]="!mostrarPassword()"
+          [class.bi-eye-slash]="mostrarPassword()"
+          style="cursor:pointer"
+          (click)="alternarPassword()"
+        ></i>
+      </div>
 
-            <p>
-                Entra com o teu email para continuares a bazar.
-            </p>
+      @if (passwordCtrl.touched) {
+        @if (passwordCtrl.errors?.['required']) {
+          <small class="error">A palavra-passe é obrigatória.</small>
+        }
+        @if (passwordCtrl.errors?.['minlength']) {
+          <small class="error">A palavra-passe deve ter pelo menos 6 caracteres.</small>
+        }
+      }
 
-            <!-- EMAIL -->
+      <!-- LINKS -->
+      <div class="forgot-password">
+        <a routerLink="/recuperar-password">Esqueceste a senha?</a>
+      </div>
 
-            <label for="email">
-                EMAIL
-            </label>
+      <!-- BOTÃO -->
+      <button
+        class="login-btn"
+        type="submit"
+        [disabled]="carregando()"
+      >
+        @if (carregando()) {
+          <span class="spinner"></span>
+          A entrar...
+        } @else {
+          <i class="bi bi-lightning-charge-fill"></i>
+          ENTRAR NA BAZE
+        }
+      </button>
 
-            <div class="input-group">
+      <!-- REGISTO -->
+      <div class="register-link">
+        Ainda não tens conta?
+        <a routerLink="/register">Cria uma agora</a>
+      </div>
 
-                <i class="bi bi-envelope"></i>
+    </form>
 
-                <input
-                    id="email"
-                    type="email"
-                    placeholder="teuemail@gmail.com"
-                    formControlName="email"
-                >
-
-            </div>
-
-            <!-- ERROR -->
-
-            @if(
-
-                loginForm.get('email')?.touched
-            ){
-                @if (loginForm.get('email')?.errors?.['required']) {
-                    <small class="error">
-
-                        O email é obrigatório.
-
-                    </small>
-                }
-                @if(
-                    loginForm.get('email')?.errors?.['pattern']
-                ){
-                    <small class="error">
-
-                    O email deve: começar com letra minúscula, possuir @ e terminar com .com.
-                    </small>
-
-                }   
-
-            }
-
-            <!-- PASSWORD -->
-
-            <label for="password">
-                PALAVRA-PASSE
-            </label>
-
-            <div class="input-group">
-
-                <i class="bi bi-lock"></i>
-
-                <input
-                    id="password"
-                    type="password"
-                    placeholder="Digite a tua senha"
-                    formControlName="password"
-                >
-
-                <i class="bi bi-eye"></i>
-
-            </div>
-
-            <!-- ERROR -->
-
-            @if(
-                
-                loginForm.get('password')?.touched
-            ){
-                @if(
-                    loginForm.get('password')?.errors?.['required']
-                ){
-                    <small class="error">
-
-                        A palavra-passe é obrigatória.
-
-                    </small>
-                }
-                @if(
-                    loginForm.get('password')?.errors?.['pattern']
-                ){
-
-                <small class="error">
-
-                   A palavra-passe deve: começar com letra, possuir entre 4 e 16 caracteres.
-
-                </small>
-                }
-
-            }
-
-            <!-- LINKS -->
-
-            <div class="forgot-password">
-
-                <a routerLink="/forgot-password">
-
-                    Esqueceste a senha?
-
-                </a>
-
-            </div>
-
-            <!-- BUTTON -->
-
-            <button
-                class="login-btn"
-                type="submit"
-            >
-
-                <i class="bi bi-lightning-charge-fill"></i>
-
-                ENTRAR NA BAZE
-
-            </button>
-
-            <!-- REGISTER -->
-
-            <div class="register-link">
-
-                Ainda não tens conta?
-
-                <a routerLink="/register">
-
-                    Cria uma agora
-
-                </a>
-
-            </div>
-
-        </form>
-
-    </div>
+  </div>
 
 </div>
-

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Post } from '../models/post.model';
-import { Notification } from '../models/notification.model';
+import { Notifications } from '../models/notifications.model';
 import { User } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
@@ -10,7 +10,7 @@ export class MockDataService {
     return [
       {
         id: '1',
-        author: { id: 'u1', name: 'Ana Clara', username: 'ana_arte', avatar: 'https://i.pravatar.cc/150?img=47', badge: 'creator' },
+        author: { id: 'u1', nome: 'Ana Clara', username: 'ana_arte', avatar: 'https://i.pravatar.cc/150?img=47', badge: 'creator' },
         content: 'Nova paleta de cores para o projeto de identidade visual 🎨 Adoro como estas cores se complementam — quente e fria ao mesmo tempo.',
         image: 'https://picsum.photos/seed/palette/600/400',
         tags: ['design', 'cores', 'identidade'],
@@ -19,7 +19,7 @@ export class MockDataService {
       },
       {
         id: '2',
-        author: { id: 'u2', name: 'Tiago Silva', username: 'tiago_tech', avatar: 'https://i.pravatar.cc/150?img=12', badge: 'verified' },
+        author: { id: 'u2', nome: 'Tiago Silva', username: 'tiago_tech', avatar: 'https://i.pravatar.cc/150?img=12', badge: 'verified' },
         content: 'Primeiro dia na Baze e já estou impressionado com a qualidade das publicações aqui. É exatamente a comunidade criativa que eu procurava! 🙌',
         tags: ['baze', 'comunidade', 'criatividade'],
         likes: 87, comments: 24, shares: 5, saves: 12,
@@ -27,7 +27,7 @@ export class MockDataService {
       },
       {
         id: '3',
-        author: { id: 'u3', name: 'Beatriz Lima', username: 'be_trips', avatar: 'https://i.pravatar.cc/150?img=32', badge: 'creator' },
+        author: { id: 'u3', nome: 'Beatriz Lima', username: 'be_trips', avatar: 'https://i.pravatar.cc/150?img=32', badge: 'creator' },
         content: 'Capturado este momento em Lisboa ao pôr do sol. A luz batia de forma tão especial que parecia pintado. 📸',
         image: 'https://picsum.photos/seed/lisbon/600/400',
         tags: ['fotografia', 'lisboa', 'pordosol'],
@@ -36,7 +36,7 @@ export class MockDataService {
       },
       {
         id: '4',
-        author: { id: 'u4', name: 'Marco Aurélio', username: 'marco_dev', avatar: 'https://i.pravatar.cc/150?img=53', badge: 'verified' },
+        author: { id: 'u4', nome: 'Marco Aurélio', username: 'marco_dev', avatar: 'https://i.pravatar.cc/150?img=53', badge: 'verified' },
         content: 'Acabei de publicar um artigo sobre tipografia responsiva. Tantos projetos ainda ignoram como o texto se comporta em diferentes ecrãs. Vale a leitura!',
         tags: ['tipografia', 'webdesign', 'ux'],
         likes: 56, comments: 8, shares: 19, saves: 31,
@@ -45,7 +45,7 @@ export class MockDataService {
     ];
   }
 
-  getNotifications(): Notification[] {
+  getNotifications(): Notifications[] {
     return [
       {
         id: 'n1', type: 'baze',

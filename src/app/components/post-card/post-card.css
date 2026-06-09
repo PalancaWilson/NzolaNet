@@ -249,3 +249,44 @@
 }
 
 
+
+/* Adições para o PostCard melhorado */
+.avatar-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.badge-creator {
+  background: linear-gradient(135deg, #c92df1, #8b5cf6);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.tag {
+  color: #c92df1;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.tag:hover { text-decoration: underline; }
+
+.save-btn.saved { color: #c92df1; }
+.save-btn:hover {
+  background: rgba(201, 45, 241, 0.08);
+  color: #c92df1;
+}

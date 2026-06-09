@@ -1,40 +1,27 @@
-import { Component } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { Component, Input, signal } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
-
   standalone: true,
-
-  imports: [
-    RouterLink,RouterLinkActive, CommonModule
-  ],
-
+  imports: [RouterLink,RouterLinkActive],
   templateUrl: './sidebar.html',
-
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
-
-  constructor(
-    private router: Router
+ @Input() aberto = false;
+constructor(
+    readonly userService: UserService,
+    private auth: AuthService
   ) {}
 
   logout(): void {
-
-    const confirmLogout = confirm(
-      'Tem certeza de que deseja terminar a sessão?'
-    );
-
-    if(confirmLogout){
-
-      localStorage.clear();
-
-      this.router.navigate(['/login']);
-
+    if (confirm('Tens a certeza que queres terminar a sessão?')) {
+      this.userService.limpar();
+      this.auth.logout();
     }
-
   }
 
 }

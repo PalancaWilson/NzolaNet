@@ -1,51 +1,24 @@
-<div class="sidebar">
-    <ul>
+<nav class="sidebar" [class.aberto]="aberto">
+  <!-- Links -->
+  <ul class="sidebar-links">
+    <li><a routerLink="/feed"          routerLinkActive="active"><i class="bi bi-house-fill"></i><span>Feed</span></a></li>
+    <li><a routerLink="/explorar"      routerLinkActive="active"><i class="bi bi-compass-fill"></i><span>Explorar</span></a></li>
+    <li><a routerLink="/notifications" routerLinkActive="active"><i class="bi bi-bell-fill"></i><span>Notificações</span></a></li>
+    <li><a routerLink="/guardados"     routerLinkActive="active"><i class="bi bi-bookmark-fill"></i><span>Guardados</span></a></li>
+    <li><a routerLink="/profile"       routerLinkActive="active"><i class="bi bi-person-fill"></i><span>Perfil</span></a></li>
+    <li>
+      <a routerLink="/settings" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+        <i class="bi bi-gear-fill"></i><span>Definições</span>
+      </a>
+    </li>
+  </ul>
 
-        <a
-        routerLink="/feed"
-        routerLinkActive="active"
-    >
-        <i class="bi bi-house"></i>
-        <span>Feed</span>
-         </a>
-
-        <a routerLink="/explorar" routerLinkActive="active">
-            <i class="bi bi-compass"></i>
-             <span>Explorar</span>
-        </a>
-
-        <a routerLink="/notifications" routerLinkActive="active">
-            <i class="bi bi-bell"></i>
-            <span>Notificações</span>
-        </a >
-
-        <a routerLink="/guardados" routerLinkActive="active">
-            <i class="bi bi-bookmark"></i>
-            <span>Guardados</span>
-        </a>
-
-        <a routerLink="/profile" routerLinkActive="active">
-            <i class="bi bi-person"></i>
-            <span>Perfil</span>
-        </a>
-
-        <a routerLink="/settings" routerLinkActive="active">
-            <i class="bi bi-gear"></i>
-            <span>Definições</span>
-        </a>
-
-    </ul>
-
-    <button class="publish-btn">
-         <i class="bi bi-pencil-square"></i>
-        PUBLICAR
+  <div class="sidebar-bottom">
+    <button class="publish-btn" routerLink="/feed">
+      <i class="bi bi-pencil-square"></i> PUBLICAR
     </button>
-
     <button class="logout-btn" (click)="logout()">
-            <i class="bi bi-box-arrow-right"></i>
-            <span>Terminar Sessão</span>
-            
-        </button>
-
-
-</div>
+      <i class="bi bi-box-arrow-right"></i> Terminar Sessão
+    </button>
+  </div>
+</nav>

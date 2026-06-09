@@ -1,1 +1,108 @@
-<p>settings works!</p>
+
+
+<div class="layout">
+
+    <!-- TOPBAR -->
+
+    <app-topbar></app-topbar>
+
+    <!-- MAIN -->
+
+    <div class="main-content">
+
+        <!-- SIDEBAR -->
+
+        <app-sidebar></app-sidebar>
+
+        <!-- FEED -->
+
+        <main class="feed-container">
+
+             <div class="feed-header">
+
+                    <div class="feed-header-info">
+
+                         <p>
+                   // controla a tua experiência e o teu perfil.
+
+                </p>
+                <h1>
+                    DEFINIÇÕES
+                </h1>
+
+                    </div>
+
+             </div>
+
+                <div class="settings-content">
+
+                        <div class="settings-menu">
+
+                            <div
+                                class="menu-item"
+                                [class.active]="abaSelecionada === 'conta'"
+                                (click)="selecionarAba('conta')">
+
+                                <i class="bi bi-person"></i>
+                                <span>Conta</span>
+
+                            </div>
+
+                            <div
+                                class="menu-item"
+                                [class.active]="abaSelecionada === 'notificacoes'"
+                                (click)="selecionarAba('notificacoes')">
+
+                                <i class="bi bi-bell"></i>
+                                <span>Notificações</span>
+
+                            </div>
+
+                            <div
+                                class="menu-item"
+                                [class.active]="abaSelecionada === 'privado'"
+                                (click)="selecionarAba('privado')">
+
+                                <i class="bi bi-lock"></i>
+                                <span>privado</span>
+
+                            </div>
+
+                            <div
+                                class="menu-item"
+                                [class.active]="abaSelecionada === 'aparencia'"
+                                (click)="selecionarAba('aparencia')">
+
+                                <i class="bi bi-palette"></i>
+                                <span>Aparência</span>
+
+                            </div>
+
+                            <div
+                                class="menu-item"
+                                [class.active]="abaSelecionada === 'idioma'"
+                                (click)="selecionarAba('idioma')">
+
+                                <i class="bi bi-globe"></i>
+                                <span>Idioma e Região</span>
+
+                            </div>
+
+                </div>
+
+                </div>
+
+
+        </main>
+
+    </div>
+
+    <div class="settings-panel">
+
+        <router-outlet></router-outlet>
+
+    </div>
+
+</div>
+
+ 

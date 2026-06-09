@@ -1,148 +1,72 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { Sidebar } from "../../components/sidebar/sidebar";
 import { Topbar } from "../../components/topbar/topbar";
-import { CommonModule } from '@angular/common';
+import { Notifications, NotificationType } from '../../models/notifications.model';
+import { MockDataService } from '../../services/mock-data.service';
 
-interface Notification {
-  id: number;
-  type: 'baze' | 'comment' | 'follower' | 'reply';
-  user: {
-    name: string;
-    username: string;
-    avatar?: string;
-  };
-  content?: string;
-  timestamp: string;
-  read: boolean;
-  postTitle?: string;
-}
+type Filtro = 'todas' | NotificationType;
 
 @Component({
   selector: 'app-notifications',
   standalone: true,
-  imports: [CommonModule, Sidebar, Topbar],
+  imports: [Sidebar, Topbar],
   templateUrl: './notifications.html',
   styleUrls: ['./notifications.css']
 })
-export class Notifications {
-  
-  activeFilter: string = 'all';
-  
-  notifications: Notification[] = [
-    {
-      id: 1,
-      type: 'baze',
-      user: {
-        name: 'Marco Aurélio',
-        username: '@MARCO_DEV'
-      },
-      postTitle: '“Primeiro dia na Baze...”',
-      timestamp: 'Há 2 minutos',
-      read: false
-    },
-    {
-      id: 2,
-      type: 'follower',
-      user: {
-        name: 'Ana Clara',
-        username: '@ANA_ARTE'
-      },
-      timestamp: 'Há 18 minutos',
-      read: false
-    },
-    {
-      id: 3,
-      type: 'comment',
-      user: {
-        name: 'Beatriz Lima',
-        username: '@BE_TRIPS'
-      },
-      content: 'Adoro a tua paleta, partilha mais!',
-      timestamp: 'Há 1 hora',
-      read: false
-    },
-    {
-      id: 4,
-      type: 'baze',
-      user: {
-        name: 'Tiago Silva',
-        username: '@TIAGO_TECH'
-      },
-      content: 'e mais 12 deram baze',
-      postTitle: 'ao teu vídeo.',
-      timestamp: 'Há 4 horas',
-      read: true
-    },
-    {
-      id: 5,
-      type: 'follower',
-      user: {
-        name: 'Marco Aurélio',
-        username: '@MARCO_DEV'
-      },
-      timestamp: 'Ontem',
-      read: true
-    },
-    {
-      id: 6,
-      type: 'reply',
-      user: {
-        name: 'Ana Clara',
-        username: '@ANA_ARTE'
-      },
-      content: 'respondeu ao teu comentário em',
-      postTitle: '“A criatividade não é um dom...”',
-      timestamp: 'Há 2 dias',
-      read: true
-    }
-  ];
+export class Notification  implements OnInit{
 
-  get filteredNotifications(): Notification[] {
-    if (this.activeFilter === 'all') {
-      return this.notifications;
-    }
-    return this.notifications.filter(n => n.type === this.activeFilter);
+  private _notificacoes = signal<Notifications[]>([]);
+  filtroActivo          = signal<Filtro>('todas');
+
+  // Computed — refiltra automaticamente quando filtro ou lista muda
+  notificacoesFiltradas = computed(() => {
+    const f = this.filtroActivo();
+    return f === 'todas'
+      ? this._notificacoes()
+      : this._notificacoes().filter(n => n.type === f);
+  });
+
+  naoLidas = computed(() =>
+    this._notificacoes().filter(n => !n.read).length
+  );
+
+  constructor(private mock: MockDataService) {}
+
+  ngOnInit(): void {
+    this._notificacoes.set(this.mock.getNotifications());
   }
 
-  setFilter(filter: string): void {
-    this.activeFilter = filter;
+  setFiltro(f: Filtro): void { this.filtroActivo.set(f); }
+
+  marcarLida(id: string): void {
+    this._notificacoes.update(lista =>
+      lista.map(n => n.id === id ? { ...n, read: true } : n)
+    );
   }
 
-  markAsRead(notification: Notification): void {
-    notification.read = true;
+  marcarTodasLidas(): void {
+    this._notificacoes.update(lista => lista.map(n => ({ ...n, read: true })));
   }
 
-  markAllAsRead(): void {
-    this.notifications.forEach(n => n.read = true);
+  getIcone(tipo: string): string {
+    const mapa: Record<string, string> = {
+      baze:    'bi bi-heart-fill',
+      comment: 'bi bi-chat-fill',
+      follow:  'bi bi-person-plus-fill',
+      mention: 'bi bi-at',
+    };
+    return mapa[tipo] ?? 'bi bi-bell-fill';
   }
 
-  getNotificationIcon(type: string): string {
-    switch(type) {
-      case 'baze':
-        return 'bi bi-heart-fill';
-      case 'comment':
-        return 'bi bi-chat-fill';
-      case 'follower':
-        return 'bi bi-person-plus-fill';
-      case 'reply':
-        return 'bi bi-reply-fill';
-      default:
-        return 'bi bi-bell-fill';
-    }
+  getCor(tipo: string): string {
+    const mapa: Record<string, string> = {
+      baze:    '#f91880',
+      comment: '#1da1f2',
+      follow:  '#00ba7c',
+      mention: '#c92df1',
+    };
+    return mapa[tipo] ?? '#71767b';
   }
 
-  getNotificationColor(type: string): string {
-    switch(type) {
-      case 'baze':
-        return '#f91880';
-      case 'comment':
-        return '#1da1f2';
-      case 'follower':
-        return '#00ba7c';
-      case 'reply':
-        return '#c92df1';
-      default:
-        return '#536471';
-    }
-  }
+ 
 }

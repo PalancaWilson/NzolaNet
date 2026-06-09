@@ -1,80 +1,68 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { AuthLayout } from "../../layouts/auth-layout/auth-layout";
-
+import { Component, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { AuthLayout } from '../../layouts/auth-layout/auth-layout';
 import {
-    FormBuilder,
-    FormGroup,
-    ReactiveFormsModule,
-    Validators
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
-
+import { AuthService } from '../../services/auth.service';
 
 @Component({
-    selector: 'app-login',
-
-    imports: [
-        ReactiveFormsModule,
-        RouterLink,
-        AuthLayout
-    ],
-
-    templateUrl: './login.html',
-
-    styleUrl: './login.css'
+  selector: 'app-login',
+  imports: [ReactiveFormsModule, RouterLink, AuthLayout],
+  templateUrl: './login.html',
+  styleUrl: './login.css',
 })
 export class Login {
+  loginForm: FormGroup;
+  mostrarPassword = signal(false);
+  carregando       = signal(false);
+  erroServidor     = signal('');
 
-    loginForm: FormGroup;
+  constructor(
+    private fb: FormBuilder,
+    private auth: AuthService,
+    private router: Router
+  ) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      senha: [
+        '',
+        [Validators.required, Validators.minLength(6), Validators.maxLength(64)],
+      ],
+    });
+  }
 
-    constructor(
-        private fb: FormBuilder
-    ) {
+  get emailCtrl()    { return this.loginForm.get('email')!; }
+  get passwordCtrl() { return this.loginForm.get('senha')!; }
 
-        this.loginForm = this.fb.group({
+  alternarPassword(): void {
+    this.mostrarPassword.update(v => !v);
+  }
 
-            email: [
-                '',
-                [
-                    Validators.required,
-                    Validators.pattern(
-                      '^[a-z][a-z0-9._%+-]*@(gmail|hotmail|outlook|yahoo)\\.com$'
-                    )
-                ]
-            ],
+  entrar(): void {
+    this.erroServidor.set('');
 
-            password: [
-                '',
-                [
-                    Validators.required,
-                    Validators.pattern(
-                      '^[a-zA-Z][a-zA-Z0-9]{3,15}$'
-                    )
-                ]
-            ]
-
-        });
-
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
     }
 
-    entrar(): void {
+    this.carregando.set(true);
 
-        if(this.loginForm.invalid){
-
-            this.loginForm.markAllAsTouched();
-
-            return;
-
-        }
-
-        console.log(this.loginForm.value);
-
-        /*
-            Aqui depois:
-            this.authService.login(...)
-        */
-
-    }
-
+    this.auth.login(this.loginForm.value).subscribe({
+      next: () => {
+        this.carregando.set(false);
+        this.router.navigate(['/feed']);
+      },
+      error: (err) => {
+        this.carregando.set(false);
+        this.erroServidor.set(
+          err?.message ?? 'Erro ao iniciar sessão. Tenta novamente.'
+        );
+      },
+    });
+  }
 }
-

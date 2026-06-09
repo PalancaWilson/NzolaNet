@@ -1,32 +1,28 @@
-<div class="topbar">
-        
-    <div class="logo">
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="menu-hamburger" (click)="alternarMenu()" aria-label="Menu">
+      <i class="bi bi-list"></i>
+    </button>
+    <a routerLink="/feed" class="logo">NZOLANET</a>
+  </div>
 
-        NZOLANET  
+  <div class="search-box">
+    <i class="bi bi-search"></i>
+    <input type="text" placeholder="Pesquisar...">
+  </div>
 
-    </div>
-     
-    <div class="search-box">
+  <div class="topbar-right">
+    <a routerLink="/profile" class="avatar-link" title="{{ userService.nome() }}">
+      @if (userService.fotoPerfil()) {
+        <img [src]="userService.fotoPerfil()" [alt]="userService.nome()" class="topbar-avatar">
+      } @else {
+        <div class="topbar-initials">{{ userService.iniciais() }}</div>
+      }
+    </a>
+  </div>
+</header>
 
-        <i class="bi bi-search"></i>
-
-        <input 
-            type="text"
-            placeholder="Pesquisar na NzolaNet..."
-        >
-
-    </div>
-
-    <div class="profile">
-
-        <button>
-            <i class="bi bi-plus"></i>
-        </button>
-
-        <img 
-            src="../../../assets/imagens/avatar-tiago.jpg"
-        >
-
-    </div>
-
-</div>
+<!-- Overlay mobile para fechar o menu ao clicar fora -->
+@if (menuAberto()) {
+  <div class="overlay" (click)="alternarMenu()"></div>
+}

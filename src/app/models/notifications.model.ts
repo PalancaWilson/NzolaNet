@@ -1,6 +1,6 @@
 export type NotificationType = 'baze' | 'follow' | 'comment' | 'mention';
 
-export interface Notification {
+export interface Notifications {
   id: string;
   type: NotificationType;
   user: {

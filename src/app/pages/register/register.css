@@ -280,3 +280,169 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         margin-top: 30px;
     }
 }
+/* ── Progresso ─────────────────────────────────────────────────────── */
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: #e8e8ef;
+  border-radius: 99px;
+  margin-bottom: 36px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(135deg, #c92df1, #d946ef);
+  transition: width 0.4s ease;
+}
+.progress-fill.half { width: 50%; }
+.progress-fill.full { width: 100%; }
+
+/* ── Alerta de erro ────────────────────────────────────────────────── */
+.alert-error {
+  background: rgba(249, 24, 128, 0.08);
+  border: 1px solid rgba(249, 24, 128, 0.3);
+  border-radius: 10px;
+  color: #f91880;
+  font-size: 13px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Ícone de campo válido ─────────────────────────────────────────── */
+.input-valid-icon { color: #00ba7c; font-size: 18px; }
+.input-error      { border-color: #f91880 !important; }
+.error            { color: #f91880; font-size: 12px; display: block; margin-top: 4px; }
+.error a          { color: #f91880; font-weight: 700; }
+
+/* ── Toggle de senha ───────────────────────────────────────────────── */
+.toggle-pw { cursor: pointer; }
+
+/* ── Força da senha ────────────────────────────────────────────────── */
+.password-strength {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+.strength-bar  { flex: 1; height: 4px; background: #e8e8ef; border-radius: 99px; overflow: hidden; }
+.strength-fill { height: 100%; border-radius: 99px; transition: width 0.3s, background 0.3s; }
+.strength-fill.fraca { width: 33%;  background: #f91880; }
+.strength-fill.media { width: 66%;  background: #f5a623; }
+.strength-fill.forte { width: 100%; background: #00ba7c; }
+.strength-label        { font-size: 12px; font-weight: 600; white-space: nowrap; }
+.strength-label.fraca  { color: #f91880; }
+.strength-label.media  { color: #f5a623; }
+.strength-label.forte  { color: #00ba7c; }
+
+/* ── Select dentro de input-group ─────────────────────────────────── */
+.select-group select {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #111421;
+  font-size: 17px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* ── Textarea dentro de input-group ───────────────────────────────── */
+.textarea-group {
+  height: auto;
+  padding: 14px 20px;
+  align-items: flex-start;
+}
+.textarea-group textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #111421;
+  font-size: 16px;
+  font-weight: 500;
+  resize: none;
+  font-family: inherit;
+  line-height: 1.5;
+}
+.textarea-group textarea::placeholder { color: #7b8190; }
+.counter-bio        { display: block; font-size: 11px; color: #71767b; margin-top: 4px; text-align: right; }
+.counter-bio.danger { color: #f91880; }
+
+/* ── Privacidade ───────────────────────────────────────────────────── */
+.privacy-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 4px;
+}
+.privacy-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 20px 16px;
+  border: 2px solid #e2e3ea;
+  border-radius: 16px;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.2s, background 0.2s;
+}
+.privacy-card input[type="radio"] { display: none; }
+.privacy-card i    { font-size: 26px; color: #71767b; transition: color 0.2s; }
+.privacy-card span { font-weight: 700; font-size: 14px; color: #111421; }
+.privacy-card small{ font-size: 11px; color: #71767b; line-height: 1.3; }
+.privacy-card.selected {
+  border-color: #c92df1;
+  background: rgba(201, 45, 241, 0.05);
+}
+.privacy-card.selected i { color: #c92df1; }
+
+/* ── Botões etapa 2 ────────────────────────────────────────────────── */
+.btn-row {
+  display: flex;
+  gap: 14px;
+  margin-top: 28px;
+}
+.btn-back {
+  height: 70px;
+  padding: 0 28px;
+  border: 2px solid #e2e3ea;
+  border-radius: 21px;
+  background: transparent;
+  color: #515970;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: border-color 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+.btn-back:hover { border-color: #c92df1; color: #c92df1; }
+.btn-criar { flex: 1; margin-top: 0; }
+
+/* ── Spinner ────────────────────────────────────────────────────────── */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Responsivo ────────────────────────────────────────────────────── */
+@media (max-width: 500px) {
+  .privacy-options { grid-template-columns: 1fr; }
+  .btn-row { flex-direction: column-reverse; }
+  .btn-back { justify-content: center; }
+}

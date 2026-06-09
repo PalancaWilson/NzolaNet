@@ -2,7 +2,7 @@ export interface Post {
   id: string;
   author: {
     id: string;
-    name: string;
+    nome: string;
     username: string;
     avatar: string;
     badge?: 'creator' | 'verified' | 'premium';

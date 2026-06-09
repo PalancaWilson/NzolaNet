@@ -1,173 +1,254 @@
 <div class="login-container">
 
-    <app-auth-layout></app-auth-layout>
+  <app-auth-layout></app-auth-layout>
 
-    <div class="right-side">
+  <div class="right-side">
+    <form class="form-container" [formGroup]="registerForm" (ngSubmit)="criar()">
 
-        <div class="form-container">
+      <!-- CABEÇALHO -->
+      <span class="small-text">// REGISTO · ETAPA {{ etapaActual() }} DE 2</span>
+      <h1>{{ etapaActual() === 1 ? 'CRIA A TUA CONTA' : 'O TEU PERFIL' }}</h1>
+      <p>{{ etapaActual() === 1 ? 'Dados de acesso à plataforma.' : 'Personaliza como apareces na Baze.' }}</p>
 
-            <span class="small-text">
-                // REGISTO
-            </span>
+      <!-- INDICADOR DE PROGRESSO -->
+      <div class="progress-bar">
+        <div class="progress-fill" [class.half]="etapaActual() === 1" [class.full]="etapaActual() === 2"></div>
+      </div>
 
-            <h1>
-                CRIA A TUA CONTA
-            </h1>
+      <!-- SUCESSO -->
+      @if (sucessoRegisto()) {
+        <div class="alert-success">
+          <i class="bi bi-check-circle-fill"></i>
+          Conta criada! A entrar na Baze...
+        </div>
+      }
 
-            <p>
-                Junta-te ao NzolaNet em menos de um minuto
-            </p>
+      <!-- ERRO -->
+      @if (erroServidor()) {
+        <div class="alert-error">
+          <i class="bi bi-exclamation-circle"></i>
+          {{ erroServidor() }}
+        </div>
+      }
 
-           
-                <!-- FOTO DE PERFIL -->
+      <!-- ════════════════════════════════════════════════════════════ -->
+      <!-- ETAPA 1 — DADOS DE ACESSO                                   -->
+      <!-- ════════════════════════════════════════════════════════════ -->
 
-                <div class="profile-upload">
+      @if (etapaActual() === 1) {
 
-                    <div class="profile-preview">
+        <!-- NOME COMPLETO -->
+        <label for="nome">NOME COMPLETO</label>
+        <div class="input-group" [class.input-error]="campo('nome').touched && campo('nome').invalid">
+          <i class="bi bi-person"></i>
+          <input id="nome" type="text" placeholder="Ex: João Silva" formControlName="nome" autocomplete="name">
+        </div>
+        @if (campo('nome').touched && campo('nome').errors?.['required']) {
+          <small class="error">Nome obrigatório.</small>
+        }
+        @if (campo('nome').touched && campo('nome').errors?.['minlength']) {
+          <small class="error">Mínimo 2 caracteres.</small>
+        }
 
-                        <img
-                            src="https://i.pravatar.cc/200"
-                            alt="Foto de perfil"
-                        >
+        <!-- EMAIL -->
+        <label for="email">EMAIL</label>
+        <div class="input-group" [class.input-error]="campo('email').touched && campo('email').invalid">
+          <i class="bi bi-envelope"></i>
+          <input
+            id="email"
+            type="email"
+            placeholder="tu@nzolanet.app"
+            formControlName="email"
+            autocomplete="email"
+            (blur)="verificarEmailDuplicado()"
+          >
+          @if (campo('email').valid && campo('email').value) {
+            <i class="bi bi-check-circle-fill input-valid-icon"></i>
+          }
+        </div>
+        @if (campo('email').touched) {
+          @if (campo('email').errors?.['required'])       { <small class="error">Email obrigatório.</small> }
+          @if (campo('email').errors?.['email'])          { <small class="error">Email inválido.</small> }
+          @if (campo('email').errors?.['emailDuplicado']) {
+            <small class="error">
+              <i class="bi bi-exclamation-triangle"></i>
+              Email já registado. <a routerLink="/login">Entra aqui.</a>
+            </small>
+          }
+        }
 
-                        <label for="profileImage">
+        <!-- SENHA -->
+        <label for="senha">SENHA</label>
+        <div class="input-group" [class.input-error]="campo('senha').touched && campo('senha').invalid">
+          <i class="bi bi-lock"></i>
+          <input
+            id="senha"
+            [type]="mostrarSenha() ? 'text' : 'password'"
+            placeholder="Mínimo 8 caracteres"
+            formControlName="senha"
+            autocomplete="new-password"
+          >
+          <i
+            class="bi toggle-pw"
+            [class.bi-eye]="!mostrarSenha()"
+            [class.bi-eye-slash]="mostrarSenha()"
+            (click)="alternarSenha()"
+          ></i>
+        </div>
+        @if (campo('senha').touched && campo('senha').errors?.['required'])  { <small class="error">Senha obrigatória.</small> }
+        @if (campo('senha').touched && campo('senha').errors?.['minlength']) { <small class="error">Mínimo 8 caracteres.</small> }
 
-                            <i class="bi bi-camera-fill"></i>
-
-                        </label>
-
-                    </div>
-
-                    <input
-                        type="file"
-                        id="profileImage"
-                        hidden
-                    >
-
-                    <span>
-                        Adiciona uma foto de perfil
-                    </span>
-
-                </div>
-              
-
-            <div class="form-row">
-
-                <div class="form-field">
-                    <label for="nome">
-                        NOME
-                    </label>
-
-                    <div class="input-group">
-                        <i class="bi bi-person"></i>
-
-                        <input
-                            id="nome"
-                            type="text"
-                            placeholder="Digite o seu nome"
-                        >
-                    </div>
-                </div>
-
-                <div class="form-field">
-                    <label for="sobrenome">
-                        SOBRENOME
-                    </label>
-
-                    <div class="input-group">
-                        <i class="bi bi-person"></i>
-
-                        <input
-                            id="sobrenome"
-                            type="text"
-                            placeholder="Digite o seu sobrenome"
-                        >
-                    </div>
-                </div>
-
+        <!-- INDICADOR DE FORÇA -->
+        @if (campo('senha').value) {
+          <div class="password-strength">
+            <div class="strength-bar">
+              <div class="strength-fill" [class]="forcaSenha"></div>
             </div>
+            <small class="strength-label" [class]="forcaSenha">
+              @if (forcaSenha === 'fraca') { Senha fraca }
+              @else if (forcaSenha === 'media') { Senha média }
+              @else { Senha forte ✓ }
+            </small>
+          </div>
+        }
 
-            <label for="email">
-                EMAIL
+        <!-- CONFIRMAR SENHA -->
+        <label for="confirmarSenha">CONFIRMAR SENHA</label>
+        <div class="input-group"
+          [class.input-error]="campo('confirmarSenha').touched && registerForm.errors?.['senhasDiferentes']">
+          <i class="bi bi-lock-fill"></i>
+          <input
+            id="confirmarSenha"
+            [type]="mostrarSenha() ? 'text' : 'password'"
+            placeholder="Repete a senha"
+            formControlName="confirmarSenha"
+            autocomplete="new-password"
+          >
+        </div>
+        @if (campo('confirmarSenha').touched && registerForm.errors?.['senhasDiferentes']) {
+          <small class="error">As senhas não coincidem.</small>
+        }
+
+        <!-- BOTÃO AVANÇAR -->
+        <button class="login-btn" type="button" (click)="avancarEtapa()">
+          CONTINUAR <i class="bi bi-arrow-right"></i>
+        </button>
+
+        <div class="register-link">
+          Já tens conta? <a routerLink="/login">Entra aqui</a>
+        </div>
+
+      }
+
+      <!-- ════════════════════════════════════════════════════════════ -->
+      <!-- ETAPA 2 — PERFIL                                            -->
+      <!-- ════════════════════════════════════════════════════════════ -->
+
+      @if (etapaActual() === 2) {
+
+        <!-- FOTO DE PERFIL -->
+        <div class="profile-upload">
+          <div class="profile-preview">
+            <img [src]="fotoPreview()" alt="Foto de perfil">
+            <label for="foto_upload" title="Alterar foto">
+              <i class="bi bi-camera-fill"></i>
             </label>
+            <input
+              id="foto_upload"
+              type="file"
+              accept="image/*"
+              style="display:none"
+              (change)="onFotoSelecionada($event)"
+            >
+          </div>
+          <span>Foto de perfil <small>(máx. 2 MB)</small></span>
+        </div>
 
+        <!-- DATA DE NASCIMENTO + GÉNERO -->
+        <div class="form-row">
+
+          <div class="form-field">
+            <label for="data_nascimento">DATA DE NASCIMENTO</label>
             <div class="input-group">
-                <i class="bi bi-envelope"></i>
-
-                <input
-                    id="email"
-                    type="email"
-                    placeholder="tu@nzolanet.app"
-                >
+              <i class="bi bi-calendar-event"></i>
+              <input id="data_nascimento" type="date" formControlName="data_nascimento">
             </div>
+          </div>
 
-            <div class="form-row">
-
-                <div class="form-field">
-                    <label for="dataNascimento">
-                        DATA DE NASCIMENTO
-                    </label>
-
-                    <div class="input-group">
-                        <i class="bi bi-calendar-event"></i>
-
-                        <input
-                            id="dataNascimento"
-                            type="date"
-                        >
-                    </div>
-                </div>
-
-                <div class="form-field">
-                    <label for="localizacao">
-                        LOCALIZAÇÃO
-                    </label>
-
-                    <div class="input-group">
-                        <i class="bi bi-geo-alt"></i>
-
-                        <input
-                            id="localizacao"
-                            type="text"
-                            placeholder="Ex: Luanda"
-                        >
-                    </div>
-                </div>
-
+          <div class="form-field">
+            <label for="genero">GÉNERO</label>
+            <div class="input-group select-group">
+              <i class="bi bi-gender-ambiguous"></i>
+              <select id="genero" formControlName="genero">
+                <option value="">Prefiro não dizer</option>
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+                <option value="nao_binario">Não-binário</option>
+                <option value="outro">Outro</option>
+              </select>
             </div>
-
-            <label for="password">
-                PALAVRA-PASSE
-            </label>
-
-            <div class="input-group">
-                <i class="bi bi-lock"></i>
-
-                <input
-                    id="password"
-                    type="password"
-                    placeholder="Pelo menos 8 caracteres"
-                >
-
-                <i class="bi bi-eye"></i>
-            </div>
-
-            <button class="login-btn" type="button">
-                <i class="bi bi-lightning-charge-fill"></i>
-
-                CRIAR CONTA
-            </button>
-
-            <div class="register-link">
-                Já tens conta?
-
-                <a routerLink="/login">
-                    Entra aqui
-                </a>
-            </div>
+          </div>
 
         </div>
 
-    </div>
+        <!-- BIO -->
+        <label for="bio">BIO</label>
+        <div class="input-group textarea-group" [class.input-error]="campo('bio').errors?.['maxlength']">
+          <i class="bi bi-pencil-square"></i>
+          <textarea
+            id="bio"
+            formControlName="bio"
+            placeholder="Escreve algo sobre ti... (máx. 160 caracteres)"
+            rows="3"
+          ></textarea>
+        </div>
+        <small class="counter-bio" [class.danger]="bioRestantes < 10">
+          {{ bioRestantes }} caracteres restantes
+        </small>
+
+        <!-- PRIVACIDADE -->
+        <label>PRIVACIDADE DA CONTA</label>
+        <div class="privacy-options">
+
+          <label class="privacy-card" [class.selected]="campo('privacidade').value === 'publico'">
+            <input type="radio" formControlName="privacidade" value="publico">
+            <i class="bi bi-globe2"></i>
+            <span>Público</span>
+            <small>Qualquer pessoa pode ver o teu perfil e publicações</small>
+          </label>
+
+          <label class="privacy-card" [class.selected]="campo('privacidade').value === 'privado'">
+            <input type="radio" formControlName="privacidade" value="privado">
+            <i class="bi bi-lock-fill"></i>
+            <span>Privado</span>
+            <small>Apenas os teus seguidores vêem o teu conteúdo</small>
+          </label>
+
+        </div>
+
+        <!-- BOTÕES -->
+        <div class="btn-row">
+          <button class="btn-back" type="button" (click)="voltarEtapa()">
+            <i class="bi bi-arrow-left"></i> Voltar
+          </button>
+          <button
+            class="login-btn btn-criar"
+            type="submit"
+            [disabled]="carregando() || sucessoRegisto()"
+          >
+            @if (carregando()) {
+              <span class="spinner"></span> A criar...
+            } @else if (sucessoRegisto()) {
+              <i class="bi bi-check-circle-fill"></i> Pronto!
+            } @else {
+              <i class="bi bi-lightning-charge-fill"></i> CRIAR CONTA
+            }
+          </button>
+        </div>
+
+      }
+
+    </form>
+  </div>
 
 </div>

@@ -232,3 +232,32 @@ label:not(:first-of-type) {
         font-size: 38px;
     }
 }
+/* Adições para o login melhorado */
+.alert-error {
+  background: rgba(249, 24, 128, 0.08);
+  border: 1px solid rgba(249, 24, 128, 0.3);
+  border-radius: 8px;
+  color: #f91880;
+  font-size: 13px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input-error {
+  border-color: #f91880 !important;
+}
+
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }

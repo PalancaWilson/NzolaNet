@@ -1,1 +1,32 @@
-<p>stored works!</p>
+<div class="layout">
+
+  <app-topbar></app-topbar>
+
+  <div class="main-content">
+
+    <app-sidebar></app-sidebar>
+
+    <main class="feed-container">
+
+      <div class="feed-header">
+        <h1>GUARDADOS</h1>
+        <p>As tuas publicações favoritas.</p>
+      </div>
+
+      <div class="posts">
+        @for (post of postsGuardados(); track post.id) {
+          <app-post-card [post]="post"></app-post-card>
+        }
+        @empty {
+          <div class="empty-state">
+            <i class="bi bi-bookmark"></i>
+            <p>Ainda não guardaste nenhuma publicação.</p>
+          </div>
+        }
+      </div>
+
+    </main>
+
+  </div>
+
+</div>

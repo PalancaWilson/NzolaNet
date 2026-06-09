@@ -1,0 +1,262 @@
+<div class="layout">
+
+    <!-- TOPBAR -->
+
+    <app-topbar></app-topbar>
+
+    <!-- MAIN -->
+
+    <div class="main-content">
+
+        <!-- SIDEBAR -->
+
+        <app-sidebar></app-sidebar>
+
+        <!-- FEED -->
+
+        <main class="feed-container">
+
+             <div class="feed-header">
+
+                    <div class="feed-header-info">
+
+                         <p>
+                   // controla a tua experiência e o teu perfil.
+
+                </p>
+                <h1>
+                    DEFINIÇÕES
+                </h1>
+
+                    </div>
+
+             </div>
+
+                <div class="settings-content">
+
+                        <div class="settings-menu">
+
+                            <div
+                                class="menu-item"
+                                [class.active]="abaSelecionada === 'conta'"
+                                (click)="selecionarAba('conta')">
+
+                                <i class="bi bi-person"></i>
+                                <span>Conta</span>
+
+                            </div>
+
+                            <div
+                                class="menu-item"
+                                [class.active]="abaSelecionada === 'notificacoes'"
+                                (click)="selecionarAba('notificacoes')">
+
+                                <i class="bi bi-bell"></i>
+                                <span>Notificações</span>
+
+                            </div>
+
+                            <div
+                                class="menu-item"
+                                [class.active]="abaSelecionada === 'privado'"
+                                (click)="selecionarAba('privado')">
+
+                                <i class="bi bi-lock"></i>
+                                <span>privado</span>
+
+                            </div>
+
+                            <div
+                                class="menu-item"
+                                [class.active]="abaSelecionada === 'aparencia'"
+                                (click)="selecionarAba('aparencia')">
+
+                                <i class="bi bi-palette"></i>
+                                <span>Aparência</span>
+
+                            </div>
+
+                            <div
+                                class="menu-item"
+                                [class.active]="abaSelecionada === 'idioma'"
+                                (click)="selecionarAba('idioma')">
+
+                                <i class="bi bi-globe"></i>
+                                <span>Idioma e Região</span>
+
+                            </div>
+
+                </div>
+
+
+                <div class="settings-panel">
+
+                @if (abaSelecionada === 'notificacoes') {
+
+                    <h2>NOTIFICAÇÕES PUSH</h2>
+
+                    <div class="setting-row">
+
+                        <span>Quando recebo um baze</span>
+
+                        <label class="switch">
+                            <input
+                                type="checkbox"
+                                [(ngModel)]="notificacaoBaze">
+                            <span class="slider"></span>
+                        </label>
+
+                    </div>
+
+                    <div class="setting-row">
+
+                        <span>Quando recebo um comentário</span>
+
+                        <label class="switch">
+                            <input
+                                type="checkbox"
+                                [(ngModel)]="notificacaoComentario">
+                            <span class="slider"></span>
+                        </label>
+
+                    </div>
+
+                    <div class="setting-row">
+
+                        <span>Quando ganho um novo seguidor</span>
+
+                        <label class="switch">
+                            <input
+                                type="checkbox"
+                                [(ngModel)]="notificacaoSeguidor">
+                            <span class="slider"></span>
+                        </label>
+
+                    </div>
+
+                }
+
+                @if (abaSelecionada === 'conta') {
+
+                    <h2>CONTA</h2>
+
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" value="João Mendes">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" value="joao@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nova Palavra-passe</label>
+                        <input type="password">
+                    </div>
+
+                    <button class="save-btn">
+                        Guardar Alterações
+                    </button>
+
+                }
+
+                @if (abaSelecionada === 'privado') {
+
+                    <h2>PRIVACIDADE</h2>
+
+                    <div class="setting-row">
+
+                        <span>Perfil Privado</span>
+
+                        <label class="switch">
+                            <input
+                                type="checkbox"
+                                [(ngModel)]="perfilPrivado">
+                            <span class="slider"></span>
+                        </label>
+
+                    </div>
+
+                    <div class="setting-row">
+
+                        <span>Mostrar Email Publicamente</span>
+
+                        <label class="switch">
+                            <input
+                                type="checkbox"
+                                [(ngModel)]="mostrarEmail">
+                            <span class="slider"></span>
+                        </label>
+
+                    </div>
+
+                }
+
+                @if (abaSelecionada === 'aparencia') {
+
+                    <h2>APARÊNCIA</h2>
+
+                    <div class="setting-row">
+
+                        <span>Modo Escuro</span>
+
+                        <label class="switch">
+                            <input
+                                type="checkbox"
+                                [(ngModel)]="modoEscuro">
+                            <span class="slider"></span>
+                        </label>
+
+                    </div>
+
+                }
+
+                @if (abaSelecionada === 'idioma') {
+
+                    <h2>IDIOMA E REGIÃO</h2>
+
+                    <div class="form-group">
+
+                        <label>Idioma</label>
+
+                        <select [(ngModel)]="idioma">
+
+                            <option>Português</option>
+                            <option>English</option>
+                            <option>Français</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Região</label>
+
+                        <select [(ngModel)]="regiao">
+
+                            <option>Angola</option>
+                            <option>Portugal</option>
+                            <option>Brasil</option>
+
+                        </select>
+
+                    </div>
+
+                }
+
+               </div>
+
+               </div>
+
+                
+          
+
+        </main>
+
+       
+
+    </div>
+
+</div>
