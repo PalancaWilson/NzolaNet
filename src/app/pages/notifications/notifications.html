@@ -1,104 +1,88 @@
-<div class="layout">
-  <app-topbar></app-topbar>
+<main class="content-area">
 
-  <div class="main-content">
-    <app-sidebar></app-sidebar>
-
-    <main class="feed-container">
-
-      <!-- CABEÇALHO -->
-      <div class="feed-header">
-        <div class="feed-header-info">
-          <p>// Atividades recentes.</p>
-          <h1>
-            NOTIFICAÇÕES
-            @if (naoLidas() > 0) {
-              <span class="badge-nao-lidas">{{ naoLidas() }}</span>
-            }
-          </h1>
-        </div>
+  <div class="page-header">
+    <div class="feed-header-info">
+      <p>// Atividades recentes.</p>
+      <h1>
+        NOTIFICAÇÕES
         @if (naoLidas() > 0) {
-          <button class="mark-all-btn" (click)="marcarTodasLidas()">
-            <i class="bi bi-check2-all"></i> Marcar todas como lidas
-          </button>
+          <span class="badge-nao-lidas">{{ naoLidas() }}</span>
         }
-      </div>
+      </h1>
+    </div>
+    @if (naoLidas() > 0) {
+      <button class="mark-all-btn" (click)="marcarTodasLidas()">
+        <i class="bi bi-check2-all"></i> Marcar todas como lidas
+      </button>
+    }
+  </div>
 
-      <div class="notifications-layout">
+  <div class="notifications-layout">
 
-        <!-- FILTROS -->
-        <aside class="notifications-sidebar">
-          <nav class="filter-nav">
+    <aside class="notifications-sidebar">
+      <nav class="filter-nav">
+        <a class="filter-link" [class.active]="filtroActivo() === 'todas'" (click)="setFiltro('todas')">
+          <i class="bi bi-bell"></i> Todas
+        </a>
+        <a class="filter-link" [class.active]="filtroActivo() === 'baze'" (click)="setFiltro('baze')">
+          <i class="bi bi-heart"></i> Bazes
+        </a>
+        <a class="filter-link" [class.active]="filtroActivo() === 'comment'" (click)="setFiltro('comment')">
+          <i class="bi bi-chat"></i> Comentários
+        </a>
+        <a class="filter-link" [class.active]="filtroActivo() === 'follow'" (click)="setFiltro('follow')">
+          <i class="bi bi-person-plus"></i> Seguidores
+        </a>
+        <a class="filter-link" [class.active]="filtroActivo() === 'mention'" (click)="setFiltro('mention')">
+          <i class="bi bi-at"></i> Menções
+        </a>
+      </nav>
+    </aside>
 
-            <a class="filter-link" [class.active]="filtroActivo() === 'todas'" (click)="setFiltro('todas')">
-              <i class="bi bi-bell"></i> Todas
-            </a>
-            <a class="filter-link" [class.active]="filtroActivo() === 'baze'" (click)="setFiltro('baze')">
-              <i class="bi bi-heart"></i> Bazes
-            </a>
-            <a class="filter-link" [class.active]="filtroActivo() === 'comment'" (click)="setFiltro('comment')">
-              <i class="bi bi-chat"></i> Comentários
-            </a>
-            <a class="filter-link" [class.active]="filtroActivo() === 'follow'" (click)="setFiltro('follow')">
-              <i class="bi bi-person-plus"></i> Seguidores
-            </a>
-            <a class="filter-link" [class.active]="filtroActivo() === 'mention'" (click)="setFiltro('mention')">
-              <i class="bi bi-at"></i> Menções
-            </a>
+    <div class="notifications-content">
+      <div class="notifications-list">
 
-          </nav>
-        </aside>
+        @for (n of notificacoesFiltradas(); track n.id) {
+          <div class="notification-item" [class.unread]="!n.lida" (click)="marcarLida(n.id)">
 
-        <!-- LISTA -->
-        <div class="notifications-content">
-          <div class="notifications-list">
+            <div class="notification-avatar">
+              <img [src]="n.utilizador.avatar" [alt]="n.utilizador.nome">
+              <div class="notification-icon-badge" [style.background-color]="getCor(n.type)">
+                <i [class]="getIcone(n.type)"></i>
+              </div>
+            </div>
 
-            @for (n of notificacoesFiltradas(); track n.id) {
-              <div class="notification-item" [class.unread]="!n.read" (click)="marcarLida(n.id)">
-
-                <!-- AVATAR + ÍCONE -->
-                <div class="notification-avatar">
-                  <img [src]="n.user.avatar" [alt]="n.user.name">
-                  <div class="notification-icon-badge" [style.background-color]="getCor(n.type)">
-                    <i [class]="getIcone(n.type)"></i>
-                  </div>
-                </div>
-
-                <!-- TEXTO -->
-                <div class="notification-details">
-                  <div class="notification-text">
-                    <strong>{{ n.user.name }}</strong>
-                    <span class="notif-username">&#64;{{ n.user.username }}</span>
-                    {{ n.message }}
-                    @if (n.postTitle) {
-                      <span class="post-title">{{ n.postTitle }}</span>
-                    }
-                  </div>
-                  <div class="notification-time">
-                    <i class="bi bi-clock"></i> {{ n.timeAgo }}
-                  </div>
-                </div>
-
-                <!-- PONTO NÃO LIDO -->
-                @if (!n.read) {
-                  <div class="unread-dot"></div>
+            <div class="notification-details">
+              <div class="notification-text">
+                <strong>{{ n.utilizador.nome }}</strong>
+                <span class="notif-username">&#64;{{ n.utilizador.nomeUtilizador }}</span>
+                {{ n.mensagem }}
+                @if (n.tituloPublicacao) {
+                  <span class="post-title">{{ n.tituloPublicacao }}</span>
                 }
-
               </div>
-            }
-
-            @empty {
-              <div class="empty-state">
-                <i class="bi bi-inbox"></i>
-                <p>Nenhuma notificação nesta categoria.</p>
+              <div class="notification-time">
+                <i class="bi bi-clock"></i> {{ n.tempoDecorrido }}
               </div>
+            </div>
+
+            @if (!n.lida) {
+              <div class="unread-dot"></div>
             }
 
           </div>
-        </div>
+        }
+
+        @empty {
+          <div class="empty-state">
+            <i class="bi bi-inbox"></i>
+            <p>Nenhuma notificação nesta categoria.</p>
+          </div>
+        }
 
       </div>
+    </div>
 
-    </main>
   </div>
-</div>
+
+</main>

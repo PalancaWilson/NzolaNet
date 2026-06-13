@@ -7,8 +7,14 @@
   </div>
 
   <div class="search-box">
-    <i class="bi bi-search"></i>
-    <input type="text" placeholder="Pesquisar...">
+    <i class="bi bi-search" (click)="pesquisar()"></i>
+    <input
+      type="text"
+      placeholder="Pesquisar..."
+      [ngModel]="query()"
+      (ngModelChange)="query.set($event)"
+      (keydown.enter)="pesquisar()"
+    >
   </div>
 
   <div class="topbar-right">
@@ -23,6 +29,6 @@
 </header>
 
 <!-- Overlay mobile para fechar o menu ao clicar fora -->
-@if (menuAberto()) {
+@if (layout.sidebarAberto()) {
   <div class="overlay" (click)="alternarMenu()"></div>
 }

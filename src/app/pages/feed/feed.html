@@ -1,47 +1,35 @@
-<div class="layout">
+<div class="feed-layout">
 
-  <app-topbar></app-topbar>
+  <section class="feed-main content-area">
 
-  <div class="main-content">
+    <div class="page-header">
+      <p>// publicações da tua comunidade</p>
+      <h1>FEED</h1>
+    </div>
 
-    <app-sidebar></app-sidebar>
+    <app-create-post></app-create-post>
 
-    <main class="feed-container">
-
-      <div class="feed-header">
-        <h1>FEED</h1>
-        <p>Publicações recentes da tua comunidade.</p>
+    @if (postService.publicacoes().length === 0) {
+      <div class="skeleton" style="height:140px;margin-bottom:14px"></div>
+      <div class="skeleton" style="height:140px;margin-bottom:14px"></div>
+      <div class="skeleton" style="height:140px"></div>
+    } @else {
+      <div class="posts-list">
+        @for (post of postService.publicacoes(); track post.id) {
+          <app-post-card [post]="post"></app-post-card>
+        } @empty {
+          <div class="empty-state">
+            <i class="bi bi-wind"></i>
+            <p>Nenhuma publicação ainda. Sê o primeiro a bazar!</p>
+          </div>
+        }
       </div>
+    }
 
-      <app-create-post></app-create-post>
+  </section>
 
-      <!-- ESTADO DE CARREGAMENTO -->
-      @if (postService.posts().length === 0) {
-        <div class="loading-state">
-          <div class="skeleton-card"></div>
-          <div class="skeleton-card"></div>
-          <div class="skeleton-card"></div>
-        </div>
-      }
-
-      <!-- POSTS — usa @for (sintaxe Angular 17+), sem *ngFor -->
-      @if (postService.posts().length > 0) {
-        <div class="posts">
-          @for (post of postService.posts(); track post.id) {
-            <app-post-card [post]="post"></app-post-card>
-          } @empty {
-            <div class="empty-state">
-              <i class="bi bi-wind"></i>
-              <p>Ainda não há publicações. Sê o primeiro a bazar!</p>
-            </div>
-          }
-        </div>
-      }
-
-    </main>
-
+  <aside class="right-col">
     <app-right-sidebar></app-right-sidebar>
-
-  </div>
+  </aside>
 
 </div>

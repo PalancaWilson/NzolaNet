@@ -1,39 +1,18 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Sidebar } from '../../../components/sidebar/sidebar';
-import { Topbar } from '../../../components/topbar/topbar';
-
-type AbaDefinicao =
-  | 'conta'
-  | 'notificacoes'
-  | 'privado'
-  | 'aparencia'
-  | 'idioma';
+import { SettingsService } from '../../../services/settings.service';
 
 @Component({
   selector: 'app-notificacoes',
-  imports: [Sidebar, Topbar, FormsModule ],
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './notificacoes.html',
   styleUrl: './notificacoes.css',
 })
 export class Notificacoes {
-    abaSelecionada: AbaDefinicao = 'notificacoes';
+  constructor(public settings: SettingsService) {}
 
-  notificacaoBaze = true;
-  notificacaoComentario = true;
-  notificacaoSeguidor = false;
-
-  modoEscuro = false;
-
-  perfilPrivado = false;
-  mostrarEmail = false;
-
-  idioma = 'Português';
-  regiao = 'Angola';
-
-  selecionarAba(aba: AbaDefinicao): void {
-    this.abaSelecionada = aba;
+  atualizar(chave: 'notificacaoBaze' | 'notificacaoComentario' | 'notificacaoSeguidor' | 'notificacaoMencao', valor: boolean): void {
+    this.settings.atualizarDefinicoes({ [chave]: valor });
   }
-
-  
 }

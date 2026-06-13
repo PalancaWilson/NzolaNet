@@ -1,198 +1,58 @@
-.sidebar-widgets {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 90%;
-    max-width: 380px;
+.rs-inner {
+  display: flex; flex-direction: column; gap: 16px;
+  padding: 20px 16px;
 }
 
-/* Estilo Base dos Cartões */
-.widget-card {
-    margin-top: 12px;
-    border-radius: 32px;
-    padding: 30px 24px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+.rs-card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: 24px; padding: 22px 18px;
+}
+.rs-card-purple {
+  background: linear-gradient(135deg, #c92df1, #a020c8);
+  border-color: transparent;
 }
 
-.follow-widget {
-    background-color: #ffffff;
-    border: 1px solid #f3f4f6;
+.rs-title {
+  font-size: 13px; font-weight: 900; letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 16px; color: var(--text);
+}
+.rs-card-header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+}
+.rs-dot { width: 9px; height: 9px; background: #fff; border-radius: 50%; }
+
+/* Sugestões */
+.rs-users { display: flex; flex-direction: column; gap: 14px; }
+.rs-user  { display: flex; align-items: center; gap: 10px; }
+.rs-avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+.rs-info   { flex: 1; min-width: 0; overflow: hidden; }
+.rs-name   { display: block; font-weight: 700; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rs-sub    { display: block; font-size: 11px; color: var(--text-muted); }
+.rs-follow-btn {
+  padding: 6px 12px; border-radius: 999px; border: 1.5px solid #111;
+  background: transparent; font-weight: 700; font-size: 12px; white-space: nowrap;
+  transition: .2s; flex-shrink: 0;
+}
+.rs-follow-btn:hover, .rs-follow-btn.seguindo {
+  background: #111; color: #fff;
 }
 
-.user-suggest-item img {
-    width: 45px;
-    height: 45px;
-    object-fit: contain;
-    border-radius: 50%;
+/* Notificações */
+.rs-notifs { display: flex; flex-direction: column; }
+.rs-notif  { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.18); }
+.rs-notif:last-child { border-bottom: none; }
+.rs-notif-icon {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(255,255,255,.2); display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: #fff; flex-shrink: 0;
 }
+.rs-notif-text p    { font-size: 13px; color: rgba(255,255,255,.95); margin: 0 0 2px; line-height: 1.4; }
+.rs-notif-text span { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.6); text-transform: uppercase; }
 
-
-.notification-widget {
-    background: #e04ce2;
-    color: #ffffff;
-    position: relative;
+.rs-view-all {
+  display: block; text-align: center; margin-top: 14px;
+  background: rgba(255,255,255,.22); color: #fff; font-weight: 800;
+  font-size: 13px; letter-spacing: .5px; padding: 11px; border-radius: 16px;
+  transition: background .2s;
 }
-
-.widget-title {
-    font-family: 'Impact', 'Arial Black', sans-serif;
-    font-size: 1.5rem;
-    letter-spacing: 0.05em;
-    margin-top: 0;
-    margin-bottom: 25px;
-}
-
-.follow-widget .widget-title {
-    color: #111827;
-}
-
-.notification-widget .widget-title {
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.35rem;
-}
-
-
-.suggestions-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.user-suggest-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.user-info {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.user-name {
-    font-weight: 700;
-    color: #111827;
-    font-size: 0.95rem;
-}
-
-.user-subtitle {
-    font-size: 0.8rem;
-    color: #6b7280;
-}
-
-.btn-follow {
-    background-color: #0f172a;
-    color: #ffffff;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 700;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: opacity 0.2s;
-}
-
-.btn-follow:hover {
-    opacity: 0.9;
-}
-
-/* Lista: Notificações */
-.widget-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.notification-badge-dot {
-    width: 10px;
-    height: 10px;
-    background-color: #ffffff;
-    border-radius: 50%;
-}
-
-.notifications-list {
-    display: flex;
-    flex-direction: column;
-}
-
-.notification-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 16px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.notification-item:last-of-type {
-    border-bottom: none;
-}
-
-.icon-container {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.2);
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-}
-
-.notification-content {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.notification-text {
-    margin: 0;
-    font-size: 0.92rem;
-    line-height: 1.3;
-    color: rgba(255, 255, 255, 0.95);
-}
-
-.bold-name {
-    font-weight: 700;
-}
-
-.notification-time {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.6);
-}
-
-/* Botão Ver Todas */
-.btn-view-all {
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.25);
-    color: #ffffff;
-    border: none;
-    padding: 14px;
-    border-radius: 20px;
-    font-weight: 800;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-    margin-top: 15px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.btn-view-all:hover {
-    background-color: rgba(255, 255, 255, 0.35);
-}
-
-/* ── Responsividade right-sidebar ──────────────────────── */
-@media (max-width: 1100px) {
-  .sidebar-widgets { display: none; }
-}
+.rs-view-all:hover { background: rgba(255,255,255,.32); }

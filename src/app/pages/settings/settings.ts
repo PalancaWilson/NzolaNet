@@ -1,49 +1,22 @@
 import { Component } from '@angular/core';
-import {RouterOutlet} from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { Sidebar } from '../../components/sidebar/sidebar';
-import { Topbar } from '../../components/topbar/topbar';
+import { RouterOutlet, Router } from '@angular/router';
 
-type AbaDefinicao =
-  | 'conta'
-  | 'notificacoes'
-  | 'privado'
-  | 'aparencia'
-  | 'idioma';
 @Component({
   selector: 'app-settings',
   standalone: true,
-
-  imports: [
-
-    RouterOutlet,
-    Sidebar,
-    Topbar,
-    FormsModule
-  ],
-
+  imports: [RouterOutlet],
   templateUrl: './settings.html',
-  styleUrl: './settings.css'
+  styleUrl: './settings.css',
 })
 export class Settings {
+  constructor(private router: Router) {}
 
-   abaSelecionada: AbaDefinicao = 'conta';
-
-  notificacaoBaze = true;
-  notificacaoComentario = true;
-  notificacaoSeguidor = false;
-
-  modoEscuro = false;
-
-  perfilPrivado = false;
-  mostrarEmail = false;
-
-  idioma = 'Português';
-  regiao = 'Angola';
-
-  selecionarAba(aba: AbaDefinicao): void {
-    this.abaSelecionada = aba;
+  estaActiva(aba: string): boolean {
+    return this.router.url === `/settings/${aba}` ||
+           (aba === 'conta' && this.router.url === '/settings');
   }
 
+  navegar(aba: string): void {
+    this.router.navigate(['/settings', aba]);
+  }
 }
-

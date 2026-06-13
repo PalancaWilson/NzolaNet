@@ -1,0 +1,117 @@
+<div class="mensagens-layout">
+
+  @if (showSearch()) {
+    <app-search-user (selected)="onUserSelected($event)"></app-search-user>
+  }
+
+  <!-- PAINEL ESQUERDO: lista de conversas -->
+  <aside class="conv-list" [class.oculto]="conversaActiva()">
+
+    <div class="conv-header">
+      <h2>Mensagens
+        @if (totalNaoLidas() > 0) {
+          <span class="badge-count">{{ totalNaoLidas() }}</span>
+        }
+      </h2>
+      <button class="btn-new-msg" title="Nova mensagem" (click)="novaConversa()">
+        <i class="bi bi-pencil-square"></i>
+      </button>
+    </div>
+
+    <div class="conv-search">
+      <i class="bi bi-search"></i>
+      <input type="text" placeholder="Pesquisar conversas..." [formControl]="pesqCtrl">
+    </div>
+
+    <div class="conv-items">
+      @for (c of conversasFiltradas(); track c.id) {
+        <div class="conv-item" [class.activo]="conversaActiva()?.id === c.id" (click)="abrirConversa(c)">
+          <div class="conv-avatar-wrap">
+            <img [src]="c.avatar" [alt]="c.nome" class="conv-avatar">
+            <span class="online-dot"></span>
+          </div>
+          <div class="conv-info">
+            <div class="conv-top">
+              <span class="conv-nome">{{ c.nome }}</span>
+              <span class="conv-tempo">{{ c.tempo }}</span>
+            </div>
+            <div class="conv-bottom">
+              <span class="conv-preview">{{ c.ultimaMensagem }}</span>
+              @if (c.naoLidas > 0) {
+                <span class="conv-badge">{{ c.naoLidas }}</span>
+              }
+            </div>
+          </div>
+        </div>
+      } @empty {
+        <div class="empty-state" style="padding:40px 20px">
+          <i class="bi bi-chat-x"></i>
+          <p>Nenhuma conversa encontrada.</p>
+        </div>
+      }
+    </div>
+
+  </aside>
+
+  <!-- PAINEL DIREITO: chat activo -->
+  <section class="chat-area" [class.visivel]="conversaActiva()">
+
+    @if (!conversaActiva()) {
+      <div class="chat-empty">
+        <i class="bi bi-chat-dots"></i>
+        <p>Selecciona uma conversa para começar</p>
+      </div>
+    }
+
+    @if (conversaActiva()) {
+      <!-- Header do chat -->
+      <div class="chat-header">
+        <button class="btn-back-chat" (click)="conversaActiva.set(null)">
+          <i class="bi bi-arrow-left"></i>
+        </button>
+        <a [routerLink]="['/profile', conversaActiva()!.id]" class="chat-user">
+          <img [src]="conversaActiva()!.avatar" [alt]="conversaActiva()!.nome" class="chat-avatar">
+          <div>
+            <span class="chat-nome">{{ conversaActiva()!.nome }}</span>
+            <span class="chat-status"><span class="online-dot-sm"></span> Online</span>
+          </div>
+        </a>
+        <button class="btn-chat-action" title="Perfil" (click)="irParaPerfil()"><i class="bi bi-person"></i></button>
+      </div>
+
+      <!-- Mensagens -->
+      <div class="chat-messages">
+        @for (m of conversaActiva()!.mensagens; track m.id) {
+          <div class="msg" [class.minha]="m.minha" [class.deles]="!m.minha">
+            @if (!m.minha) {
+              <img [src]="conversaActiva()!.avatar" class="msg-avatar">
+            }
+            <div class="msg-bubble">
+              <p>{{ m.texto }}</p>
+              <span class="msg-tempo">{{ m.tempo }}</span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Input de mensagem -->
+      <div class="chat-input-bar">
+        <button class="btn-attach" title="Anexar"><i class="bi bi-paperclip"></i></button>
+        <div class="chat-input-wrap">
+          <textarea
+            [formControl]="msgCtrl"
+            placeholder="Escreve uma mensagem..."
+            rows="1"
+            (keydown)="enviarEnter($event)"
+          ></textarea>
+        </div>
+        <button class="btn-emoji" title="Emoji"><i class="bi bi-emoji-smile"></i></button>
+        <button class="btn-send" (click)="enviar()" [disabled]="!msgCtrl.value?.trim()">
+          <i class="bi bi-send-fill"></i>
+        </button>
+      </div>
+    }
+
+  </section>
+
+</div>

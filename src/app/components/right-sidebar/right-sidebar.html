@@ -1,45 +1,44 @@
-<div class="sidebar-widgets">
-  
-  <div class="widget-card follow-widget">
-    <h3 class="widget-title">QUEM SEGUIR</h3>
-    
-    <div class="suggestions-list">
-      @for (user of suggestions; track user.id) {
-        <div class="user-suggest-item">
-          <img src="../../../assets/imagens/avatar-marco.jpg" alt="">
-          <div class="user-info">
-            <span class="user-name">{{ user.name }}</span>
-            <span class="user-subtitle">{{ user.subtitle }}</span>
+<div class="rs-inner">
+
+  <!-- QUEM SEGUIR -->
+  <div class="rs-card">
+    <h3 class="rs-title">QUEM SEGUIR</h3>
+    <div class="rs-users">
+      @for (u of suggestions; track u.id) {
+        <div class="rs-user">
+          <img [src]="u.avatar" [alt]="u.nome" class="rs-avatar">
+          <div class="rs-info">
+            <span class="rs-name">{{ u.nome }}</span>
+            <span class="rs-sub">{{ u.subtitle }}</span>
           </div>
-          <button class="btn-follow" (click)="followUser(user.id)">Seguir</button>
+          <button class="rs-follow-btn" [class.seguindo]="estaSeguindo(u.id)" (click)="toggleSeguir(u.id)">
+            {{ estaSeguindo(u.id) ? '✓' : 'Seguir' }}
+          </button>
         </div>
       }
     </div>
   </div>
 
-  <div class="widget-card notification-widget">
-    <div class="widget-header">
-      <h3 class="widget-title"><i class="icon-bell"></i> NOTIFICAÇÕES</h3>
-      <span class="notification-badge-dot"></span>
+  <!-- NOTIFICAÇÕES RÁPIDAS -->
+  <div class="rs-card rs-card-purple">
+    <div class="rs-card-header">
+      <h3 class="rs-title" style="color:#fff"><i class="bi bi-bell-fill"></i> NOTIFICAÇÕES</h3>
+      <span class="rs-dot"></span>
     </div>
-
-    <div class="notifications-list">
-      @for (notif of notifications; track notif.id) {
-        <div class="notification-item">
-          <div class="icon-container" [ngClass]="notif.type">
-            <i [class]="getNotificationIcon(notif.type)"></i>
+    <div class="rs-notifs">
+      @for (n of notifications; track n.id) {
+        <div class="rs-notif">
+          <div class="rs-notif-icon">
+            <i [class]="getIcone(n.type)"></i>
           </div>
-          <div class="notification-content">
-            <p class="notification-text">
-              <span class="bold-name">{{ notif.senderName }}</span> {{ notif.text }}
-            </p>
-            <span class="notification-time">{{ notif.time }}</span>
+          <div class="rs-notif-text">
+            <p><strong>{{ n.nome }}</strong> {{ n.texto }}</p>
+            <span>{{ n.tempo }}</span>
           </div>
         </div>
       }
     </div>
-
-    <button class="btn-view-all" (click)="viewAllNotifications()">VER TODAS</button>
+    <a class="rs-view-all" routerLink="/notifications">VER TODAS</a>
   </div>
 
 </div>

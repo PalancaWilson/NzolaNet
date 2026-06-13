@@ -1,38 +1,18 @@
 import { Component } from '@angular/core';
-import { Sidebar } from '../../../components/sidebar/sidebar';
-import { Topbar } from '../../../components/topbar/topbar';
 import { FormsModule } from '@angular/forms';
-
-type AbaDefinicao =
-  | 'conta'
-  | 'notificacoes'
-  | 'privado'
-  | 'aparencia'
-  | 'idioma';
+import { SettingsService } from '../../../services/settings.service';
 
 @Component({
   selector: 'app-aparencia',
-  imports: [FormsModule,Sidebar, Topbar],
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './aparencia.html',
   styleUrl: './aparencia.css',
 })
 export class Aparencia {
+  constructor(public settings: SettingsService) {}
 
-  abaSelecionada: AbaDefinicao = 'aparencia';
-
-  notificacaoBaze = true;
-  notificacaoComentario = true;
-  notificacaoSeguidor = false;
-
-  modoEscuro = false;
-
-  perfilPrivado = false;
-  mostrarEmail = false;
-
-  idioma = 'Português';
-  regiao = 'Angola';
-
-  selecionarAba(aba: AbaDefinicao): void {
-    this.abaSelecionada = aba;
+  alternarModoEscuro(): void {
+    this.settings.atualizarDefinicoes({ modoEscuro: !this.settings.modoEscuro() });
   }
 }

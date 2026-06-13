@@ -3,103 +3,102 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { Post } from '../models/post.model';
-import { MockDataService } from './mock-data.service';
-import { UserService } from './user.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class PostService {
+  private readonly API_URL = environment.apiUrl;
+  private _publicacoes = signal<Post[]>([]);
+  readonly publicacoes = this._publicacoes.asReadonly();
 
-  private readonly API_URL = 'https://api.nzolanet.app/api';
-  private _posts = signal<Post[]>([]);
-  readonly posts = this._posts.asReadonly();
+  constructor(private http: HttpClient) {}
 
-  constructor(
-    private http: HttpClient,
-    private mock: MockDataService,
-    private userService: UserService
-  ) {}
-
-  // ---------------------------------------------------------------------------
-  // Obter feed
-  // ---------------------------------------------------------------------------
-  getFeed(): Observable<Post[]> {
-    // TODO: descomentar quando o backend estiver pronto
-    // return this.http.get<Post[]>(`${this.API_URL}/feed`).pipe(
-    //   tap(posts => this._posts.set(posts)),
-    //   catchError(() => of(this.mock.getPosts()))
-    // );
-    const posts = this.mock.getPosts();
-    this._posts.set(posts);
-    return of(posts);
-  }
-
-  // ---------------------------------------------------------------------------
-  // Dar/retirar baze (like)
-  // ---------------------------------------------------------------------------
-  toggleBaze(postId: string): Observable<void> {
-    this._posts.update(lista =>
-      lista.map(p =>
-        p.id === postId
-          ? { ...p, liked: !p.liked, likes: p.liked ? p.likes - 1 : p.likes + 1 }
-          : p
-      )
+  obterFeed(): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.API_URL}/publicacoes`).pipe(
+      tap(posts => this._publicacoes.set(posts)),
+      catchError(() => {
+        this._publicacoes.set([]);
+        return of([]);
+      }),
     );
-
-    // TODO: descomentar quando o backend estiver pronto
-    // return this.http.post<void>(`${this.API_URL}/posts/${postId}/baze`, {}).pipe(
-    //   catchError(() => of(void 0))
-    // );
-    return of(void 0);
   }
 
-  // ---------------------------------------------------------------------------
-  // Guardar/remover publicação
-  // ---------------------------------------------------------------------------
-  toggleGuardar(postId: string): Observable<void> {
-    this._posts.update(lista =>
-      lista.map(p =>
-        p.id === postId ? { ...p, saved: !p.saved } : p
-      )
+  obterPorId(id: string): Observable<Post> {
+    return this.http.get<Post>(`${this.API_URL}/publicacoes/${id}`);
+  }
+
+  obterPorUtilizador(utilizadorId: string): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.API_URL}/utilizadores/${utilizadorId}/publicacoes`).pipe(
+      catchError(() => of([])),
     );
-
-    // TODO: descomentar quando o backend estiver pronto
-    // return this.http.post<void>(`${this.API_URL}/posts/${postId}/save`, {}).pipe(
-    //   catchError(() => of(void 0))
-    // );
-    return of(void 0);
   }
 
-  // ---------------------------------------------------------------------------
-  // Criar publicação
-  // ---------------------------------------------------------------------------
   criarPost(conteudo: string, imagem?: string): Observable<Post> {
-    // TODO: descomentar quando o backend estiver pronto
-    // return this.http.post<Post>(`${this.API_URL}/posts`, { conteudo, imagem }).pipe(
-    //   tap(novoPost => this._posts.update(lista => [novoPost, ...lista]))
-    // );
+    return this.http.post<Post>(`${this.API_URL}/publicacoes`, { conteudo, imagem }).pipe(
+      tap(novo => this._publicacoes.update(lista => [novo, ...lista])),
+    );
+  }
 
-    const perfil   = this.userService.perfil();
-    const novoPost: Post = {
-      id:      'local-' + Date.now(),
-      author: {
-        id:       perfil?.id       ?? 'me',
-        nome:     perfil?.nome     ?? 'Tu',
-        username: perfil?.nome?.toLowerCase().replace(/\s+/g, '_') ?? 'eu_user',
-        avatar:   perfil?.foto_perfil ?? 'https://i.pravatar.cc/150?img=60',
-      },
-      content:  conteudo,
-      image:    imagem,
-      tags:     [],
-      likes:    0,
-      comments: 0,
-      shares:   0,
-      saves:    0,
-      timeAgo:  'agora mesmo',
-      liked:    false,
-      saved:    false,
-    };
+  editarPost(postId: string, conteudo: string): Observable<Post> {
+    return this.http.put<Post>(`${this.API_URL}/publicacoes/${postId}`, { conteudo }).pipe(
+      tap(actualizado => {
+        this._publicacoes.update(lista =>
+          lista.map(p => (p.id === postId ? actualizado : p)),
+        );
+      }),
+    );
+  }
 
-    this._posts.update(lista => [novoPost, ...lista]);
-    return of(novoPost);
+  apagarPost(postId: string): Observable<void> {
+    return this.http.delete<void>(`${this.API_URL}/publicacoes/${postId}`).pipe(
+      tap(() => {
+        this._publicacoes.update(lista => lista.filter(p => p.id !== postId));
+      }),
+    );
+  }
+
+  toggleBaze(postId: string): Observable<void> {
+    return this.http.post<void>(`${this.API_URL}/publicacoes/${postId}/baze`, {}).pipe(
+      tap(() => {
+        this._publicacoes.update(lista =>
+          lista.map(p =>
+            p.id === postId
+              ? { ...p, gostou: !p.gostou, gostos: p.gostou ? p.gostos - 1 : p.gostos + 1 }
+              : p,
+          ),
+        );
+      }),
+    );
+  }
+
+  toggleGuardar(postId: string): Observable<void> {
+    // TODO: implementar endpoint de guardar quando o backend estiver pronto
+    this._publicacoes.update(lista =>
+      lista.map(p =>
+        p.id === postId ? { ...p, guardado: !p.guardado } : p,
+      ),
+    );
+    return of(void 0);
+  }
+
+  repostar(postId: string): Observable<void> {
+    return this.http.post<void>(`${this.API_URL}/publicacoes/${postId}/repostar`, {}).pipe(
+      tap(() => {
+        this._publicacoes.update(lista =>
+          lista.map(p =>
+            p.id === postId ? { ...p, partilhas: p.partilhas + 1 } : p,
+          ),
+        );
+      }),
+      catchError(() => {
+        // fallback local
+        this._publicacoes.update(lista =>
+          lista.map(p =>
+            p.id === postId ? { ...p, partilhas: p.partilhas + 1 } : p,
+          ),
+        );
+        return of(void 0);
+      }),
+    );
   }
 }

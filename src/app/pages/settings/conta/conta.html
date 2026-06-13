@@ -1,30 +1,31 @@
+<h2>CONTA</h2>
+<p class="section-desc">Actualiza os teus dados pessoais.</p>
 
-<div class="settings-panel">
-
-
-                @if (abaSelecionada === 'conta') {
-
-                    <h2>CONTA</h2>
-
-                    <div class="form-group">
-                        <label>Nome</label>
-                        <input type="text" value="João Mendes">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" value="joao@email.com">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Nova Palavra-passe</label>
-                        <input type="password">
-                    </div>
-
-                    <button class="save-btn">
-                        Guardar Alterações
-                    </button>
-
-                }
-
+<div class="form-group">
+  <label for="nome">Nome</label>
+  <input id="nome" type="text" [ngModel]="nome()" (ngModelChange)="nome.set($event)" class="form-input" autocomplete="name">
 </div>
+
+<div class="form-group">
+  <label for="email">Email</label>
+  <input id="email" type="email" [ngModel]="email()" (ngModelChange)="email.set($event)" class="form-input" autocomplete="email">
+</div>
+
+<div class="form-group">
+  <label for="senha">Nova palavra-passe</label>
+  <input id="senha" type="password" [ngModel]="senha()" (ngModelChange)="senha.set($event)" class="form-input" placeholder="Deixar vazio para manter" autocomplete="new-password">
+</div>
+
+@if (salvo()) {
+  <div class="alert-success">
+    <i class="bi bi-check-circle-fill"></i> Dados guardados com sucesso!
+  </div>
+}
+
+<button class="save-btn" (click)="salvar()" [disabled]="salvando()">
+  @if (salvando()) {
+    <span class="spinner"></span> A guardar...
+  } @else {
+    <i class="bi bi-check-lg"></i> Guardar Alterações
+  }
+</button>

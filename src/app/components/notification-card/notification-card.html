@@ -1,13 +1,13 @@
-<div class="notif-item" [class.unread]="!notification.read">
+<div class="notif-item" [class.unread]="!notification.lida">
 
   <!-- Ponto de não lido -->
-  @if (!notification.read) {
+  @if (!notification.lida) {
     <span class="unread-dot"></span>
   }
 
   <!-- Avatar + ícone de tipo -->
   <div class="notif-avatar-wrap">
-    <img [src]="notification.user.avatar" [alt]="notification.user.name" class="notif-avatar">
+    <img [src]="notification.utilizador.avatar" [alt]="notification.utilizador.nome" class="notif-avatar">
     <span class="notif-type-icon" [class]="'type-' + notification.type">
       <i [class]="getTypeIcon()"></i>
     </span>
@@ -16,13 +16,13 @@
   <!-- Texto -->
   <div class="notif-content">
     <p class="notif-text">
-      <strong>{{ notification.user.name }}</strong>
-      {{ notification.message }}
-      @if (notification.postTitle) {
-        <span class="notif-post-title">{{ notification.postTitle }}</span>
+      <strong>{{ notification.utilizador.nome }}</strong>
+      {{ notification.mensagem }}
+      @if (notification.tituloPublicacao) {
+        <span class="notif-post-title">{{ notification.tituloPublicacao }}</span>
       }
     </p>
-    <span class="notif-time">@{{ notification.user.username }} · {{ notification.timeAgo }}</span>
+    <span class="notif-time">@{{ notification.utilizador.nomeUtilizador }} · {{ notification.tempoDecorrido }}</span>
   </div>
 
   <!-- Botão seguir (apenas para tipo follow) -->

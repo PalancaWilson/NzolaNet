@@ -1,0 +1,78 @@
+h2 {
+  font-family: 'Anton', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  text-transform: uppercase;
+  color: var(--text);
+  margin: 0 0 4px;
+}
+
+.section-desc {
+  color: var(--text-sub);
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.setting-row:last-child {
+  border-bottom: none;
+}
+
+.setting-label span {
+  display: block;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.setting-label small {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.switch {
+  position: relative;
+  width: 50px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.switch input { display: none; }
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background: #ddd;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.slider::before {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: #fff;
+  left: 3px;
+  top: 3px;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+input:checked + .slider {
+  background: var(--purple);
+}
+
+input:checked + .slider::before {
+  transform: translateX(22px);
+}

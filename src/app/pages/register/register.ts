@@ -1,14 +1,22 @@
-import { Component, signal, inject } from '@angular/core'; // 1. Adiciona o 'inject' aqui
+import { Component, signal, inject } from '@angular/core';
 import { AuthLayout } from "../../layouts/auth-layout/auth-layout";
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { LocalStorageUserService } from '../../services/storage_user.service';
 
 function senhasIguaisValidator(group: AbstractControl): ValidationErrors | null {
   const senha    = group.get('senha')?.value;
   const confirma = group.get('confirmarSenha')?.value;
   return senha === confirma ? null : { senhasDiferentes: true };
+}
+
+function senhaForteValidator(control: AbstractControl): ValidationErrors | null {
+  const v = control.value ?? '';
+  const erros: Record<string, boolean> = {};
+  if (!/[A-Z]/.test(v)) erros['semMaiuscula'] = true;
+  if (!/[0-9]/.test(v)) erros['semNumero'] = true;
+  if (!/[\W_]/.test(v)) erros['semEspecial'] = true;
+  return Object.keys(erros).length ? erros : null;
 }
 
 @Component({
@@ -29,11 +37,9 @@ export class Register {
   etapaActual     = signal<1 | 2>(1); // formulário em 2 etapas
 
   constructor(
-      
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private localUsers: LocalStorageUserService
   ) {
     
     this.registerForm = this.fb.group(
@@ -41,14 +47,13 @@ export class Register {
        
         nome:            ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
         email:           ['', [Validators.required, Validators.email]],
-        senha:           ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
+        senha:           ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64), senhaForteValidator]],
         confirmarSenha:  ['', Validators.required],
 
       
         data_nascimento: [''],
         genero:          [''],
-        localizacao:      [''],
-        biografia:             ['', Validators.maxLength(160)],
+        bio:             ['', Validators.maxLength(160)],
         privacidade:     ['publico'],
         foto_perfil:     [''],   
       },
@@ -61,8 +66,12 @@ export class Register {
   alternarSenha(): void { this.mostrarSenha.update(v => !v); }
 
   get forcaSenha(): 'fraca' | 'media' | 'forte' {
-    const len = this.campo('senha').value?.length ?? 0;
-    if (len < 8)  return 'fraca';
+    const v = this.campo('senha').value ?? '';
+    const len = v.length;
+    if (len < 8) return 'fraca';
+    const criterios = [/[A-Z]/.test(v), /[0-9]/.test(v), /[\W_]/.test(v)].filter(Boolean).length;
+    if (criterios < 2) return 'fraca';
+    if (criterios < 3) return 'media';
     if (len < 12) return 'media';
     return 'forte';
   }
@@ -99,14 +108,6 @@ export class Register {
 
   // ── Navegação entre etapas ──────────────────────────────────────────────────
 
-  verificarEmailDuplicado(): void {
-    const ctrl = this.campo('email');
-    if (ctrl.invalid || !ctrl.value) return;
-    if (this.localUsers.emailEmUso(ctrl.value)) {
-      ctrl.setErrors({ emailDuplicado: true });
-    }
-  }
-
   avancarEtapa(): void {
     // Marcar apenas os campos da etapa 1
     ['nome', 'email', 'senha', 'confirmarSenha'].forEach(c =>
@@ -137,10 +138,17 @@ export class Register {
 
     this.carregando.set(true);
 
-    // Remover confirmarSenha — não existe no backend
+    // Remover confirmarSenha e limpar campos vazios
     const { confirmarSenha, ...payload } = this.registerForm.value;
 
-    this.auth.register(payload).subscribe({
+    // Limpar strings vazias de campos opcionais para evitar 422 do backend
+    for (const key of ['data_nascimento', 'genero', 'bio', 'foto_perfil'] as const) {
+      if ((payload as Record<string, unknown>)[key] === '') {
+        delete (payload as Record<string, unknown>)[key];
+      }
+    }
+
+    this.auth.registar(payload).subscribe({
       next: () => {
         this.carregando.set(false);
         this.sucessoRegisto.set(true);

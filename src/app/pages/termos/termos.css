@@ -1,0 +1,20 @@
+.termos-page { max-width: 760px; }
+.termos-card {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 20px; padding: 36px; margin-top: 8px;
+}
+.termos-section { margin-bottom: 28px; }
+.termos-section h2 {
+  font-size: 17px; font-weight: 800; color: var(--text);
+  margin-bottom: 10px; padding-bottom: 8px;
+  border-bottom: 2px solid var(--purple-light);
+}
+.termos-section p { font-size: 15px; line-height: 1.8; color: var(--text-sub); }
+.termos-footer { display: flex; gap: 12px; align-items: center; padding-top: 20px; border-top: 1px solid var(--border); font-size: 14px; }
+.termos-footer a    { color: var(--purple); font-weight: 600; }
+.termos-footer span { color: var(--text-muted); }
+
+@media (max-width: 600px) {
+  .termos-card { padding: 20px 16px; }
+  .termos-section h2 { font-size: 15px; }
+}

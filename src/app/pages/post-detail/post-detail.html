@@ -1,0 +1,139 @@
+<div class="content-area post-detail-page">
+
+  <div class="back-bar">
+    <a routerLink="/feed" class="back-btn">
+      <i class="bi bi-arrow-left"></i> Voltar ao Feed
+    </a>
+  </div>
+
+  @if (!post()) {
+    <div class="skeleton" style="height:200px;border-radius:16px;margin-bottom:16px"></div>
+  }
+
+  @if (post()) {
+
+    <div class="post-main">
+      <app-post-card [post]="post()!"></app-post-card>
+    </div>
+
+    <div class="comment-box">
+      <div class="comment-input-wrap">
+        @if (userService.fotoPerfil()) {
+          <img [src]="userService.fotoPerfil()" [alt]="userService.nome()" class="comment-avatar">
+        } @else {
+          <div class="comment-avatar comment-initials">{{ userService.iniciais() }}</div>
+        }
+
+        <div class="comment-field">
+          @if (replyTo()) {
+            <div class="reply-context">
+              <span>A responder a <strong>{{ replyingToNome }}</strong></span>
+              <button class="btn-cancel-reply" (click)="cancelarResposta()" type="button">
+                <i class="bi bi-x"></i>
+              </button>
+            </div>
+          }
+          <textarea
+            [formControl]="comentCtrl"
+            [placeholder]="replyTo() ? 'Escreve a tua resposta...' : 'Escreve um comentário...'"
+            rows="2"
+            maxlength="280"
+          ></textarea>
+          <div class="comment-footer">
+            <span class="char-count" [class.danger]="restantes < 20">{{ restantes }}</span>
+            <button
+              class="btn-send"
+              (click)="enviarComentario()"
+              [disabled]="comentCtrl.invalid || enviando()"
+            >
+              @if (enviando()) { <span class="spinner"></span> }
+              @else { <i class="bi bi-send-fill"></i> }
+              {{ replyTo() ? 'Responder' : 'Comentar' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="comments-section" (click)="fecharMenuComentario()">
+      <h3 class="comments-title">
+        <i class="bi bi-chat-fill"></i>
+        Comentários
+        <span class="badge-count">{{ comentarios().length }}</span>
+      </h3>
+
+      @for (c of comentarios(); track c.id) {
+        <div class="comment-item">
+          <img [src]="c.autor.avatar" [alt]="c.autor.nome" class="comment-avatar">
+          <div class="comment-body">
+            <div class="comment-header">
+              <strong>{{ c.autor.nome }}</strong>
+              <span class="comment-user">&#64;{{ c.autor.username }}</span>
+              <span class="comment-time">· {{ c.tempo }}</span>
+            </div>
+            @if (c.respostaA) {
+              <span class="reply-badge">
+                <i class="bi bi-reply-fill"></i> Resposta a um comentário
+              </span>
+            }
+
+            @if (editandoId() === c.id) {
+              <div class="edit-comment-area">
+                <textarea
+                  [(ngModel)]="editandoTexto"
+                  maxlength="280"
+                  rows="2"
+                  class="edit-textarea"
+                ></textarea>
+                <div class="edit-actions">
+                  <button class="btn-cancel-edit" (click)="cancelarEdicaoComentario()">Cancelar</button>
+                  <button class="btn-save-edit" (click)="guardarEdicaoComentario(c.id)">Guardar</button>
+                </div>
+              </div>
+            } @else {
+              <p class="comment-text">{{ c.texto }}</p>
+            }
+
+            <div class="comment-actions">
+              <button
+                class="comment-baze"
+                [class.bazado]="c.bazado"
+                (click)="toggleBazeComentario(c.id)"
+              >
+                <i class="bi" [class.bi-heart]="!c.bazado" [class.bi-heart-fill]="c.bazado"></i>
+                {{ c.bazes }}
+              </button>
+              <button class="comment-reply" (click)="iniciarResposta(c.id)">
+                <i class="bi bi-reply"></i> Responder
+              </button>
+            </div>
+          </div>
+
+          @if (isOwnerComentario(c)) {
+            <div class="comment-menu-container" (click)="$event.stopPropagation()">
+              <button class="comment-menu-trigger" (click)="toggleMenuComentario(c.id)" title="Mais opções">
+                <i class="bi bi-three-dots-vertical"></i>
+              </button>
+              @if (menuComentarioAberto() === c.id) {
+                <div class="comment-menu-dropdown">
+                  <button class="menu-item" (click)="iniciarEdicaoComentario(c.id)">
+                    <i class="bi bi-pencil"></i> Editar
+                  </button>
+                  <button class="menu-item menu-item-danger" (click)="apagarComentario(c.id)">
+                    <i class="bi bi-trash3"></i> Apagar
+                  </button>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      } @empty {
+        <div class="empty-state">
+          <i class="bi bi-chat"></i>
+          <p>Ainda não há comentários. Sê o primeiro!</p>
+        </div>
+      }
+    </div>
+
+  }
+</div>

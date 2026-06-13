@@ -52,7 +52,7 @@ export class Login {
 
     this.carregando.set(true);
 
-    this.auth.login(this.loginForm.value).subscribe({
+    this.auth.iniciarSessao(this.loginForm.value).subscribe({
       next: () => {
         this.carregando.set(false);
         this.router.navigate(['/feed']);

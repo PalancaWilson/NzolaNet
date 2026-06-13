@@ -1,0 +1,24 @@
+<h2>PRIVACIDADE</h2>
+<p class="section-desc">Controla a visibilidade do teu perfil.</p>
+
+<div class="setting-row">
+  <div class="setting-label">
+    <span>Conta privada</span>
+    <small>Apenas seguidores aprovados vêem as tuas publicações</small>
+  </div>
+  <label class="switch">
+    <input type="checkbox" [ngModel]="settings.perfilPrivado()" (ngModelChange)="atualizar('perfilPrivado', $event)">
+    <span class="slider"></span>
+  </label>
+</div>
+
+<div class="setting-row">
+  <div class="setting-label">
+    <span>Mostrar email</span>
+    <small>Exibir o teu email no perfil público</small>
+  </div>
+  <label class="switch">
+    <input type="checkbox" [ngModel]="settings.mostrarEmail()" (ngModelChange)="atualizar('mostrarEmail', $event)">
+    <span class="slider"></span>
+  </label>
+</div>

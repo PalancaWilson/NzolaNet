@@ -3,14 +3,14 @@ export type NotificationType = 'baze' | 'follow' | 'comment' | 'mention';
 export interface Notifications {
   id: string;
   type: NotificationType;
-  user: {
-    name: string;
-    username: string;
+  utilizador: {
+    nome: string;
+    nomeUtilizador: string;
     avatar: string;
-    badge?: 'creator' | 'verified' | 'premium';
+    emblema?: 'creator' | 'verified' | 'premium';
   };
-  message: string;
-  timeAgo: string;
-  read: boolean;
-  postTitle?: string;
+  mensagem: string;
+  tempoDecorrido: string;
+  lida: boolean;
+  tituloPublicacao?: string;
 }

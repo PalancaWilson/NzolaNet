@@ -1,24 +1,60 @@
-<nav class="sidebar" [class.aberto]="aberto">
-  <!-- Links -->
-  <ul class="sidebar-links">
-    <li><a routerLink="/feed"          routerLinkActive="active"><i class="bi bi-house-fill"></i><span>Feed</span></a></li>
-    <li><a routerLink="/explorar"      routerLinkActive="active"><i class="bi bi-compass-fill"></i><span>Explorar</span></a></li>
-    <li><a routerLink="/notifications" routerLinkActive="active"><i class="bi bi-bell-fill"></i><span>Notificações</span></a></li>
-    <li><a routerLink="/guardados"     routerLinkActive="active"><i class="bi bi-bookmark-fill"></i><span>Guardados</span></a></li>
-    <li><a routerLink="/profile"       routerLinkActive="active"><i class="bi bi-person-fill"></i><span>Perfil</span></a></li>
+@if (layout.sidebarAberto()) {
+  <div class="sidebar-overlay" (click)="layout.fecharSidebar()"></div>
+}
+
+<nav class="sidebar" [class.aberto]="layout.sidebarAberto()">
+
+  <div class="sb-nav-label" style="padding-top:18px">Navegação</div>
+  <ul class="sb-links">
     <li>
-      <a routerLink="/settings" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
+      <a routerLink="/feed" routerLinkActive="active" (click)="navegar()">
+        <i class="bi bi-house-fill"></i><span>Feed</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/explorar" routerLinkActive="active" (click)="navegar()">
+        <i class="bi bi-compass-fill"></i><span>Explorar</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/notifications" routerLinkActive="active" (click)="navegar()">
+        <i class="bi bi-bell-fill"></i><span>Notificações</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/guardados" routerLinkActive="active" (click)="navegar()">
+        <i class="bi bi-bookmark-fill"></i><span>Guardados</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/mensagens" routerLinkActive="active" (click)="navegar()">
+        <i class="bi bi-chat-fill"></i><span>Mensagens</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/profile" routerLinkActive="active" (click)="navegar()">
+        <i class="bi bi-person-fill"></i><span>Perfil</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="sb-nav-label" style="margin-top:8px">Geral</div>
+  <ul class="sb-links">
+    <li>
+      <a routerLink="/settings" routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: false }" (click)="navegar()">
         <i class="bi bi-gear-fill"></i><span>Definições</span>
       </a>
     </li>
   </ul>
 
-  <div class="sidebar-bottom">
-    <button class="publish-btn" routerLink="/feed">
-      <i class="bi bi-pencil-square"></i> PUBLICAR
+  <div class="sb-bottom">
+    <button class="btn-publicar" routerLink="/feed" (click)="navegar()">
+      <i class="bi bi-pencil-square"></i> Publicar
     </button>
-    <button class="logout-btn" (click)="logout()">
+    <button class="btn-logout" (click)="logout()">
       <i class="bi bi-box-arrow-right"></i> Terminar Sessão
     </button>
   </div>
+
 </nav>

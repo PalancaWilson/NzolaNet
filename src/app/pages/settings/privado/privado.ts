@@ -1,38 +1,18 @@
 import { Component } from '@angular/core';
-
-
-
-type AbaDefinicao =
-  | 'conta'
-  | 'notificacoes'
-  | 'privado'
-  | 'aparencia'
-  | 'idioma';
+import { FormsModule } from '@angular/forms';
+import { SettingsService } from '../../../services/settings.service';
 
 @Component({
   selector: 'app-privado',
-  imports: [  ],
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './privado.html',
   styleUrl: './privado.css',
 })
 export class Privado {
+  constructor(public settings: SettingsService) {}
 
-   abaSelecionada: AbaDefinicao = 'privado';
-
-  notificacaoBaze = true;
-  notificacaoComentario = true;
-  notificacaoSeguidor = false;
-
-  modoEscuro = false;
-
-  perfilPrivado = false;
-  mostrarEmail = false;
-
-  idioma = 'Português';
-  regiao = 'Angola';
-
-  selecionarAba(aba: AbaDefinicao): void {
-    this.abaSelecionada = aba;
+  atualizar(chave: 'perfilPrivado' | 'mostrarEmail', valor: boolean): void {
+    this.settings.atualizarDefinicoes({ [chave]: valor });
   }
-
 }

@@ -1,0 +1,45 @@
+<div class="auth-page">
+  <app-auth-layout></app-auth-layout>
+
+  <div class="auth-right">
+    <form class="auth-form" [formGroup]="form" (ngSubmit)="enviar()">
+
+      <span class="small-text">// RECUPERAÇÃO</span>
+      <h1>ESQUECESTE<br>A SENHA?</h1>
+      <p>Introduz o teu email e enviamos um link para criares uma nova senha.</p>
+
+      @if (enviado()) {
+        <div class="alert-success">
+          <i class="bi bi-envelope-check-fill"></i>
+          Email enviado! Verifica a tua caixa de entrada (e o spam).
+        </div>
+      } @else {
+        <label for="email">EMAIL</label>
+        <div class="input-group" [class.input-error]="emailCtrl.touched && emailCtrl.invalid">
+          <i class="bi bi-envelope"></i>
+          <input id="email" type="email" placeholder="tu@nzolanet.app"
+            formControlName="email" autocomplete="email">
+        </div>
+        @if (emailCtrl.touched && emailCtrl.errors?.['required']) {
+          <small class="error">Email obrigatório.</small>
+        }
+        @if (emailCtrl.touched && emailCtrl.errors?.['email']) {
+          <small class="error">Email inválido.</small>
+        }
+
+        <button class="login-btn" type="submit" [disabled]="carregando()">
+          @if (carregando()) {
+            <span class="spinner"></span> A enviar...
+          } @else {
+            <i class="bi bi-send-fill"></i> ENVIAR LINK
+          }
+        </button>
+      }
+
+      <div class="register-link">
+        <a routerLink="/login"><i class="bi bi-arrow-left"></i> Voltar ao login</a>
+      </div>
+
+    </form>
+  </div>
+</div>

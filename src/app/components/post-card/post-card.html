@@ -1,51 +1,65 @@
-<div class="post-card">
+<div class="post-card" (click)="fecharMenu()">
 
   <!-- Cabeçalho -->
-  <div class="post-header">
-    @if (post.author.avatar) {
-      <img class="avatar avatar-img" [src]="post.author.avatar" [alt]="post.author.nome">
+  <div class="post-header" routerLink="/profile/{{ post.autor.id }}" style="cursor:pointer">
+    @if (post.autor.avatar) {
+      <img class="avatar avatar-img" [src]="post.autor.avatar" [alt]="post.autor.nome">
     } @else {
       <div class="avatar">{{ getInitials() }}</div>
     }
 
     <div class="user-info">
       <div class="user-nome">
-        {{ post.author.nome }}
-        @if (post.author.badge === 'verified') {
+        {{ post.autor.nome }}
+        @if (post.autor.emblema === 'verified') {
           <i class="bi bi-patch-check-fill verified-badge"></i>
         }
-        @if (post.author.badge === 'creator') {
+        @if (post.autor.emblema === 'creator') {
           <span class="badge-creator">CREATOR</span>
         }
-        <span>&#64;{{ post.author.username }}</span>
+        <span>&#64;{{ post.autor.nomeUtilizador }}</span>
       </div>
-      <div class="post-time">{{ post.timeAgo }}</div>
+      <div class="post-time">{{ post.tempoDecorrido }}</div>
     </div>
+
+    @if (isOwner) {
+      <div class="post-menu-container">
+        <button class="menu-trigger" (click)="toggleMenu(); $event.stopPropagation()" title="Mais opções">
+          <i class="bi bi-three-dots"></i>
+        </button>
+        @if (menuAberto()) {
+          <div class="menu-dropdown" (click)="$event.stopPropagation()">
+            <button class="menu-item" (click)="editar()"><i class="bi bi-pencil"></i> Editar</button>
+            <button class="menu-item menu-item-danger" (click)="apagar()"><i class="bi bi-trash3"></i> Apagar</button>
+          </div>
+        }
+      </div>
+    }
   </div>
 
   <!-- Conteúdo -->
-  <div class="post-content">
-    <div class="post-text">{{ post.content }}</div>
+  <div class="post-content" routerLink="/post/{{ post.id }}" style="cursor:pointer">
+    <div class="post-text">{{ post.conteudo }}</div>
 
-    @if (post.tags?.length) {
+    @if (post.etiquetas?.length) {
       <div class="post-tags">
-        @for (tag of post.tags; track tag) {
+        @for (tag of post.etiquetas; track tag) {
           <span class="tag">#{{ tag }}</span>
         }
       </div>
     }
 
-    @if (post.image) {
+    @if (post.imagem) {
       <div class="post-media">
-        <img [src]="post.image" [alt]="'Imagem de ' + post.author.nome">
+        <img [src]="post.imagem" [alt]="'Imagem de ' + post.autor.nome">
       </div>
     }
   </div>
 
   <!-- Ações -->
   <div class="post-actions">
-    <button class="action-btn like-btn" [class.liked]="post.liked" (click)="toggleLike()">
-      <i class="bi" [class.bi-heart]="!post.liked" [class.bi-heart-fill]="post.liked"></i>
+    <button class="action-btn like-btn" [class.liked]="post.gostou" (click)="toggleLike()">
+      <i class="bi" [class.bi-heart]="!post.gostou" [class.bi-heart-fill]="post.gostou"></i>
       <span>Bazar</span>
     </button>
 
@@ -54,13 +68,13 @@
       <span>Comentar</span>
     </button>
 
-    <button class="action-btn retweet-btn">
+    <button class="action-btn retweet-btn" (click)="repostar()">
       <i class="bi bi-repeat"></i>
       <span>Repostar</span>
     </button>
 
-    <button class="action-btn save-btn" [class.saved]="post.saved" (click)="toggleGuardar()">
-      <i class="bi" [class.bi-bookmark]="!post.saved" [class.bi-bookmark-fill]="post.saved"></i>
+    <button class="action-btn save-btn" [class.saved]="post.guardado" (click)="toggleGuardar()">
+      <i class="bi" [class.bi-bookmark]="!post.guardado" [class.bi-bookmark-fill]="post.guardado"></i>
       <span>Guardar</span>
     </button>
 
@@ -68,24 +82,34 @@
       <i class="bi bi-share"></i>
       <span>Partilhar</span>
     </button>
+
+    <button class="action-btn report-btn" (click)="denunciar()">
+      <i class="bi bi-flag"></i>
+      <span>Denunciar</span>
+    </button>
   </div>
 
   <!-- Estatísticas -->
   <div class="post-stats">
     <div class="stat">
       <i class="bi bi-heart"></i>
-      <strong>{{ post.likes }}</strong>
+      <strong>{{ post.gostos }}</strong>
       <span>bazes</span>
     </div>
     <div class="stat">
       <i class="bi bi-chat"></i>
-      <strong>{{ post.comments }}</strong>
+      <strong>{{ post.comentarios }}</strong>
       <span>comentários</span>
     </div>
     <div class="stat">
       <i class="bi bi-repeat"></i>
-      <strong>{{ post.shares }}</strong>
+      <strong>{{ post.partilhas }}</strong>
       <span>repostas</span>
+    </div>
+    <div class="stat">
+      <i class="bi bi-flag"></i>
+      <strong>0</strong>
+      <span>Denuncias</span>
     </div>
   </div>
 

@@ -1,1 +1,91 @@
-<p>explore works!</p>
+<div class="content-area">
+
+  <div class="page-header">
+    <p>// descobre criadores e tendências</p>
+    <h1>EXPLORAR</h1>
+  </div>
+
+  <!-- PESQUISA -->
+  <div class="search-bar">
+    <i class="bi bi-search"></i>
+    <input type="text" placeholder="Pesquisar pessoas, publicações ou tópicos..."
+      [value]="termoPesq()" (input)="pesquisar($any($event.target).value)">
+    @if (termoPesq()) {
+      <button (click)="pesquisar('')"><i class="bi bi-x-lg"></i></button>
+    }
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button [class.active]="categoria()==='tudo'"       (click)="categoria.set('tudo')">Tudo</button>
+    <button [class.active]="categoria()==='pessoas'"    (click)="categoria.set('pessoas')">Pessoas</button>
+    <button [class.active]="categoria()==='posts'"      (click)="categoria.set('posts')">Posts</button>
+    <button [class.active]="categoria()==='tendencias'" (click)="categoria.set('tendencias')">Tendências</button>
+  </div>
+
+  <!-- PESSOAS -->
+  @if (categoria() === 'tudo' || categoria() === 'pessoas') {
+    <section class="section">
+      <h2 class="section-title"><i class="bi bi-people-fill"></i> Pessoas</h2>
+      <div class="users-grid">
+        @for (u of utilizadoresFiltrados(); track u.id) {
+          <div class="user-card">
+            <a [routerLink]="['/profile', u.id]" class="user-card-top">
+              <img [src]="u.avatar" [alt]="u.nome" class="uc-avatar">
+              <div class="uc-info">
+                <span class="uc-name">{{ u.nome }}</span>
+                <span class="uc-user">&#64;{{ u.nomeUtilizador }}</span>
+                @if (u.biografia) { <span class="uc-bio">{{ u.biografia }}</span> }
+              </div>
+            </a>
+            <div class="uc-stats"><strong>{{ u.seguidores }}</strong> seguidores</div>
+            <button class="btn-seguir" [class.seguindo]="estaSeguindo(u.id)" (click)="toggleSeguir(u.id)">
+              @if (estaSeguindo(u.id)) {
+                <i class="bi bi-person-check-fill"></i> A Seguir
+              } @else {
+                <i class="bi bi-person-plus"></i> Seguir
+              }
+            </button>
+          </div>
+        } @empty {
+          <div class="empty-state"><i class="bi bi-person-x"></i><p>Nenhuma pessoa encontrada.</p></div>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- POSTS -->
+  @if (categoria() === 'tudo' || categoria() === 'posts') {
+    <section class="section">
+      <h2 class="section-title"><i class="bi bi-grid-fill"></i> Publicações</h2>
+      <div class="posts-list">
+        @for (post of postsFiltrados(); track post.id) {
+          <app-post-card [post]="post"></app-post-card>
+        } @empty {
+          <div class="empty-state"><i class="bi bi-file-x"></i><p>Nenhuma publicação encontrada.</p></div>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- TENDÊNCIAS -->
+  @if (categoria() === 'tudo' || categoria() === 'tendencias') {
+    <section class="section">
+      <h2 class="section-title"><i class="bi bi-fire"></i> Em Alta</h2>
+      <div class="trends-grid">
+        @for (t of tendenciasFiltradas(); track t.tag) {
+          <div class="trend-card" (click)="pesquisar(t.tag)">
+            <span class="trend-hash">#</span>
+            <div>
+              <span class="trend-tag">{{ t.tag }}</span>
+              <small>{{ t.posts | number }} publicações</small>
+            </div>
+          </div>
+        } @empty {
+          <div class="empty-state"><i class="bi bi-hash"></i><p>Nenhuma tendência.</p></div>
+        }
+      </div>
+    </section>
+  }
+
+</div>

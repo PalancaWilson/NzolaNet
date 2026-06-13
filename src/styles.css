@@ -1,0 +1,112 @@
+:root {
+  --purple: #c92df1;
+  --purple-light: #f3e8ff;
+  --border: #e8e8ef;
+  --text: #0f1419;
+  --text-muted: #71767b;
+  --text-sub: #515970;
+  --topbar-h: 70px;
+  --sidebar-w: 260px;
+  --bg: #ffffff;
+  --bg-body: #fafafd;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  --pink: #f91880;
+  --green: #00ba7c;
+  --blue: #1d9bf0;
+}
+
+/* ── Classes globais de layout ──────────────────────────────── */
+
+.content-area {
+  flex: 1;
+  padding: 16px 32px 32px;
+  max-width: 100%;
+  overflow-y: auto;
+}
+
+.page-header {
+  margin-bottom: 16px;
+}
+
+.page-header h1 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  text-transform: uppercase;
+  color: var(--text);
+  margin: 0;
+}
+
+.page-header p {
+  margin-top: 6px;
+  color: var(--text-sub);
+  font-size: 15px;
+}
+
+/* ── Cards reutilizáveis ────────────────────────────────────── */
+
+.card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+/* ── Dark mode ──────────────────────────────────────────────── */
+
+.dark-mode {
+  color-scheme: dark;
+}
+
+.dark-mode body {
+  background: #1a1a2e;
+  color: #e0e0e0;
+}
+
+.dark-mode .sidebar,
+.dark-mode .topbar,
+.dark-mode .bottom-nav {
+  background: #16213e;
+  border-color: #2a2a4a;
+}
+
+.dark-mode .post-card,
+.dark-mode .card,
+.dark-mode .right-sidebar-card {
+  background: #16213e;
+  border-color: #2a2a4a;
+}
+
+.dark-mode .right-side {
+  background: #1a1a2e;
+}
+
+.dark-mode .input-group {
+  background: #16213e;
+  border-color: #2a2a4a;
+}
+
+.dark-mode .input-group input,
+.dark-mode .input-group textarea,
+.dark-mode .input-group select {
+  color: #e0e0e0;
+}
+
+.dark-mode .form-container h1,
+.dark-mode .page-header h1 {
+  color: #e0e0e0;
+}
+
+.dark-mode .login-container {
+  background: #1a1a2e;
+}
+
+.dark-mode .alert-error {
+  background: rgba(249, 24, 128, 0.12);
+}
+
+.dark-mode .demo-hint {
+  border-color: #2a2a4a;
+}

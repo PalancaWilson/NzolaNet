@@ -1,20 +1,20 @@
 export interface Post {
   id: string;
-  author: {
+  autor: {
     id: string;
     nome: string;
-    username: string;
+    nomeUtilizador: string;
     avatar: string;
-    badge?: 'creator' | 'verified' | 'premium';
+    emblema?: 'creator' | 'verified' | 'premium';
   };
-  content: string;
-  image?: string;
-  tags?: string[];
-  likes: number;
-  comments: number;
-  shares: number;
-  saves: number;
-  timeAgo: string;
-  liked?: boolean;
-  saved?: boolean;
+  conteudo: string;
+  imagem?: string;
+  etiquetas?: string[];
+  gostos: number;
+  comentarios: number;
+  partilhas: number;
+  guardados: number;
+  tempoDecorrido: string;
+  gostou?: boolean;
+  guardado?: boolean;
 }

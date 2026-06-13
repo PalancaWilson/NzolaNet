@@ -1,24 +1,23 @@
 import { Component, OnInit, signal, computed } from '@angular/core';
-import { Sidebar } from "../../components/sidebar/sidebar";
-import { Topbar } from "../../components/topbar/topbar";
 import { Notifications, NotificationType } from '../../models/notifications.model';
-import { MockDataService } from '../../services/mock-data.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 type Filtro = 'todas' | NotificationType;
 
 @Component({
   selector: 'app-notifications',
   standalone: true,
-  imports: [Sidebar, Topbar],
+  imports: [],
   templateUrl: './notifications.html',
   styleUrls: ['./notifications.css']
 })
-export class Notification  implements OnInit{
+export class Notification implements OnInit {
+  private readonly API_URL = environment.apiUrl;
 
   private _notificacoes = signal<Notifications[]>([]);
   filtroActivo          = signal<Filtro>('todas');
 
-  // Computed — refiltra automaticamente quando filtro ou lista muda
   notificacoesFiltradas = computed(() => {
     const f = this.filtroActivo();
     return f === 'todas'
@@ -27,25 +26,30 @@ export class Notification  implements OnInit{
   });
 
   naoLidas = computed(() =>
-    this._notificacoes().filter(n => !n.read).length
+    this._notificacoes().filter(n => !n.lida).length
   );
 
-  constructor(private mock: MockDataService) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this._notificacoes.set(this.mock.getNotifications());
+    this.http.get<Notifications[]>(`${this.API_URL}/notificacoes`).subscribe(n => {
+      this._notificacoes.set(n ?? []);
+    });
   }
 
   setFiltro(f: Filtro): void { this.filtroActivo.set(f); }
 
   marcarLida(id: string): void {
-    this._notificacoes.update(lista =>
-      lista.map(n => n.id === id ? { ...n, read: true } : n)
-    );
+    this.http.put(`${this.API_URL}/notificacoes/${id}/ler`, {}).subscribe(() => {
+      this._notificacoes.update(lista =>
+        lista.map(n => n.id === id ? { ...n, lida: true } : n),
+      );
+    });
   }
 
   marcarTodasLidas(): void {
-    this._notificacoes.update(lista => lista.map(n => ({ ...n, read: true })));
+    // TODO: endpoint para marcar todas como lidas
+    this._notificacoes.update(lista => lista.map(n => ({ ...n, lida: true })));
   }
 
   getIcone(tipo: string): string {
@@ -67,6 +71,4 @@ export class Notification  implements OnInit{
     };
     return mapa[tipo] ?? '#71767b';
   }
-
- 
 }

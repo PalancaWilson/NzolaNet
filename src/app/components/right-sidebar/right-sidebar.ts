@@ -1,47 +1,65 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-right-sidebar',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [RouterLink],
   templateUrl: './right-sidebar.html',
   styleUrl: './right-sidebar.css',
 })
-export class RightSidebar {
-   
-  suggestions = [
-    { id: 1, name: 'Palanc Wilson', subtitle: 'Seguido por Ana Clara', avatar: 'assets/tiago.jpg' },
-    { id: 2, name: 'Mário Ricardo', subtitle: '12 amigos em comum', avatar: 'assets/beatriz.jpg' },
-    { id: 3, name: 'Cota Moises', subtitle: 'Novo na Baze', avatar: 'assets/marco.jpg' }
-  ];
+export class RightSidebar implements OnInit {
+  private readonly API_URL = environment.apiUrl;
+  seguindoMap = signal<Record<string, boolean>>({});
+  suggestions: { id: string; nome: string; subtitle: string; avatar: string }[] = [];
+  notifications: { id: string; type: string; nome: string; texto: string; tempo: string }[] = [];
 
-  notifications = [
-    { id: 1, type: 'baze', senderName: 'Lucas', text: 'deu um baze na tua publicação.', time: 'AGORA' },
-    { id: 2, type: 'follow', senderName: 'Sofia', text: 'começou a seguir-te.', time: '5 MIN' },
-    { id: 3, type: 'comment', senderName: 'Rui', text: 'comentou: "Top!"', time: '1 H' }
-  ];
+  constructor(
+    readonly userService: UserService,
+    private http: HttpClient,
+  ) {}
 
-  followUser(userId: number): void {
-    console.log(`Solicitação para seguir o utilizador com ID: ${userId}`);
-    // Aqui ligarás ao teu serviço do Laravel para atualizar a tabela 'follows'
-  }
-
-  viewAllNotifications(): void {
-    console.log('Navegar para a página completa de notificações');
-  }
-
-  // Define uma classe de ícone dependendo do tipo da resposta (ex: FontAwesome ou Boxicons)
-  getNotificationIcon(type: string): string {
-    switch (type) {
-      case 'baze': return 'fa-solid fa-bolt';     // Ícone de raio/baze
-      case 'follow': return 'fa-solid fa-user-plus'; // Ícone de seguir
-      case 'comment': return 'fa-solid fa-comment';  // Ícone de comentário
-      default: return 'fa-solid fa-bell';
+  ngOnInit(): void {
+    this.http.get<any[]>(`${this.API_URL}/utilizadores`).subscribe(users => {
+      this.suggestions = (users ?? []).map(u => ({
+        id: u.id,
+        nome: u.nome,
+        subtitle: u.biografia ? `Seguidores: ${u.seguidores}` : 'Novo na Baze',
+        avatar: u.foto_perfil || 'https://i.pravatar.cc/150?img=' + (Math.floor(Math.random() * 70) + 1),
+      }));
+    });
+    this.http.get<any[]>(`${this.API_URL}/notificacoes`).subscribe(notifs => {
+      this.notifications = (notifs ?? []).map(n => ({
+        id: n.id,
+        type: n.type,
+        nome: n.autor?.nome ?? '',
+        texto: n.mensagem ?? '',
+        tempo: (n.tempoDecorrido ?? '').toUpperCase(),
+      }));
+    });
+    const meuId = this.userService.perfil()?.id;
+    if (meuId) {
+      this.http.get<any[]>(`${this.API_URL}/utilizadores/${meuId}/seguindo`).subscribe(lista => {
+        const map: Record<string, boolean> = {};
+        (lista ?? []).forEach((u: any) => { if (u.id) map[u.id] = true; });
+        this.seguindoMap.set(map);
+      });
     }
   }
+
+  toggleSeguir(id: string): void {
+    const seguindo = this.seguindoMap()[id];
+    const req$ = seguindo
+      ? this.http.delete(`${this.API_URL}/utilizadores/${id}/deixar-de-seguir`)
+      : this.http.post(`${this.API_URL}/utilizadores/${id}/seguir`, {});
+    req$.subscribe(() => this.seguindoMap.update(m => ({ ...m, [id]: !m[id] })));
+  }
+  estaSeguindo(id: string): boolean { return !!this.seguindoMap()[id]; }
+
+  getIcone(tipo: string): string {
+    return ({ baze:'bi bi-heart-fill', follow:'bi bi-person-plus-fill', comment:'bi bi-chat-fill' } as any)[tipo] ?? 'bi bi-bell-fill';
+  }
 }
-
-
-
-
-

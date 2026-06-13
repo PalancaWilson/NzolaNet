@@ -1,28 +1,62 @@
 <div class="create-post-card">
   <div class="post-top">
-
-    <!-- Avatar real do utilizador -->
     @if (userService.fotoPerfil()) {
       <img [src]="userService.fotoPerfil()" [alt]="userService.nome()" class="avatar">
     } @else {
       <div class="avatar avatar-initials">{{ userService.iniciais() }}</div>
     }
 
-    <textarea
-      [ngModel]="text()"
-      (ngModelChange)="text.set($event)"
-      [maxlength]="limite"
-      [placeholder]="'O que estás a pensar, ' + (userService.nome().split(' ')[0] || 'Baze') + '?'"
-      rows="2"
-    ></textarea>
+    <div class="textarea-wrap">
+      <textarea
+        [ngModel]="text()"
+        (ngModelChange)="text.set($event)"
+        [maxlength]="limite"
+        [placeholder]="'O que estás a pensar, ' + (userService.nome().split(' ')[0] || 'Baze') + '?'"
+        rows="2"
+      ></textarea>
+
+      @if (selectedImage(); as img) {
+        <div class="preview-wrap">
+          <img [src]="img" class="preview-img">
+          <button class="btn-remove-preview" (click)="removerImagem()" type="button">&times;</button>
+        </div>
+      }
+
+      @if (selectedVideo(); as vid) {
+        <div class="preview-wrap">
+          <video [src]="vid" class="preview-video" controls></video>
+          <button class="btn-remove-preview" (click)="removerVideo()" type="button">&times;</button>
+        </div>
+      }
+    </div>
   </div>
+
+  @if (showEmojiPicker()) {
+    <div class="emoji-picker">
+      @for (e of emojis; track e) {
+        <button type="button" class="emoji-btn" (click)="inserirEmoji(e)">{{ e }}</button>
+      }
+    </div>
+  }
 
   <div class="post-bottom">
     <div class="actions">
-      <button type="button" title="Imagem"><i class="bi bi-image"></i></button>
-      <button type="button" title="Vídeo"><i class="bi bi-camera-video"></i></button>
-      <button type="button" title="Emoji"><i class="bi bi-emoji-smile"></i></button>
-      <button type="button" title="Localização"><i class="bi bi-geo-alt"></i></button>
+      <button type="button" title="Imagem" (click)="imgInput.click()">
+        <i class="bi bi-image"></i>
+      </button>
+      <input #imgInput type="file" accept="image/*" (change)="onImageSelected($event)" hidden>
+
+      <button type="button" title="Vídeo" (click)="vidInput.click()">
+        <i class="bi bi-camera-video"></i>
+      </button>
+      <input #vidInput type="file" accept="video/*" (change)="onVideoSelected($event)" hidden>
+
+      <button type="button" title="Emoji" (click)="toggleEmojiPicker()">
+        <i class="bi bi-emoji-smile"></i>
+      </button>
+      <button type="button" title="Localização" (click)="localizacao()">
+        <i class="bi bi-geo-alt"></i>
+      </button>
     </div>
     <div class="post-info">
       <span class="counter" [class.danger]="quaseNoLimite">{{ restantes }}</span>

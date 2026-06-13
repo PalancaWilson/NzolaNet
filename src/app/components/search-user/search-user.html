@@ -1,0 +1,40 @@
+<div class="search-overlay" (click)="fechar()">
+  <div class="search-card" (click)="$event.stopPropagation()">
+
+    <div class="search-header">
+      <h3><i class="bi bi-person-plus"></i> Nova conversa</h3>
+      <button class="search-close" (click)="fechar()"><i class="bi bi-x-lg"></i></button>
+    </div>
+
+    <div class="search-field">
+      <i class="bi bi-search"></i>
+      <input
+        [(ngModel)]="termo"
+        placeholder="Pesquisar utilizadores..."
+        autofocus
+      >
+    </div>
+
+    <div class="search-results">
+      @for (u of resultados(); track u.username) {
+        <button class="search-item" (click)="selecionar(u)">
+          @if (u.avatar) {
+            <img [src]="u.avatar" [alt]="u.nome" class="search-avatar">
+          } @else {
+            <div class="search-avatar search-avatar-initials">{{ u.nome[0] }}</div>
+          }
+          <div class="si-info">
+            <span class="si-nome">{{ u.nome }}</span>
+            <span class="si-user">&#64;{{ u.username }}</span>
+          </div>
+        </button>
+      } @empty {
+        <div class="search-empty">
+          <i class="bi bi-emoji-frown"></i>
+          <p>Nenhum utilizador encontrado</p>
+        </div>
+      }
+    </div>
+
+  </div>
+</div>

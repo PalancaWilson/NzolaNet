@@ -1,38 +1,18 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Sidebar } from '../../../components/sidebar/sidebar';
-import { Topbar } from '../../../components/topbar/topbar';
-
-type AbaDefinicao =
-  | 'conta'
-  | 'notificacoes'
-  | 'privado'
-  | 'aparencia'
-  | 'idioma';
+import { SettingsService } from '../../../services/settings.service';
 
 @Component({
   selector: 'app-idiomas',
-  imports: [FormsModule, Sidebar, Topbar],
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './idiomas.html',
   styleUrl: './idiomas.css',
 })
 export class Idiomas {
+  constructor(public settings: SettingsService) {}
 
-  abaSelecionada: AbaDefinicao = 'idioma';
-  
-notificacaoBaze = true
-  notificacaoComentario = true;
-  notificacaoSeguidor = false;
-
-  modoEscuro = false;
-
-  perfilPrivado = false;
-  mostrarEmail = false;
-
-  idioma = 'Português';
-  regiao = 'Angola';
-
-  selecionarAba(aba: AbaDefinicao): void {
-    this.abaSelecionada = aba;
+  atualizar(chave: 'idioma' | 'regiao', valor: string): void {
+    this.settings.atualizarDefinicoes({ [chave]: valor });
   }
 }

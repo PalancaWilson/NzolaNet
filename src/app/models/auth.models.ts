@@ -16,7 +16,7 @@ export interface RegisterPayload {
 
 export interface AuthResponse {
   token: string;
-  user: {
+  utilizador: {
       id: string;
       nome: string;
       email: string;

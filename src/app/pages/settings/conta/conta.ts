@@ -1,38 +1,48 @@
-import { Component } from '@angular/core';
-
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-
-type AbaDefinicao =
-  | 'conta'
-  | 'notificacoes'
-  | 'privado'
-  | 'aparencia'
-  | 'idioma';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-conta',
+  standalone: true,
   imports: [FormsModule],
   templateUrl: './conta.html',
   styleUrl: './conta.css',
 })
 export class Conta {
+  nome = signal('');
+  email = signal('');
+  senha = signal('');
+  salvando = signal(false);
+  salvo = signal(false);
 
-  abaSelecionada: AbaDefinicao = 'conta';
-  
-  notificacaoBaze = true
-  notificacaoComentario = true;
-  notificacaoSeguidor = false;
+  constructor(readonly userService: UserService) {
+    const perfil = this.userService.perfil();
+    if (perfil) {
+      this.nome.set(perfil.nome);
+      this.email.set(perfil.email);
+    }
+  }
 
-  modoEscuro = false;
+  salvar(): void {
+    const dados: Record<string, string> = {};
+    const nome = this.nome().trim();
+    const email = this.email().trim();
+    const senha = this.senha().trim();
 
-  perfilPrivado = false;
-  mostrarEmail = false;
+    if (nome) dados['nome'] = nome;
+    if (email) dados['email'] = email;
+    if (senha) dados['senha'] = senha;
+    if (!nome && !email && !senha) return;
 
-  idioma = 'Português';
-  regiao = 'Angola';
+    this.salvando.set(true);
+    this.salvo.set(false);
 
-  selecionarAba(aba: AbaDefinicao): void {
-    this.abaSelecionada = aba;
+    this.userService.atualizarPerfil(dados).subscribe(() => {
+      this.salvando.set(false);
+      this.salvo.set(true);
+      this.senha.set('');
+      setTimeout(() => this.salvo.set(false), 3000);
+    });
   }
 }

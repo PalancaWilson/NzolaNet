@@ -1,12 +1,12 @@
 export interface User {
   id: string;
-  name: string;
-  username: string;
+  nome: string;
+  nomeUtilizador: string;
   avatar: string;
-  bio?: string;
-  followers: number;
-  following: number;
+  biografia?: string;
+  seguidores: number;
+  seguindo: number;
   bazes: number;
-  isFollowing?: boolean;
-  badge?: 'creator' | 'verified' | 'premium';
+  estaSeguindo?: boolean;
+  emblema?: 'creator' | 'verified' | 'premium';
 }

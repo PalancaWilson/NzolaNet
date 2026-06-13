@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { RightSidebar } from './right-sidebar';
 
@@ -9,6 +10,7 @@ describe('RightSidebar', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RightSidebar],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RightSidebar);

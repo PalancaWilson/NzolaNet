@@ -7,18 +7,16 @@
     <form class="form-container" [formGroup]="loginForm" (ngSubmit)="entrar()">
 
       <span class="small-text">// ACESSO</span>
-      <h1>BEM-VINDO DE VOLTA</h1>
-      <p>Entra com o teu email para continuares a bazar.</p>
+      <h1>BEM-VINDO<br>AO NZOLANET</h1>
+      <p>Conexão é simbolo de amor, faça parte da melhor rede social de Angola.</p>
 
-      <!-- ERRO DO SERVIDOR -->
       @if (erroServidor()) {
         <div class="alert-error">
           <i class="bi bi-exclamation-circle"></i>
-          {{ erroServidor() }}
+          <span>{{ erroServidor() }}</span>
         </div>
       }
 
-      <!-- EMAIL -->
       <label for="email">EMAIL</label>
       <div class="input-group" [class.input-error]="emailCtrl.touched && emailCtrl.invalid">
         <i class="bi bi-envelope"></i>
@@ -31,7 +29,7 @@
         >
       </div>
 
-      @if (emailCtrl.touched) {
+      @if (emailCtrl.touched && emailCtrl.invalid) {
         @if (emailCtrl.errors?.['required']) {
           <small class="error">O email é obrigatório.</small>
         }
@@ -40,60 +38,50 @@
         }
       }
 
-      <!-- PASSWORD -->
       <label for="senha">PALAVRA-PASSE</label>
       <div class="input-group" [class.input-error]="passwordCtrl.touched && passwordCtrl.invalid">
         <i class="bi bi-lock"></i>
         <input
           id="senha"
-          [type]="mostrarPassword() ? 'text' : 'senha'"
+          [type]="mostrarPassword() ? 'text' : 'password'"
           placeholder="Mínimo 6 caracteres"
           formControlName="senha"
           autocomplete="current-password"
         >
-        <i
-          class="bi"
-          [class.bi-eye]="!mostrarPassword()"
-          [class.bi-eye-slash]="mostrarPassword()"
-          style="cursor:pointer"
-          (click)="alternarPassword()"
-        ></i>
+        <button type="button" class="toggle-pw" (click)="alternarPassword()" aria-label="Alternar visibilidade da senha">
+          <i class="bi" [class.bi-eye]="!mostrarPassword()" [class.bi-eye-slash]="mostrarPassword()"></i>
+        </button>
       </div>
 
-      @if (passwordCtrl.touched) {
+      @if (passwordCtrl.touched && passwordCtrl.invalid) {
         @if (passwordCtrl.errors?.['required']) {
           <small class="error">A palavra-passe é obrigatória.</small>
         }
         @if (passwordCtrl.errors?.['minlength']) {
-          <small class="error">A palavra-passe deve ter pelo menos 6 caracteres.</small>
+          <small class="error">Mínimo 6 caracteres.</small>
         }
       }
 
-      <!-- LINKS -->
       <div class="forgot-password">
-        <a routerLink="/recuperar-password">Esqueceste a senha?</a>
+        <a routerLink="/recuperar-senha">Esqueceste a senha?</a>
       </div>
 
-      <!-- BOTÃO -->
-      <button
-        class="login-btn"
-        type="submit"
-        [disabled]="carregando()"
-      >
+      <button class="login-btn" type="submit" [disabled]="carregando()">
         @if (carregando()) {
           <span class="spinner"></span>
           A entrar...
         } @else {
           <i class="bi bi-lightning-charge-fill"></i>
-          ENTRAR NA BAZE
+          Entrar
         }
       </button>
 
-      <!-- REGISTO -->
       <div class="register-link">
         Ainda não tens conta?
         <a routerLink="/register">Cria uma agora</a>
       </div>
+
+
 
     </form>
 

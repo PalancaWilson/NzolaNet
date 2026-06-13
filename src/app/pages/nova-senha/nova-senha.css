@@ -1,0 +1,43 @@
+/* Reutiliza os estilos do recuperar-senha — copiar aqui para standalone */
+.auth-page   { display: flex; min-height: 100vh; }
+.auth-right  { flex: 1; display: flex; align-items: center; justify-content: center; padding: 60px 40px; background: #fafafd; }
+.auth-form   { width: 100%; max-width: 480px; }
+.small-text  { display: block; font-size: 11px; font-weight: 800; letter-spacing: 4px; color: #71767b; text-transform: uppercase; margin-bottom: 14px; }
+h1           { font-size: 44px; font-weight: 900; line-height: 1; margin-bottom: 14px; }
+p            { color: #515970; font-size: 16px; line-height: 1.5; margin-bottom: 40px; }
+label        { display: block; font-size: 11px; font-weight: 800; letter-spacing: 3px; color: #71767b; text-transform: uppercase; margin-bottom: 10px; }
+.input-group {
+  display: flex; align-items: center; gap: 14px;
+  height: 56px; padding: 0 18px; border: 1.5px solid #e2e3ea; border-radius: 18px; background: #fff;
+  margin-bottom: 6px; transition: border-color .2s;
+}
+.input-group:focus-within { border-color: #c92df1; box-shadow: 0 0 0 3px rgba(201,45,241,.1); }
+.input-group i     { color: #71767b; font-size: 18px; flex-shrink: 0; }
+.input-group input { flex: 1; border: none; outline: none; background: transparent; font-size: 16px; color: #111421; }
+.input-error       { border-color: #f91880 !important; }
+.error             { color: #f91880; font-size: 12px; display: block; margin-bottom: 8px; }
+.login-btn {
+  width: 100%; height: 64px; margin-top: 24px; border: none; border-radius: 20px;
+  background: linear-gradient(135deg, #c92df1, #8b5cf6); color: #fff;
+  font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px;
+  cursor: pointer; transition: opacity .2s;
+}
+.login-btn:hover    { opacity: .88; }
+.login-btn:disabled { opacity: .6; cursor: not-allowed; }
+.spinner {
+  width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4);
+  border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.alert-success {
+  background: rgba(0,186,124,.08); border: 1px solid rgba(0,186,124,.3);
+  border-radius: 12px; color: #00ba7c; padding: 16px; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px; font-size: 14px;
+}
+.register-link { margin-top: 28px; text-align: center; }
+.register-link a { color: #c92df1; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
+@media (max-width: 768px) {
+  .auth-page { flex-direction: column; }
+  .auth-right { padding: 40px 20px; }
+  h1 { font-size: 32px; }
+}

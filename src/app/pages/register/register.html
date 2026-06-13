@@ -60,7 +60,6 @@
             placeholder="tu@nzolanet.app"
             formControlName="email"
             autocomplete="email"
-            (blur)="verificarEmailDuplicado()"
           >
           @if (campo('email').valid && campo('email').value) {
             <i class="bi bi-check-circle-fill input-valid-icon"></i>
@@ -95,8 +94,11 @@
             (click)="alternarSenha()"
           ></i>
         </div>
-        @if (campo('senha').touched && campo('senha').errors?.['required'])  { <small class="error">Senha obrigatória.</small> }
-        @if (campo('senha').touched && campo('senha').errors?.['minlength']) { <small class="error">Mínimo 8 caracteres.</small> }
+        @if (campo('senha').touched && campo('senha').errors?.['required'])    { <small class="error">Senha obrigatória.</small> }
+        @if (campo('senha').touched && campo('senha').errors?.['minlength'])   { <small class="error">Mínimo 8 caracteres.</small> }
+        @if (campo('senha').touched && campo('senha').errors?.['semMaiuscula']) { <small class="error">Deve ter pelo menos uma maiúscula.</small> }
+        @if (campo('senha').touched && campo('senha').errors?.['semNumero'])    { <small class="error">Deve ter pelo menos um número.</small> }
+        @if (campo('senha').touched && campo('senha').errors?.['semEspecial'])  { <small class="error">Deve ter pelo menos um carácter especial.</small> }
 
         <!-- INDICADOR DE FORÇA -->
         @if (campo('senha').value) {

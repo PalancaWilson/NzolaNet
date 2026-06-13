@@ -290,3 +290,68 @@
   background: rgba(201, 45, 241, 0.08);
   color: #c92df1;
 }
+
+/* ── Menu de opções (editar/apagar) ───────────────────── */
+.post-menu-container {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.menu-trigger {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s, color .2s;
+}
+
+.menu-trigger:hover {
+  background: var(--purple-light);
+  color: var(--purple);
+}
+
+.menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.12);
+  min-width: 150px;
+  z-index: 50;
+  overflow: hidden;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  background: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: background .15s;
+}
+
+.menu-item:hover {
+  background: var(--purple-light);
+}
+
+.menu-item-danger {
+  color: var(--pink);
+}
+
+.menu-item-danger:hover {
+  background: rgba(249, 24, 128, .08);
+}

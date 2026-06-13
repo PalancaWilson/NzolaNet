@@ -1,13 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { Feed } from './feed';
 
-describe('Freed', () => {
+describe('Feed', () => {
   let component: Feed;
   let fixture: ComponentFixture<Feed>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Feed],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Feed);

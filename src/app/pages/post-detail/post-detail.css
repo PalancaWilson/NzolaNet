@@ -1,0 +1,230 @@
+.post-detail-page { max-width: 720px; }
+
+.back-bar { margin-bottom: 20px; }
+.back-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--text-muted); font-weight: 600; font-size: 14px; transition: color .2s;
+}
+.back-btn:hover { color: var(--purple); }
+
+.post-main { margin-bottom: 8px; }
+
+/* Caixa de comentário */
+.comment-box {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 16px;
+  padding: 16px; margin-bottom: 6px;
+}
+.comment-input-wrap { display: flex; gap: 12px; align-items: flex-start; }
+.comment-avatar {
+  width: 40px; height: 40px; border-radius: 50%; object-fit: cover;
+  flex-shrink: 0; border: 2px solid var(--purple-light);
+}
+.comment-initials {
+  background: linear-gradient(135deg, var(--purple), #8b5cf6);
+  color: #fff; font-weight: 700; font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+}
+.comment-field { flex: 1; }
+.comment-field textarea {
+  width: 100%; border: 1.5px solid var(--border); border-radius: 12px;
+  padding: 10px 14px; font-size: 15px; font-family: inherit;
+  background: #fafafd; resize: none; outline: none; transition: border-color .2s;
+  box-sizing: border-box;
+}
+.comment-field textarea:focus { border-color: var(--purple); background: var(--bg); }
+
+.reply-context {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--purple-light); padding: 6px 12px;
+  border-radius: 8px 8px 0 0; font-size: 13px; color: var(--text-sub);
+  margin-bottom: -1px;
+}
+.btn-cancel-reply {
+  background: none; border: none; color: var(--text-muted);
+  cursor: pointer; padding: 2px; margin-left: auto;
+  font-size: 18px; line-height: 1;
+}
+.btn-cancel-reply:hover { color: var(--pink); }
+.comment-footer {
+  display: flex; justify-content: space-between; align-items: center; margin-top: 8px;
+}
+.char-count        { font-size: 12px; color: var(--text-muted); }
+.char-count.danger { color: var(--pink); }
+.btn-send {
+  display: flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, var(--purple), #8b5cf6);
+  color: #fff; border: none; padding: 9px 18px; border-radius: 12px;
+  font-weight: 700; font-size: 13px; cursor: pointer; transition: opacity .2s;
+}
+.btn-send:hover    { opacity: .88; }
+.btn-send:disabled { opacity: .5; cursor: not-allowed; }
+
+/* Lista de comentários */
+.comments-section { margin-top: 12px; }
+.comments-title {
+  font-size: 16px; font-weight: 800; margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px; color: var(--text);
+}
+.comments-title i { color: var(--purple); }
+
+.comment-item {
+  display: flex; gap: 12px; padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.comment-item:last-child { border-bottom: none; }
+
+.comment-body { flex: 1; min-width: 0; }
+.comment-header {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 4px;
+}
+.comment-header strong { font-size: 14px; font-weight: 700; }
+.comment-user          { font-size: 13px; color: var(--text-muted); }
+.comment-time          { font-size: 12px; color: var(--text-muted); }
+.comment-text          { font-size: 15px; line-height: 1.5; color: var(--text); }
+.reply-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px; color: var(--purple); margin-bottom: 4px;
+}
+.comment-actions { display: flex; gap: 16px; margin-top: 8px; }
+.comment-baze, .comment-reply {
+  display: flex; align-items: center; gap: 5px;
+  background: none; border: none; font-size: 13px; color: var(--text-muted);
+  cursor: pointer; padding: 4px 8px; border-radius: 8px; transition: .2s;
+}
+.comment-baze:hover  { background: rgba(249,24,128,.08); color: var(--pink); }
+.comment-reply:hover { background: #f3e8ff; color: var(--purple); }
+.comment-baze.bazado { color: var(--pink); }
+.comment-baze.bazado i { color: var(--pink); }
+
+.spinner {
+  width: 14px; height: 14px; border: 2px solid rgba(255,255,255,.4);
+  border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite;
+  display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 480px) {
+  .comment-input-wrap { gap: 8px; }
+  .comment-field textarea { font-size: 14px; }
+}
+
+/* ── Editar comentário inline ─────────────────────────── */
+.edit-comment-area {
+  margin: 6px 0;
+}
+
+.edit-textarea {
+  width: 100%;
+  border: 1.5px solid var(--purple);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--bg);
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+.btn-cancel-edit,
+.btn-save-edit {
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity .2s;
+}
+
+.btn-cancel-edit {
+  background: var(--purple-light);
+  color: var(--text);
+}
+
+.btn-save-edit {
+  background: var(--purple);
+  color: var(--bg);
+}
+
+.btn-cancel-edit:hover,
+.btn-save-edit:hover {
+  opacity: .85;
+}
+
+/* ── Menu de opções do comentário ─────────────────────── */
+.comment-menu-container {
+  position: relative;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.comment-menu-trigger {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s, color .2s;
+  font-size: 14px;
+}
+
+.comment-menu-trigger:hover {
+  background: var(--purple-light);
+  color: var(--purple);
+}
+
+.comment-menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.12);
+  min-width: 130px;
+  z-index: 50;
+  overflow: hidden;
+}
+
+.comment-menu-dropdown .menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 14px;
+  border: none;
+  background: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: background .15s;
+}
+
+.comment-menu-dropdown .menu-item:hover {
+  background: var(--purple-light);
+}
+
+.comment-menu-dropdown .menu-item-danger {
+  color: var(--pink);
+}
+
+.comment-menu-dropdown .menu-item-danger:hover {
+  background: rgba(249, 24, 128, .08);
+}
+
+
