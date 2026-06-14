@@ -2,7 +2,7 @@ import { Injectable, signal, computed, PLATFORM_ID, Inject } from '@angular/core
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, map } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { LoginPayload, RegisterPayload, AuthResponse } from '../models/auth.models';
 import { environment } from '../../environments/environment';
@@ -47,6 +47,22 @@ export class AuthService {
         return throwError(() => new Error(msg));
       })
     );
+  }
+
+  verificarEmail(email: string): Observable<boolean> {
+    return this.http
+      .get<{ disponivel: boolean }>(`${this.API_URL}/auth/verificar-email`, {
+        params: { email },
+      })
+      .pipe(map(r => r.disponivel));
+  }
+
+  verificarNome(nome: string): Observable<boolean> {
+    return this.http
+      .get<{ disponivel: boolean }>(`${this.API_URL}/auth/verificar-nome`, {
+        params: { nome },
+      })
+      .pipe(map(r => r.disponivel));
   }
 
   terminarSessao(): void {

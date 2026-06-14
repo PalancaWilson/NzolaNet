@@ -2,7 +2,7 @@
 
 ## Stack
 
-Angular 21.2 standalone components + Signals + SSR (`@angular/ssr` + Express).
+Angular 21.2 standalone components + Signals + SPA.
 Vitest via `@angular/build:unit-test`, jsdom. TypeScript 5.9 strict. Prettier (no ESLint).
 
 ## Commands
@@ -10,16 +10,15 @@ Vitest via `@angular/build:unit-test`, jsdom. TypeScript 5.9 strict. Prettier (n
 ```sh
 npm start          # ng serve (dev, http://localhost:4200)
 npm test           # ng test  (Vitest)
-npm run build      # ng build (production, outputMode: server → dist/)
+npm run build      # ng build (production → dist/nzolanet/browser/)
 npm run watch      # ng build --watch --configuration development
-npm run serve:ssr  # node dist/nzolanet/server/server.mjs (prod SSR on :4000)
 npx prettier . --check    # format check (single quotes, 100 width)
 npx prettier . --write    # format fix
 ```
 
 ## Architecture
 
-- **Entrypoints**: `src/main.ts` (browser bootstrap), `src/main.server.ts` (SSR), `src/server.ts` (Express SSR host)
+- **Entrypoints**: `src/main.ts` (browser bootstrap)
 - **Routing**: lazy-loaded standalone pages in `src/app/pages/`. Two guard groups: `guestGuard` (login/register) and `authGuard` (everything else inside `AppShell` layout). All routes use `loadComponent`.
 - **Layouts**: `auth-layout` (public), `app-shell` (topbar+sidebar+botton-nav, authenticated).
 - **Routing transitions**: `withViewTransitions()` enabled in `app.config.ts` — no manual CSS keyframe animations needed.
@@ -51,10 +50,6 @@ npx prettier . --write    # format fix
 - `teste@nzolanet.app` / `Teste123`
 
 Future backend is Laravel at `https://api.nzolanet.app/api`. TODO comments mark every place that needs swapping from mock to HTTP.
-
-## SSR
-
-Pre-rendering via `RenderMode.Prerender` for all routes. Express server on port 4000 (`PORT` env). Guards and `localStorage` access must guard with `isPlatformBrowser(PLATFORM_ID)` to avoid SSR errors.
 
 ## Testing
 

@@ -1,13 +1,43 @@
 import { Component, signal, inject } from '@angular/core';
 import { AuthLayout } from "../../layouts/auth-layout/auth-layout";
 import { Router, RouterLink } from '@angular/router';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Observable, of, timer } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, map, catchError } from 'rxjs/operators';
 
 function senhasIguaisValidator(group: AbstractControl): ValidationErrors | null {
   const senha    = group.get('senha')?.value;
   const confirma = group.get('confirmarSenha')?.value;
   return senha === confirma ? null : { senhasDiferentes: true };
+}
+
+function emailUnicoValidator(auth: AuthService): AsyncValidatorFn {
+  return (control: AbstractControl): Observable<ValidationErrors | null> => {
+    if (!control.value || control.errors) return of(null);
+    return timer(400).pipe(
+      switchMap(() =>
+        auth.verificarEmail(control.value).pipe(
+          map(disponivel => (disponivel ? null : { emailDuplicado: true })),
+          catchError(() => of(null)),
+        ),
+      ),
+    );
+  };
+}
+
+function nomeUnicoValidator(auth: AuthService): AsyncValidatorFn {
+  return (control: AbstractControl): Observable<ValidationErrors | null> => {
+    if (!control.value || control.errors) return of(null);
+    return timer(400).pipe(
+      switchMap(() =>
+        auth.verificarNome(control.value).pipe(
+          map(disponivel => (disponivel ? null : { nomeDuplicado: true })),
+          catchError(() => of(null)),
+        ),
+      ),
+    );
+  };
 }
 
 function senhaForteValidator(control: AbstractControl): ValidationErrors | null {
@@ -45,8 +75,8 @@ export class Register {
     this.registerForm = this.fb.group(
       {
        
-        nome:            ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
-        email:           ['', [Validators.required, Validators.email]],
+        nome:            ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)], [nomeUnicoValidator(this.auth)]],
+        email:           ['', [Validators.required, Validators.email], [emailUnicoValidator(this.auth)]],
         senha:           ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64), senhaForteValidator]],
         confirmarSenha:  ['', Validators.required],
 

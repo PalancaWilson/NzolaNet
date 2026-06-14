@@ -49,6 +49,18 @@
         @if (campo('nome').touched && campo('nome').errors?.['minlength']) {
           <small class="error">Mínimo 2 caracteres.</small>
         }
+        @if (campo('nome').touched && campo('nome').errors?.['nomeDuplicado']) {
+          <small class="error">
+            <i class="bi bi-exclamation-triangle"></i>
+            Nome de utilizador já existe.
+          </small>
+        }
+        @if (campo('nome').touched && campo('nome').pending) {
+          <small class="hint">
+            <i class="bi bi-hourglass-split"></i>
+            A verificar...
+          </small>
+        }
 
         <!-- EMAIL -->
         <label for="email">EMAIL</label>
@@ -72,6 +84,12 @@
             <small class="error">
               <i class="bi bi-exclamation-triangle"></i>
               Email já registado. <a routerLink="/login">Entra aqui.</a>
+            </small>
+          }
+          @if (campo('email').pending) {
+            <small class="hint">
+              <i class="bi bi-hourglass-split"></i>
+              A verificar...
             </small>
           }
         }
