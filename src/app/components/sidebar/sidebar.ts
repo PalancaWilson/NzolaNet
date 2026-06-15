@@ -1,25 +1,27 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
+import { AdminService } from '../../services/admin.service';
 import { LayoutService } from '../../services/layout.service';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink,RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
- @Input() aberto = false;
-constructor(
+  @Input() aberto = false;
+  constructor(
     readonly userService: UserService,
-    private auth: AuthService,
-    readonly layout: LayoutService
+    readonly auth: AuthService,
+    readonly adminService: AdminService,
+    readonly layout: LayoutService,
   ) {}
 
- navegar(): void {
+  navegar(): void {
     // fecha sidebar no mobile quando clica num link
     this.layout.fecharSidebar();
   }
@@ -30,5 +32,4 @@ constructor(
       this.auth.terminarSessao();
     }
   }
-
 }

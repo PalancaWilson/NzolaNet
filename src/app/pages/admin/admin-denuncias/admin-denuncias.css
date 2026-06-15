@@ -1,0 +1,351 @@
+/* ── Animações ────────────────────────────────────────────── */
+.fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+.slide-down {
+  animation: slideDown 0.35s ease-out;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Skeleton loading ────────────────────────────────────── */
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+.skeleton-card {
+  background: var(--bs-body-bg, #fff);
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: shimmer 1.4s infinite;
+}
+.skeleton-line {
+  height: 14px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+.w-30 {
+  width: 30%;
+}
+.w-60 {
+  width: 60%;
+}
+.w-80 {
+  width: 80%;
+}
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ── Toolbar ──────────────────────────────────────────────── */
+.admin-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.search-box {
+  position: relative;
+  max-width: 400px;
+}
+.search-box i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted, #9ca3af);
+  font-size: 15px;
+}
+.search-box input {
+  width: 100%;
+  padding: 10px 14px 10px 40px;
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 10px;
+  font-size: 14px;
+  background: var(--bs-body-bg, #fff);
+  color: var(--text, #111827);
+  transition: border-color 0.2s;
+}
+.search-box input:focus {
+  outline: none;
+  border-color: var(--purple, #7c3aed);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.filter-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-sub, #6b7280);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-tabs button:hover {
+  background: var(--purple-light, #f5f3ff);
+  border-color: var(--purple, #7c3aed);
+  color: var(--purple, #7c3aed);
+}
+.filter-tabs button.active {
+  background: var(--purple, #7c3aed);
+  border-color: var(--purple, #7c3aed);
+  color: #fff;
+}
+
+/* ── Empty state ──────────────────────────────────────────── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+.empty-state i {
+  font-size: 48px;
+  color: var(--text-muted, #9ca3af);
+  margin-bottom: 16px;
+}
+.empty-state h3 {
+  font-size: 18px;
+  color: var(--text, #111827);
+  margin: 0 0 8px;
+}
+.empty-state p {
+  font-size: 14px;
+  color: var(--text-muted, #9ca3af);
+  margin: 0;
+}
+
+/* ── Denuncias list ───────────────────────────────────────── */
+.denuncias-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.denuncia-card {
+  background: var(--bs-body-bg, #fff);
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.25s ease;
+  animation: fadeIn 0.3s ease-out both;
+}
+.denuncia-card:hover {
+  border-color: var(--purple-light, #d8b4fe);
+  box-shadow: 0 2px 12px rgba(124, 58, 237, 0.08);
+}
+.denuncia-card.status-pendente {
+  border-left: 4px solid #f59e0b;
+}
+.denuncia-card.status-resolvido {
+  border-left: 4px solid #10b981;
+  opacity: 0.75;
+}
+.denuncia-card.status-rejeitado {
+  border-left: 4px solid #6b7280;
+  opacity: 0.6;
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+.denuncia-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.denuncia-type-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.denuncia-type-badge.publicacao {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+.denuncia-type-badge.comentario {
+  background: #dbeafe;
+  color: #2563eb;
+}
+.denuncia-type-badge.utilizador {
+  background: #fce7f3;
+  color: #db2777;
+}
+
+.denuncia-status {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+.denuncia-status.pendente {
+  background: #fef3c7;
+  color: #b45309;
+}
+.denuncia-status.resolvido {
+  background: #d1fae5;
+  color: #059669;
+}
+.denuncia-status.rejeitado {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+/* ── Conteúdo ─────────────────────────────────────────────── */
+.denuncia-conteudo {
+  margin-bottom: 12px;
+}
+.conteudo-texto {
+  font-size: 14px;
+  color: var(--text, #111827);
+  margin: 0 0 4px;
+  font-style: italic;
+}
+.conteudo-autor {
+  font-size: 12px;
+  color: var(--text-muted, #9ca3af);
+}
+.text-muted {
+  color: var(--text-muted, #9ca3af);
+}
+
+/* ── Motivo ───────────────────────────────────────────────── */
+.denuncia-motivo {
+  background: var(--purple-light, #f5f3ff);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+}
+.denuncia-motivo strong {
+  font-size: 12px;
+  color: var(--purple, #7c3aed);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.denuncia-motivo p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--text, #111827);
+}
+
+/* ── Footer / Actions ─────────────────────────────────────── */
+.denuncia-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.denuncia-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.denunciante,
+.data {
+  font-size: 12px;
+  color: var(--text-muted, #9ca3af);
+}
+.denunciante i,
+.data i {
+  margin-right: 4px;
+}
+
+.denuncia-actions {
+  display: flex;
+  gap: 8px;
+}
+.btn-action {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn-remove {
+  background: #fef2f2;
+  color: #dc2626;
+}
+.btn-remove:hover:not(:disabled) {
+  background: #dc2626;
+  color: #fff;
+}
+.btn-resolve {
+  background: #ecfdf5;
+  color: #059669;
+}
+.btn-resolve:hover:not(:disabled) {
+  background: #059669;
+  color: #fff;
+}
+.btn-reject {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+.btn-reject:hover:not(:disabled) {
+  background: #6b7280;
+  color: #fff;
+}
+
+.denuncia-resolved-info {
+  font-size: 13px;
+  color: var(--text-muted, #9ca3af);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}

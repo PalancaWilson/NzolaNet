@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { PostCard } from '../../components/post-card/post-card';
 import { PostService } from '../../services/post.service';
 import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 import { ModalService } from '../../components/modal/modal.service';
 import { Post } from '../../models/post.model';
 import { HttpClient } from '@angular/common/http';
@@ -14,7 +15,7 @@ import { environment } from '../../../environments/environment';
 
 interface Comentario {
   id: string;
-  autor: { nome: string; username: string; avatar: string };
+  autor: { id: string; nome: string; username: string; avatar: string };
   texto: string;
   tempo: string;
   bazes: number;
@@ -46,6 +47,7 @@ export class PostDetail implements OnInit {
   constructor(
     readonly postService: PostService,
     readonly userService: UserService,
+    readonly auth: AuthService,
     private modal: ModalService,
     private http: HttpClient,
   ) {}
@@ -60,18 +62,19 @@ export class PostDetail implements OnInit {
   }
 
   private carregarPost(): void {
-    const encontrado = this.postService.publicacoes().find(p => p.id === this.id);
+    const encontrado = this.postService.publicacoes().find((p) => p.id === this.id);
     if (encontrado) {
       this.post.set(encontrado);
     } else {
-      this.postService.obterPorId(this.id).subscribe(p => this.post.set(p));
+      this.postService.obterPorId(this.id).subscribe((p) => this.post.set(p));
     }
   }
 
   private carregarComentarios(): void {
-    this.http.get<Comentario[]>(`${this.API_URL}/publicacoes/${this.id}/comentarios`).pipe(
-      catchError(() => of([])),
-    ).subscribe(c => this.comentarios.set(c));
+    this.http
+      .get<Comentario[]>(`${this.API_URL}/publicacoes/${this.id}/comentarios`)
+      .pipe(catchError(() => of([])))
+      .subscribe((c) => this.comentarios.set(c));
   }
 
   get restantes(): number {
@@ -80,7 +83,7 @@ export class PostDetail implements OnInit {
 
   get replyingToNome(): string {
     if (!this.replyTo()) return '';
-    const c = this.comentarios().find(c => c.id === this.replyTo());
+    const c = this.comentarios().find((c) => c.id === this.replyTo());
     return c?.autor.nome ?? '';
   }
 
@@ -106,24 +109,26 @@ export class PostDetail implements OnInit {
       resposta_a: this.replyTo(),
     };
 
-    this.http.post<Comentario>(`${this.API_URL}/publicacoes/${this.id}/comentarios`, body).subscribe({
-      next: novo => {
-        this.comentarios.update(lista => [novo, ...lista]);
-        this.comentCtrl.reset();
-        this.replyTo.set(null);
-        this.enviando.set(false);
-      },
-      error: () => {
-        this.enviando.set(false);
-      },
-    });
+    this.http
+      .post<Comentario>(`${this.API_URL}/publicacoes/${this.id}/comentarios`, body)
+      .subscribe({
+        next: (novo) => {
+          this.comentarios.update((lista) => [novo, ...lista]);
+          this.comentCtrl.reset();
+          this.replyTo.set(null);
+          this.enviando.set(false);
+        },
+        error: () => {
+          this.enviando.set(false);
+        },
+      });
   }
 
   toggleBazeComentario(id: string): void {
     this.http.post(`${this.API_URL}/comentarios/${id}/baze`, {}).subscribe({
       next: () => {
-        this.comentarios.update(lista =>
-          lista.map(c =>
+        this.comentarios.update((lista) =>
+          lista.map((c) =>
             c.id === id
               ? { ...c, bazado: !c.bazado, bazes: c.bazado ? c.bazes - 1 : c.bazes + 1 }
               : c,
@@ -134,11 +139,15 @@ export class PostDetail implements OnInit {
   }
 
   isOwnerComentario(c: Comentario): boolean {
-    return c.autor.username === this.userService.nome().toLowerCase().replace(' ', '_');
+    return c.autor.id === this.userService.perfil()?.id;
+  }
+
+  podeGerirComentario(c: Comentario): boolean {
+    return this.isOwnerComentario(c) || this.auth.isAdmin();
   }
 
   toggleMenuComentario(id: string): void {
-    this.menuComentarioAberto.update(v => (v === id ? null : id));
+    this.menuComentarioAberto.update((v) => (v === id ? null : id));
   }
 
   fecharMenuComentario(): void {
@@ -146,7 +155,7 @@ export class PostDetail implements OnInit {
   }
 
   iniciarEdicaoComentario(id: string): void {
-    const c = this.comentarios().find(c => c.id === id);
+    const c = this.comentarios().find((c) => c.id === id);
     if (!c) return;
     this.editandoId.set(id);
     this.editandoTexto.set(c.texto);
@@ -161,11 +170,9 @@ export class PostDetail implements OnInit {
   guardarEdicaoComentario(id: string): void {
     const texto = this.editandoTexto().trim();
     if (!texto) return;
-    this.http.put(`${this.API_URL}/comentarios/${id}`, { texto }).subscribe({
-      next: () => {
-        this.comentarios.update(lista =>
-          lista.map(c => (c.id === id ? { ...c, texto } : c)),
-        );
+    this.http.put<Comentario>(`${this.API_URL}/comentarios/${id}`, { texto }).subscribe({
+      next: (actualizado) => {
+        this.comentarios.update((lista) => lista.map((c) => (c.id === id ? actualizado : c)));
         this.cancelarEdicaoComentario();
       },
     });
@@ -173,12 +180,16 @@ export class PostDetail implements OnInit {
 
   apagarComentario(id: string): void {
     this.menuComentarioAberto.set(null);
-    this.modal.confirmar('Apagar comentário', 'Tens a certeza que queres apagar este comentário?', { confirmar: 'Apagar', cancelar: 'Manter' })
-      .subscribe(confirmado => {
+    this.modal
+      .confirmar('Apagar comentário', 'Tens a certeza que queres apagar este comentário?', {
+        confirmar: 'Apagar',
+        cancelar: 'Manter',
+      })
+      .subscribe((confirmado) => {
         if (confirmado) {
           this.http.delete(`${this.API_URL}/comentarios/${id}`).subscribe({
             next: () => {
-              this.comentarios.update(lista => lista.filter(c => c.id !== id));
+              this.comentarios.update((lista) => lista.filter((c) => c.id !== id));
             },
           });
         }
@@ -188,10 +199,16 @@ export class PostDetail implements OnInit {
   editarPost(): void {
     const p = this.post();
     if (!p) return;
-    this.modal.prompt('Editar publicação', 'Altera o texto da tua publicação:', p.conteudo, 'Escreve o novo texto...')
-      .subscribe(novo => {
+    this.modal
+      .prompt(
+        'Editar publicação',
+        'Altera o texto da tua publicação:',
+        p.conteudo,
+        'Escreve o novo texto...',
+      )
+      .subscribe((novo) => {
         if (novo && novo.trim() !== p.conteudo) {
-          this.postService.editarPost(p.id, novo.trim()).subscribe(actualizado => {
+          this.postService.editarPost(p.id, novo.trim()).subscribe((actualizado) => {
             this.post.set(actualizado);
           });
         }
@@ -201,8 +218,13 @@ export class PostDetail implements OnInit {
   apagarPost(): void {
     const p = this.post();
     if (!p) return;
-    this.modal.confirmar('Apagar publicação', 'Tens a certeza que queres apagar esta publicação? Esta ação não pode ser desfeita.', { confirmar: 'Apagar', cancelar: 'Manter' })
-      .subscribe(confirmado => {
+    this.modal
+      .confirmar(
+        'Apagar publicação',
+        'Tens a certeza que queres apagar esta publicação? Esta ação não pode ser desfeita.',
+        { confirmar: 'Apagar', cancelar: 'Manter' },
+      )
+      .subscribe((confirmado) => {
         if (confirmado) {
           this.postService.apagarPost(p.id).subscribe();
           window.location.href = '/feed';

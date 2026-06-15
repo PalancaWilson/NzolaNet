@@ -1,0 +1,96 @@
+<div class="admin-page fade-in">
+  <div class="admin-header slide-down">
+    <h1><i class="bi bi-shield-shaded"></i> Painel de Administração</h1>
+    <p>Visão geral da plataforma NzolaNet</p>
+  </div>
+
+  <div class="admin-stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon users">
+        <i class="bi bi-people-fill"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ stats?.totalUtilizadores ?? '—' }}</span>
+        <span class="stat-label">Utilizadores</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon posts">
+        <i class="bi bi-file-text-fill"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ stats?.totalPublicacoes ?? '—' }}</span>
+        <span class="stat-label">Publicações</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon comments">
+        <i class="bi bi-chat-fill"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ stats?.totalComentarios ?? '—' }}</span>
+        <span class="stat-label">Comentários</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon bazes">
+        <i class="bi bi-heart-fill"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ stats?.totalBazes ?? '—' }}</span>
+        <span class="stat-label">Bazes</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon reports">
+        <i class="bi bi-flag-fill"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ stats?.denunciasPendentes ?? '—' }}</span>
+        <span class="stat-label">Denúncias pendentes</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-stats-secondary">
+    <div class="stat-card small">
+      <i class="bi bi-person-plus-fill"></i>
+      <div>
+        <span class="stat-value">{{ stats?.utilizadoresHoje ?? '—' }}</span>
+        <span class="stat-label">novos hoje</span>
+      </div>
+    </div>
+    <div class="stat-card small">
+      <i class="bi bi-pencil-fill"></i>
+      <div>
+        <span class="stat-value">{{ stats?.publicacoesHoje ?? '—' }}</span>
+        <span class="stat-label">publicações hoje</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-quick-links">
+    <h2>Acesso rápido</h2>
+    <div class="quick-links-grid">
+      <a class="quick-link" routerLink="/admin/utilizadores">
+        <i class="bi bi-people-fill"></i>
+        <span>Gerir Utilizadores</span>
+      </a>
+      <a class="quick-link" routerLink="/admin/publicacoes">
+        <i class="bi bi-file-text-fill"></i>
+        <span>Moderar Publicações</span>
+      </a>
+      <a class="quick-link" routerLink="/admin/comentarios">
+        <i class="bi bi-chat-fill"></i>
+        <span>Moderar Comentários</span>
+      </a>
+      <a class="quick-link" routerLink="/admin/denuncias">
+        <i class="bi bi-flag-fill"></i>
+        <span>Gerir Denúncias</span>
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,17 +1,13 @@
 <div class="content-area post-detail-page">
-
   <div class="back-bar">
-    <a routerLink="/feed" class="back-btn">
-      <i class="bi bi-arrow-left"></i> Voltar ao Feed
-    </a>
+    <a routerLink="/feed" class="back-btn"> <i class="bi bi-arrow-left"></i> Voltar ao Feed </a>
   </div>
 
   @if (!post()) {
-    <div class="skeleton" style="height:200px;border-radius:16px;margin-bottom:16px"></div>
+    <div class="skeleton" style="height: 200px; border-radius: 16px; margin-bottom: 16px"></div>
   }
 
   @if (post()) {
-
     <div class="post-main">
       <app-post-card [post]="post()!"></app-post-card>
     </div>
@@ -19,7 +15,7 @@
     <div class="comment-box">
       <div class="comment-input-wrap">
         @if (userService.fotoPerfil()) {
-          <img [src]="userService.fotoPerfil()" [alt]="userService.nome()" class="comment-avatar">
+          <img [src]="userService.fotoPerfil()" [alt]="userService.nome()" class="comment-avatar" />
         } @else {
           <div class="comment-avatar comment-initials">{{ userService.iniciais() }}</div>
         }
@@ -27,7 +23,9 @@
         <div class="comment-field">
           @if (replyTo()) {
             <div class="reply-context">
-              <span>A responder a <strong>{{ replyingToNome }}</strong></span>
+              <span
+                >A responder a <strong>{{ replyingToNome }}</strong></span
+              >
               <button class="btn-cancel-reply" (click)="cancelarResposta()" type="button">
                 <i class="bi bi-x"></i>
               </button>
@@ -46,8 +44,11 @@
               (click)="enviarComentario()"
               [disabled]="comentCtrl.invalid || enviando()"
             >
-              @if (enviando()) { <span class="spinner"></span> }
-              @else { <i class="bi bi-send-fill"></i> }
+              @if (enviando()) {
+                <span class="spinner"></span>
+              } @else {
+                <i class="bi bi-send-fill"></i>
+              }
               {{ replyTo() ? 'Responder' : 'Comentar' }}
             </button>
           </div>
@@ -64,7 +65,7 @@
 
       @for (c of comentarios(); track c.id) {
         <div class="comment-item">
-          <img [src]="c.autor.avatar" [alt]="c.autor.nome" class="comment-avatar">
+          <img [src]="c.autor.avatar" [alt]="c.autor.nome" class="comment-avatar" />
           <div class="comment-body">
             <div class="comment-header">
               <strong>{{ c.autor.nome }}</strong>
@@ -86,8 +87,12 @@
                   class="edit-textarea"
                 ></textarea>
                 <div class="edit-actions">
-                  <button class="btn-cancel-edit" (click)="cancelarEdicaoComentario()">Cancelar</button>
-                  <button class="btn-save-edit" (click)="guardarEdicaoComentario(c.id)">Guardar</button>
+                  <button class="btn-cancel-edit" (click)="cancelarEdicaoComentario()">
+                    Cancelar
+                  </button>
+                  <button class="btn-save-edit" (click)="guardarEdicaoComentario(c.id)">
+                    Guardar
+                  </button>
                 </div>
               </div>
             } @else {
@@ -109,16 +114,22 @@
             </div>
           </div>
 
-          @if (isOwnerComentario(c)) {
+          @if (podeGerirComentario(c)) {
             <div class="comment-menu-container" (click)="$event.stopPropagation()">
-              <button class="comment-menu-trigger" (click)="toggleMenuComentario(c.id)" title="Mais opções">
+              <button
+                class="comment-menu-trigger"
+                (click)="toggleMenuComentario(c.id)"
+                title="Mais opções"
+              >
                 <i class="bi bi-three-dots-vertical"></i>
               </button>
               @if (menuComentarioAberto() === c.id) {
                 <div class="comment-menu-dropdown">
-                  <button class="menu-item" (click)="iniciarEdicaoComentario(c.id)">
-                    <i class="bi bi-pencil"></i> Editar
-                  </button>
+                  @if (isOwnerComentario(c)) {
+                    <button class="menu-item" (click)="iniciarEdicaoComentario(c.id)">
+                      <i class="bi bi-pencil"></i> Editar
+                    </button>
+                  }
                   <button class="menu-item menu-item-danger" (click)="apagarComentario(c.id)">
                     <i class="bi bi-trash3"></i> Apagar
                   </button>
@@ -134,6 +145,5 @@
         </div>
       }
     </div>
-
   }
 </div>

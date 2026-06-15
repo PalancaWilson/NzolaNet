@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Post } from '../../models/post.model';
 import { PostService } from '../../services/post.service';
 import { UserService } from '../../services/user.service';
+import { AdminService } from '../../services/admin.service';
 import { ModalService } from '../modal/modal.service';
 
 @Component({
@@ -23,6 +24,7 @@ export class PostCard {
     private postService: PostService,
     readonly userService: UserService,
     private modal: ModalService,
+    private adminService: AdminService,
     @Inject(PLATFORM_ID) private platformId: object,
   ) {}
 
@@ -41,7 +43,7 @@ export class PostCard {
   }
 
   toggleMenu(): void {
-    this.menuAberto.update(v => !v);
+    this.menuAberto.update((v) => !v);
   }
 
   fecharMenu(): void {
@@ -50,8 +52,14 @@ export class PostCard {
 
   editar(): void {
     this.fecharMenu();
-    this.modal.prompt('Editar publicação', 'Altera o texto da tua publicação:', this.post.conteudo, 'Escreve o novo texto...')
-      .subscribe(novo => {
+    this.modal
+      .prompt(
+        'Editar publicação',
+        'Altera o texto da tua publicação:',
+        this.post.conteudo,
+        'Escreve o novo texto...',
+      )
+      .subscribe((novo) => {
         if (novo && novo.trim() !== this.post.conteudo) {
           this.postService.editarPost(this.post.id, novo.trim()).subscribe();
         }
@@ -60,8 +68,13 @@ export class PostCard {
 
   apagar(): void {
     this.fecharMenu();
-    this.modal.confirmar('Apagar publicação', 'Tens a certeza que queres apagar esta publicação? Esta ação não pode ser desfeita.', { confirmar: 'Apagar', cancelar: 'Manter' })
-      .subscribe(confirmado => {
+    this.modal
+      .confirmar(
+        'Apagar publicação',
+        'Tens a certeza que queres apagar esta publicação? Esta ação não pode ser desfeita.',
+        { confirmar: 'Apagar', cancelar: 'Manter' },
+      )
+      .subscribe((confirmado) => {
         if (confirmado) {
           this.postService.apagarPost(this.post.id).subscribe();
         }
@@ -81,8 +94,12 @@ export class PostCard {
   }
 
   repostar(): void {
-    this.modal.confirmar('Repostar', 'Repostar esta publicação no teu feed?', { confirmar: 'Repostar', cancelar: 'Cancelar' })
-      .subscribe(confirmado => {
+    this.modal
+      .confirmar('Repostar', 'Repostar esta publicação no teu feed?', {
+        confirmar: 'Repostar',
+        cancelar: 'Cancelar',
+      })
+      .subscribe((confirmado) => {
         if (confirmado) {
           this.postService.repostar(this.post.id).subscribe();
         }
@@ -99,10 +116,21 @@ export class PostCard {
   }
 
   denunciar(): void {
-    this.modal.prompt('Denunciar publicação', 'Qual o motivo da denúncia?', '', 'Ex: Spam, ofensivo...')
-      .subscribe(motivo => {
-        if (motivo) {
-          this.modal.alertar('Denúncia registada', 'Obrigado por ajudar a manter a comunidade segura!');
+    this.modal
+      .prompt('Denunciar publicação', 'Qual o motivo da denúncia?', '', 'Ex: Spam, ofensivo...')
+      .subscribe((motivo) => {
+        if (motivo && motivo.length >= 10) {
+          this.adminService.denunciar('publicacao', this.post.id, motivo).subscribe({
+            next: () =>
+              this.modal.alertar(
+                'Denúncia registada',
+                'Obrigado por ajudar a manter a comunidade segura!',
+              ),
+            error: () =>
+              this.modal.alertar('Erro', 'Não foi possível registar a denúncia. Tenta novamente.'),
+          });
+        } else if (motivo) {
+          this.modal.alertar('Motivo muito curto', 'O motivo deve ter pelo menos 10 caracteres.');
         }
       });
   }

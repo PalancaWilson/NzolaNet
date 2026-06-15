@@ -1,0 +1,151 @@
+<div class="admin-page fade-in">
+  <div class="admin-header slide-down">
+    <h1><i class="bi bi-flag-fill"></i> Gestão de Denúncias</h1>
+    <p>Revisa e trata as denúncias enviadas pela comunidade</p>
+  </div>
+
+  <div class="admin-toolbar">
+    <div class="search-box">
+      <i class="bi bi-search"></i>
+      <input
+        type="text"
+        placeholder="Pesquisar denúncias..."
+        [ngModel]="pesquisa()"
+        (ngModelChange)="pesquisa.set($event)"
+      />
+    </div>
+    <div class="filter-tabs">
+      <button [class.active]="filtroStatus() === ''" (click)="filtroStatus.set('')">Todas</button>
+      <button [class.active]="filtroStatus() === 'pendente'" (click)="filtroStatus.set('pendente')">
+        <i class="bi bi-exclamation-circle"></i> Pendentes
+      </button>
+      <button
+        [class.active]="filtroStatus() === 'resolvido'"
+        (click)="filtroStatus.set('resolvido')"
+      >
+        <i class="bi bi-check-circle"></i> Resolvidas
+      </button>
+      <button
+        [class.active]="filtroStatus() === 'rejeitado'"
+        (click)="filtroStatus.set('rejeitado')"
+      >
+        <i class="bi bi-x-circle"></i> Rejeitadas
+      </button>
+    </div>
+  </div>
+
+  @if (carregando()) {
+    <div class="skeleton-list">
+      @for (_ of [1, 2, 3, 4]; track $index) {
+        <div class="skeleton-card" style="animation-delay: {{ $index * 0.1 }}s">
+          <div class="skeleton-line w-30"></div>
+          <div class="skeleton-line w-60"></div>
+          <div class="skeleton-line w-80"></div>
+        </div>
+      }
+    </div>
+  } @else if (denunciasFiltradas.length === 0) {
+    <div class="empty-state">
+      <i class="bi bi-flag"></i>
+      <h3>Nenhuma denúncia encontrada</h3>
+      <p>
+        {{ filtroStatus() ? 'Nenhuma denúncia com este estado.' : 'A comunidade está tranquila!' }}
+      </p>
+    </div>
+  } @else {
+    <div class="denuncias-list">
+      @for (d of denunciasFiltradas; track d.id) {
+        <div
+          class="denuncia-card"
+          [class.status-pendente]="d.status === 'pendente'"
+          [class.status-resolvido]="d.status === 'resolvido'"
+          [class.status-rejeitado]="d.status === 'rejeitado'"
+        >
+          <div class="denuncia-header">
+            <div class="denuncia-type-badge" [class]="d.conteudo?.tipo">
+              <i class="bi {{ iconPorTipo(d.conteudo?.tipo ?? '') }}"></i>
+              <span>{{ d.conteudo?.tipo }}</span>
+            </div>
+            <span class="denuncia-status" [class]="d.status">
+              @if (d.status === 'pendente') {
+                <i class="bi bi-exclamation-circle"></i> Pendente
+              } @else if (d.status === 'resolvido') {
+                <i class="bi bi-check-circle"></i> Resolvida
+              } @else {
+                <i class="bi bi-x-circle"></i> Rejeitada
+              }
+            </span>
+          </div>
+
+          <div class="denuncia-conteudo">
+            @if (d.conteudo?.tipo === 'publicacao' || d.conteudo?.tipo === 'comentario') {
+              <p class="conteudo-texto">"{{ d.conteudo?.texto }}"</p>
+              @if (d.conteudo?.autor) {
+                <span class="conteudo-autor">
+                  <i class="bi bi-person"></i> {{ d.conteudo?.autor?.nome }}
+                </span>
+              }
+            } @else if (d.conteudo?.tipo === 'utilizador') {
+              <p class="conteudo-texto">
+                <i class="bi bi-person"></i> {{ d.conteudo?.nome }}
+                <span class="text-muted">({{ d.conteudo?.email }})</span>
+              </p>
+            }
+          </div>
+
+          <div class="denuncia-motivo">
+            <strong>Motivo:</strong>
+            <p>{{ d.motivo }}</p>
+          </div>
+
+          <div class="denuncia-footer">
+            <div class="denuncia-meta">
+              @if (d.denunciante) {
+                <span class="denunciante">
+                  <i class="bi bi-flag"></i> Denunciado por {{ d.denunciante.nome }}
+                </span>
+              }
+              <span class="data"> <i class="bi bi-clock"></i> {{ d.criadoEm }} </span>
+            </div>
+
+            @if (d.status === 'pendente') {
+              <div class="denuncia-actions">
+                <button
+                  class="btn-action btn-remove"
+                  (click)="removerConteudo(d)"
+                  [disabled]="acaoId() === d.id"
+                >
+                  @if (acaoId() === d.id) {
+                    <i class="bi bi-hourglass-split"></i>
+                  } @else {
+                    <i class="bi bi-trash-fill"></i>
+                  }
+                  Remover conteúdo
+                </button>
+                <button
+                  class="btn-action btn-resolve"
+                  (click)="resolver(d)"
+                  [disabled]="acaoId() === d.id"
+                >
+                  <i class="bi bi-check-lg"></i> Resolver
+                </button>
+                <button
+                  class="btn-action btn-reject"
+                  (click)="rejeitar(d)"
+                  [disabled]="acaoId() === d.id"
+                >
+                  <i class="bi bi-x-lg"></i> Rejeitar
+                </button>
+              </div>
+            } @else {
+              <div class="denuncia-resolved-info">
+                <i class="bi bi-check2-all"></i>
+                Denúncia {{ d.status === 'resolvido' ? 'resolvida' : 'rejeitada' }}
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

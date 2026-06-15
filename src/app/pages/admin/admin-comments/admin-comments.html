@@ -1,0 +1,78 @@
+<div class="admin-page fade-in">
+  <div class="admin-header slide-down">
+    <h1><i class="bi bi-chat-fill"></i> Moderação de Comentários</h1>
+    <p>Visualizar e remover comentários da plataforma</p>
+  </div>
+
+  <div class="admin-search-bar">
+    <i class="bi bi-search"></i>
+    <input
+      type="text"
+      placeholder="Pesquisar por comentário, autor ou publicação..."
+      [ngModel]="pesquisa()"
+      (ngModelChange)="pesquisa.set($event)"
+    />
+    @if (pesquisa()) {
+      <button class="btn-clear" (click)="pesquisa.set('')"><i class="bi bi-x"></i></button>
+    }
+  </div>
+
+  @if (carregando()) {
+    <div class="skeleton-list">
+      @for (_ of [1, 2, 3, 4]; track $index) {
+        <div class="skeleton-card" style="animation-delay: {{ $index * 0.1 }}s">
+          <div class="skeleton skeleton-avatar"></div>
+          <div class="skeleton-lines">
+            <div class="skeleton-line w-50"></div>
+            <div class="skeleton-line w-70"></div>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="comments-list">
+      @for (c of comentariosFiltrados; track c.id) {
+        <div class="comment-mod-item fade-in-row" style="animation-delay: {{ 0.05 * $index }}s">
+          <div class="comment-mod-header">
+            <div class="comment-author">
+              @if (c.autor.avatar) {
+                <img [src]="c.autor.avatar" [alt]="c.autor.nome" class="mini-avatar" />
+              } @else {
+                <div class="mini-avatar initials">{{ c.autor.nome.charAt(0) }}</div>
+              }
+              <div>
+                <div class="author-name">{{ c.autor.nome }}</div>
+                <div class="comment-time">{{ c.tempo }}</div>
+              </div>
+            </div>
+            <span class="comment-bazes"><i class="bi bi-heart-fill"></i> {{ c.bazes }}</span>
+          </div>
+
+          <p class="comment-text">{{ c.texto }}</p>
+
+          <div class="comment-context">
+            <i class="bi bi-arrow-return-right"></i>
+            <span
+              >Na publicação: &laquo;{{ c.publicacaoConteudo | slice: 0 : 100
+              }}{{ c.publicacaoConteudo.length > 100 ? '...' : '' }}&raquo;</span
+            >
+          </div>
+
+          <div class="comment-mod-actions">
+            <a class="btn-view" [routerLink]="'/post/' + c.publicacaoId" title="Ver contexto">
+              <i class="bi bi-eye"></i> Ver contexto
+            </a>
+            <button class="btn-action btn-danger" (click)="confirmarRemover(c)" title="Remover">
+              <i class="bi bi-trash3-fill"></i> Remover
+            </button>
+          </div>
+        </div>
+      } @empty {
+        <div class="empty-cell">
+          <i class="bi bi-chat"></i>
+          <p>Nenhum comentário encontrado.</p>
+        </div>
+      }
+    </div>
+  }
+</div>

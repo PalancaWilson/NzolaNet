@@ -13,7 +13,7 @@
           <img [src]="utilizador()!.avatar" [alt]="utilizador()!.nome" class="p-avatar">
         </div>
         <div class="profile-actions" style="display:flex;gap:10px;align-items:center">
-          <button class="btn-msg" (click)="abrirMensagem()"><i class="bi bi-chat"></i></button>
+          <!-- <button class="btn-msg" (click)="abrirMensagem()"><i class="bi bi-chat"></i></button> -->
           <button class="btn-report" (click)="denunciarConta()" title="Denunciar"><i class="bi bi-flag"></i></button>
           <button class="btn-follow" [class.seguindo]="estaSeguindo()" (click)="toggleSeguir()">
             @if (estaSeguindo()) { <i class="bi bi-person-check-fill"></i> A Seguir }

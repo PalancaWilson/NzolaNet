@@ -1,0 +1,117 @@
+<div class="admin-page fade-in">
+  <div class="admin-header slide-down">
+    <h1><i class="bi bi-people-fill"></i> Gestão de Utilizadores</h1>
+    <p>Gerir contas, bloquear ou remover utilizadores</p>
+  </div>
+
+  <div class="admin-search-bar">
+    <i class="bi bi-search"></i>
+    <input
+      type="text"
+      placeholder="Pesquisar por nome, email ou username..."
+      [ngModel]="pesquisa()"
+      (ngModelChange)="pesquisa.set($event)"
+    />
+    @if (pesquisa()) {
+      <button class="btn-clear" (click)="pesquisa.set('')"><i class="bi bi-x"></i></button>
+    }
+  </div>
+
+  @if (carregando()) {
+    <div class="skeleton-list">
+      @for (_ of [1, 2, 3, 4, 5]; track $index) {
+        <div class="skeleton-card" style="animation-delay: {{ $index * 0.08 }}s">
+          <div class="skeleton-row-item">
+            <div class="skeleton skeleton-avatar"></div>
+            <div class="skeleton-lines">
+              <div class="skeleton-line w-40"></div>
+              <div class="skeleton-line w-60"></div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Utilizador</th>
+            <th>Email</th>
+            <th>Publicações</th>
+            <th>Seguidores</th>
+            <th>Privacidade</th>
+            <th>Estado</th>
+            <th class="th-actions">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (u of utilizadoresFiltrados; track u.id) {
+            <tr
+              [class.bloqueado]="u.estaBloqueado"
+              class="fade-in-row"
+              style="animation-delay: {{ 0.05 * $index }}s"
+            >
+              <td class="td-user">
+                <a [routerLink]="'/profile/' + u.id" class="user-link">
+                  @if (u.avatar) {
+                    <img [src]="u.avatar" [alt]="u.nome" class="mini-avatar" />
+                  } @else {
+                    <div class="mini-avatar initials">{{ u.nome.charAt(0) }}</div>
+                  }
+                  <div>
+                    <div class="user-name">{{ u.nome }}</div>
+                    <div class="user-username">&#64;{{ u.nomeUtilizador }}</div>
+                  </div>
+                </a>
+              </td>
+              <td class="td-email">{{ u.email }}</td>
+              <td>{{ u.publicacoes }}</td>
+              <td>{{ u.seguidores }}</td>
+              <td>
+                <span
+                  class="badge"
+                  [class.publico]="u.privacidade === 'publico'"
+                  [class.privado]="u.privacidade !== 'publico'"
+                >
+                  {{ u.privacidade === 'publico' ? 'Público' : 'Privado' }}
+                </span>
+              </td>
+              <td>
+                @if (u.estaBloqueado) {
+                  <span class="status-bloqueado"><i class="bi bi-lock-fill"></i> Bloqueado</span>
+                } @else {
+                  <span class="status-ativo"><i class="bi bi-check-circle-fill"></i> Ativo</span>
+                }
+              </td>
+              <td class="td-actions">
+                <button
+                  class="btn-action"
+                  [class.btn-warning]="!u.estaBloqueado"
+                  [class.btn-success]="u.estaBloqueado"
+                  (click)="confirmarBloquear(u)"
+                  [title]="u.estaBloqueado ? 'Desbloquear' : 'Bloquear'"
+                >
+                  <i
+                    [class.bi-lock-fill]="!u.estaBloqueado"
+                    [class.bi-unlock-fill]="u.estaBloqueado"
+                  ></i>
+                </button>
+                <button class="btn-action btn-danger" (click)="confirmarRemover(u)" title="Remover">
+                  <i class="bi bi-trash3-fill"></i>
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="7" class="empty-cell">
+                <i class="bi bi-people"></i>
+                <p>Nenhum utilizador encontrado.</p>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

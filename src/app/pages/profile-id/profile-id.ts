@@ -5,6 +5,7 @@ import { PostService } from '../../services/post.service';
 import { Post } from '../../models/post.model';
 import { HttpClient } from '@angular/common/http';
 import { ModalService } from '../../components/modal/modal.service';
+import { AdminService } from '../../services/admin.service';
 import { UserService } from '../../services/user.service';
 import { environment } from '../../../environments/environment';
 
@@ -36,22 +37,23 @@ export class ProfileId implements OnInit {
 
   @Input() id = '';
 
-  utilizador   = signal<UtilizadorPerfil | null>(null);
-  tabActiva    = signal<'posts' | 'media' | 'bazes'>('posts');
+  utilizador = signal<UtilizadorPerfil | null>(null);
+  tabActiva = signal<'posts' | 'media' | 'bazes'>('posts');
   estaSeguindo = signal(false);
-  carregando   = signal(true);
+  carregando = signal(true);
 
   postsDoPerfil = computed(() =>
-    this.postService.publicacoes().filter(p => p.autor.id === this.utilizador()?.id),
+    this.postService.publicacoes().filter((p) => p.autor.id === this.utilizador()?.id),
   );
-  postsMedia   = computed(() => this.postsDoPerfil().filter(p => !!p.imagem));
-  postsBazados = computed(() => this.postService.publicacoes().filter(p => p.gostou));
+  postsMedia = computed(() => this.postsDoPerfil().filter((p) => !!p.imagem));
+  postsBazados = computed(() => this.postService.publicacoes().filter((p) => p.gostou));
 
   constructor(
     readonly postService: PostService,
     private router: Router,
     private http: HttpClient,
     private modal: ModalService,
+    private adminService: AdminService,
     readonly userService: UserService,
   ) {}
 
@@ -65,7 +67,7 @@ export class ProfileId implements OnInit {
 
   private carregarUtilizador(): void {
     this.http.get<any>(`${this.API_URL}/utilizadores/${this.id}`).subscribe({
-      next: u => {
+      next: (u) => {
         this.utilizador.set(u);
         this.estaSeguindo.set(!!u.estaSeguindo);
         this.carregando.set(false);
@@ -87,16 +89,30 @@ export class ProfileId implements OnInit {
   }
 
   abrirMensagem(): void {
-    this.router.navigate(['/mensagens'], {
-      queryParams: { user: this.utilizador()?.id },
-    });
+    // Inativo — 1.ª avaliação
+    // this.router.navigate(['/mensagens'], {
+    //   queryParams: { user: this.utilizador()?.id },
+    // });
   }
 
   denunciarConta(): void {
-    this.modal.prompt('Denunciar perfil', 'Qual o motivo da denúncia?', '', 'Ex: Perfil falso, conteúdo impróprio...')
-      .subscribe(motivo => {
-        if (motivo) {
-          this.modal.alertar('Denúncia registada', 'A nossa equipa irá analisar. Obrigado!');
+    this.modal
+      .prompt(
+        'Denunciar perfil',
+        'Qual o motivo da denúncia?',
+        '',
+        'Ex: Perfil falso, conteúdo impróprio...',
+      )
+      .subscribe((motivo) => {
+        if (motivo && motivo.length >= 10) {
+          this.adminService.denunciar('utilizador', this.utilizador()!.id, motivo).subscribe({
+            next: () =>
+              this.modal.alertar('Denúncia registada', 'A nossa equipa irá analisar. Obrigado!'),
+            error: () =>
+              this.modal.alertar('Erro', 'Não foi possível registar a denúncia. Tenta novamente.'),
+          });
+        } else if (motivo) {
+          this.modal.alertar('Motivo muito curto', 'O motivo deve ter pelo menos 10 caracteres.');
         }
       });
   }

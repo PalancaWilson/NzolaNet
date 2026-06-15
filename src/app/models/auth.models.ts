@@ -17,12 +17,14 @@ export interface RegisterPayload {
 export interface AuthResponse {
   token: string;
   utilizador: {
-      id: string;
-      nome: string;
-      email: string;
-      foto_perfil: string | undefined;
-      data_nascimento?: string;
-      biografia?: string;
-      privacidade?: 'publico' | 'privado';
+    id: string;
+    nome: string;
+    email: string;
+    foto_perfil: string | undefined;
+    foto_capa?: string;
+    data_nascimento?: string;
+    biografia?: string;
+    privacidade?: 'publico' | 'privado';
+    admin?: boolean;
   };
 }

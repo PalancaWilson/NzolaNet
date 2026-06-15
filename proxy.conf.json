@@ -1,5 +1,10 @@
 {
-  "/api/*": {
+  "/api/**": {
+    "target": "http://localhost:8000",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/storage/**": {
     "target": "http://localhost:8000",
     "secure": false,
     "logLevel": "debug"

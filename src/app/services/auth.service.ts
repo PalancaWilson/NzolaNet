@@ -9,43 +9,43 @@ import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-
   private readonly API_URL = environment.apiUrl;
   private readonly TOKEN_KEY = 'nzolanet_token';
-  private readonly USER_KEY  = 'nzolanet_user';
+  private readonly USER_KEY = 'nzolanet_user';
 
-  private _token  = signal<string | null>(null);
+  private _token = signal<string | null>(null);
   private _utilizador = signal<AuthResponse['utilizador'] | null>(null);
 
-  readonly estaAutenticado  = computed(() => !!this._token());
+  readonly estaAutenticado = computed(() => !!this._token());
   readonly utilizadorAtual = computed(() => this._utilizador());
   readonly token = computed(() => this._token());
+  readonly isAdmin = computed(() => this._utilizador()?.admin ?? false);
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: object
+    @Inject(PLATFORM_ID) private platformId: object,
   ) {
     this.restaurarSessao();
   }
 
   iniciarSessao(payload: LoginPayload): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.API_URL}/auth/login`, payload).pipe(
-      tap(res => this.guardarSessao(res)),
-      catchError(err => {
+      tap((res) => this.guardarSessao(res)),
+      catchError((err) => {
         console.error('Erro no login:', err);
         return throwError(() => new Error('Falha no login. Tente novamente.'));
-      })
+      }),
     );
   }
 
   registar(payload: RegisterPayload): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.API_URL}/auth/registar`, payload).pipe(
-      tap(res => this.guardarSessao(res)),
-      catchError(err => {
+      tap((res) => this.guardarSessao(res)),
+      catchError((err) => {
         const msg = err?.error?.mensagem ?? err?.message ?? 'Falha no registo. Tente novamente.';
         return throwError(() => new Error(msg));
-      })
+      }),
     );
   }
 
@@ -54,7 +54,7 @@ export class AuthService {
       .get<{ disponivel: boolean }>(`${this.API_URL}/auth/verificar-email`, {
         params: { email },
       })
-      .pipe(map(r => r.disponivel));
+      .pipe(map((r) => r.disponivel));
   }
 
   verificarNome(nome: string): Observable<boolean> {
@@ -62,7 +62,7 @@ export class AuthService {
       .get<{ disponivel: boolean }>(`${this.API_URL}/auth/verificar-nome`, {
         params: { nome },
       })
-      .pipe(map(r => r.disponivel));
+      .pipe(map((r) => r.disponivel));
   }
 
   terminarSessao(): void {
@@ -78,7 +78,7 @@ export class AuthService {
   private restaurarSessao(): void {
     if (!isPlatformBrowser(this.platformId)) return;
     const token = localStorage.getItem(this.TOKEN_KEY);
-    const user  = localStorage.getItem(this.USER_KEY);
+    const user = localStorage.getItem(this.USER_KEY);
     if (token && user) {
       try {
         this._token.set(token);
