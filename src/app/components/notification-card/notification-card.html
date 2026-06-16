@@ -1,33 +1,33 @@
-<div class="notif-item" [class.unread]="!notification.lida">
+<div class="item-notificacao" [class.nao-lida]="!notification.lida">
 
   <!-- Ponto de não lido -->
   @if (!notification.lida) {
-    <span class="unread-dot"></span>
+    <span class="ponto-nao-lido"></span>
   }
 
   <!-- Avatar + ícone de tipo -->
-  <div class="notif-avatar-wrap">
-    <img [src]="notification.utilizador.avatar" [alt]="notification.utilizador.nome" class="notif-avatar">
-    <span class="notif-type-icon" [class]="'type-' + notification.type">
+  <div class="moldura-avatar-notificacao">
+    <img [src]="notification.utilizador.avatar" [alt]="notification.utilizador.nome" class="avatar-notificacao">
+    <span class="icone-tipo-notificacao" [class]="'tipo-' + notification.type">
       <i [class]="getTypeIcon()"></i>
     </span>
   </div>
 
   <!-- Texto -->
-  <div class="notif-content">
-    <p class="notif-text">
+  <div class="conteudo-notificacao">
+    <p class="texto-notificacao">
       <strong>{{ notification.utilizador.nome }}</strong>
       {{ notification.mensagem }}
       @if (notification.tituloPublicacao) {
-        <span class="notif-post-title">{{ notification.tituloPublicacao }}</span>
+        <span class="titulo-publicacao-notificacao">{{ notification.tituloPublicacao }}</span>
       }
     </p>
-    <span class="notif-time">@{{ notification.utilizador.nomeUtilizador }} · {{ notification.tempoDecorrido }}</span>
+    <span class="tempo-notificacao">@{{ notification.utilizador.nomeUtilizador }} · {{ notification.tempoDecorrido }}</span>
   </div>
 
   <!-- Botão seguir (apenas para tipo follow) -->
   @if (notification.type === 'follow') {
-    <button class="btn-follow">SEGUIR</button>
+    <button class="btn-seguir">SEGUIR</button>
   }
 
 </div>

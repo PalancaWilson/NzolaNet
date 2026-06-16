@@ -1,10 +1,10 @@
-<div class="admin-page fade-in">
-  <div class="admin-header slide-down">
+<div class="pagina-admin fade-in">
+  <div class="cabecalho-admin slide-down">
     <h1><i class="bi bi-people-fill"></i> Gestão de Utilizadores</h1>
     <p>Gerir contas, bloquear ou remover utilizadores</p>
   </div>
 
-  <div class="admin-search-bar">
+  <div class="barra-pesquisa-admin">
     <i class="bi bi-search"></i>
     <input
       type="text"
@@ -13,7 +13,7 @@
       (ngModelChange)="pesquisa.set($event)"
     />
     @if (pesquisa()) {
-      <button class="btn-clear" (click)="pesquisa.set('')"><i class="bi bi-x"></i></button>
+      <button class="btn-limpar" (click)="pesquisa.set('')"><i class="bi bi-x"></i></button>
     }
   </div>
 
@@ -21,19 +21,19 @@
     <div class="skeleton-list">
       @for (_ of [1, 2, 3, 4, 5]; track $index) {
         <div class="skeleton-card" style="animation-delay: {{ $index * 0.08 }}s">
-          <div class="skeleton-row-item">
+          <div class="item-linha-skeleton">
             <div class="skeleton skeleton-avatar"></div>
-            <div class="skeleton-lines">
-              <div class="skeleton-line w-40"></div>
-              <div class="skeleton-line w-60"></div>
+            <div class="linhas-skeleton">
+              <div class="linha-skeleton w-40"></div>
+              <div class="linha-skeleton w-60"></div>
             </div>
           </div>
         </div>
       }
     </div>
   } @else {
-    <div class="admin-table-wrap">
-      <table class="admin-table">
+    <div class="moldura-tabela-admin">
+      <table class="tabela-admin">
         <thead>
           <tr>
             <th>Utilizador</th>
@@ -42,26 +42,26 @@
             <th>Seguidores</th>
             <th>Privacidade</th>
             <th>Estado</th>
-            <th class="th-actions">Ações</th>
+            <th class="th-acoes">Ações</th>
           </tr>
         </thead>
         <tbody>
           @for (u of utilizadoresFiltrados; track u.id) {
             <tr
               [class.bloqueado]="u.estaBloqueado"
-              class="fade-in-row"
+              class="fade-in-linha"
               style="animation-delay: {{ 0.05 * $index }}s"
             >
-              <td class="td-user">
-                <a [routerLink]="'/profile/' + u.id" class="user-link">
+              <td class="td-utilizador">
+                <a [routerLink]="'/profile/' + u.id" class="link-utilizador">
                   @if (u.avatar) {
                     <img [src]="u.avatar" [alt]="u.nome" class="mini-avatar" />
                   } @else {
-                    <div class="mini-avatar initials">{{ u.nome.charAt(0) }}</div>
+                    <div class="mini-avatar iniciais">{{ u.nome.charAt(0) }}</div>
                   }
                   <div>
-                    <div class="user-name">{{ u.nome }}</div>
-                    <div class="user-username">&#64;{{ u.nomeUtilizador }}</div>
+                    <div class="nome-utilizador">{{ u.nome }}</div>
+                    <div class="nome-utilizador-user">&#64;{{ u.nomeUtilizador }}</div>
                   </div>
                 </a>
               </td>
@@ -84,9 +84,9 @@
                   <span class="status-ativo"><i class="bi bi-check-circle-fill"></i> Ativo</span>
                 }
               </td>
-              <td class="td-actions">
+              <td class="td-acoes">
                 <button
-                  class="btn-action"
+                  class="btn-acao"
                   [class.btn-warning]="!u.estaBloqueado"
                   [class.btn-success]="u.estaBloqueado"
                   (click)="confirmarBloquear(u)"
@@ -97,14 +97,14 @@
                     [class.bi-unlock-fill]="u.estaBloqueado"
                   ></i>
                 </button>
-                <button class="btn-action btn-danger" (click)="confirmarRemover(u)" title="Remover">
+                <button class="btn-acao btn-danger" (click)="confirmarRemover(u)" title="Remover">
                   <i class="bi bi-trash3-fill"></i>
                 </button>
               </td>
             </tr>
           } @empty {
             <tr>
-              <td colspan="7" class="empty-cell">
+              <td colspan="7" class="celula-vazia">
                 <i class="bi bi-people"></i>
                 <p>Nenhum utilizador encontrado.</p>
               </td>

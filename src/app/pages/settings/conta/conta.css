@@ -8,17 +8,17 @@ h2 {
   margin: 0 0 4px;
 }
 
-.section-desc {
+.descricao-seccao {
   color: var(--text-sub);
   font-size: 14px;
   margin-bottom: 28px;
 }
 
-.form-group {
+.grupo-formulario {
   margin-bottom: 20px;
 }
 
-.form-group label {
+.grupo-formulario label {
   display: block;
   margin-bottom: 6px;
   font-size: 11px;
@@ -28,7 +28,7 @@ h2 {
   color: var(--text-sub);
 }
 
-.form-input {
+.input-formulario {
   width: 100%;
   height: 48px;
   padding: 0 14px;
@@ -42,17 +42,17 @@ h2 {
   box-sizing: border-box;
 }
 
-.form-input:focus {
+.input-formulario:focus {
   border-color: var(--purple);
   box-shadow: 0 0 0 3px rgba(201, 45, 241, 0.08);
   outline: none;
 }
 
-.form-input::placeholder {
+.input-formulario::placeholder {
   color: #adb1b8;
 }
 
-.save-btn {
+.btn-salvar {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -68,21 +68,21 @@ h2 {
   margin-top: 8px;
 }
 
-.save-btn:hover {
+.btn-salvar:hover {
   opacity: 0.9;
   transform: translateY(-1px);
 }
 
-.save-btn i {
+.btn-salvar i {
   font-size: 16px;
 }
 
-.save-btn:disabled {
+.btn-salvar:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-.alert-success {
+.alerta-sucesso {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -95,7 +95,7 @@ h2 {
   margin: 16px 0 8px;
 }
 
-.alert-success i {
+.alerta-sucesso i {
   font-size: 18px;
 }
 

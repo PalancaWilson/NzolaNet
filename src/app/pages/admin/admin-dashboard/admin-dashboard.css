@@ -1,14 +1,14 @@
-.admin-page {
+.pagina-admin {
   max-width: 900px;
   margin: 0 auto;
   padding: 24px 16px;
 }
 
-.admin-header {
+.cabecalho-admin {
   margin-bottom: 32px;
 }
 
-.admin-header h1 {
+.cabecalho-admin h1 {
   font-size: 1.6rem;
   margin: 0 0 4px;
   display: flex;
@@ -17,24 +17,24 @@
   color: var(--text);
 }
 
-.admin-header h1 i {
+.cabecalho-admin h1 i {
   color: var(--purple);
 }
 
-.admin-header p {
+.cabecalho-admin p {
   margin: 0;
   color: var(--text-muted);
   font-size: 0.9rem;
 }
 
-.admin-stats-grid {
+.grade-estatisticas-admin {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 16px;
   margin-bottom: 24px;
 }
 
-.stat-card {
+.cartao-estatistica {
   background: var(--bg-card, #fff);
   border: 1px solid var(--border);
   border-radius: 14px;
@@ -45,11 +45,11 @@
   transition: box-shadow 0.2s;
 }
 
-.stat-card:hover {
+.cartao-estatistica:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
-.stat-icon {
+.icone-estatistica {
   width: 50px;
   height: 50px;
   border-radius: 12px;
@@ -60,73 +60,73 @@
   flex-shrink: 0;
 }
 
-.stat-icon.users {
+.icone-estatistica.utilizadores {
   background: #ede9fe;
   color: #7c3aed;
 }
-.stat-icon.posts {
+.icone-estatistica.publicacoes {
   background: #dbeafe;
   color: #2563eb;
 }
-.stat-icon.comments {
+.icone-estatistica.comentarios {
   background: #fce7f3;
   color: #db2777;
 }
-.stat-icon.bazes {
+.icone-estatistica.bazes {
   background: #fef3c7;
   color: #d97706;
 }
-.stat-icon.reports {
+.icone-estatistica.denuncias {
   background: #fef2f2;
   color: #dc2626;
 }
 
-.stat-info {
+.info-estatistica {
   display: flex;
   flex-direction: column;
 }
 
-.stat-value {
+.valor-estatistica {
   font-size: 1.8rem;
   font-weight: 700;
   line-height: 1.2;
   color: var(--text);
 }
 
-.stat-label {
+.rotulo-estatistica {
   font-size: 0.85rem;
   color: var(--text-muted);
 }
 
-.admin-stats-secondary {
+.estatisticas-secundarias-admin {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 16px;
   margin-bottom: 32px;
 }
 
-.stat-card.small {
+.cartao-estatistica.pequeno {
   padding: 16px 20px;
 }
 
-.stat-card.small i {
+.cartao-estatistica.pequeno i {
   font-size: 1.4rem;
   color: var(--purple);
 }
 
-.admin-quick-links h2 {
+.links-rapidos-admin h2 {
   font-size: 1.1rem;
   margin: 0 0 16px;
   color: var(--text);
 }
 
-.quick-links-grid {
+.grade-links-rapidos {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 12px;
 }
 
-.quick-link {
+.link-rapido {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -142,12 +142,12 @@
     border-color 0.2s;
 }
 
-.quick-link:hover {
+.link-rapido:hover {
   background: var(--purple-light);
   border-color: var(--purple);
 }
 
-.quick-link i {
+.link-rapido i {
   font-size: 1.3rem;
   color: var(--purple);
 }
@@ -179,16 +179,16 @@
 }
 
 /* ── Hover stat cards ─────────────────────────────────── */
-.stat-card {
+.cartao-estatistica {
   transition: all 0.25s ease;
 }
-.stat-card:hover {
+.cartao-estatistica:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(124, 58, 237, 0.12);
 }
-.quick-link {
+.link-rapido {
   transition: all 0.25s ease;
 }
-.quick-link:hover {
+.link-rapido:hover {
   transform: translateY(-1px);
 }

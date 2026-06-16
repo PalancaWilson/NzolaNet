@@ -1,64 +1,111 @@
-<div class="profile-page">
+<div class="pagina-perfil">
   @if (carregando()) {
-    <div class="skeleton" style="height:200px;border-radius:0"></div>
-    <div style="padding:20px"><div class="skeleton" style="height:100px"></div></div>
+    <div class="skeleton" style="height: 200px; border-radius: 0"></div>
+    <div style="padding: 20px"><div class="skeleton" style="height: 100px"></div></div>
   }
 
   @if (!carregando() && utilizador()) {
-    <div class="cover" [style.background-image]="utilizador()!.foto_capa ? 'url(' + utilizador()!.foto_capa + ')' : null"></div>
-    <div class="profile-body">
-
-      <div class="profile-top">
-        <div class="avatar-wrap">
-          <img [src]="utilizador()!.avatar" [alt]="utilizador()!.nome" class="p-avatar">
+    <div
+      class="capa"
+      [style.background-image]="
+        utilizador()!.foto_capa ? 'url(' + utilizador()!.foto_capa + ')' : null
+      "
+    ></div>
+    <div class="corpo-perfil">
+      <div class="topo-perfil">
+        <div class="moldura-avatar">
+          <img [src]="utilizador()!.avatar" [alt]="utilizador()!.nome" class="avatar-p" />
         </div>
-        <div class="profile-actions" style="display:flex;gap:10px;align-items:center">
-          <!-- <button class="btn-msg" (click)="abrirMensagem()"><i class="bi bi-chat"></i></button> -->
-          <button class="btn-report" (click)="denunciarConta()" title="Denunciar"><i class="bi bi-flag"></i></button>
-          <button class="btn-follow" [class.seguindo]="estaSeguindo()" (click)="toggleSeguir()">
-            @if (estaSeguindo()) { <i class="bi bi-person-check-fill"></i> A Seguir }
-            @else                { <i class="bi bi-person-plus"></i> SEGUIR }
+        <div class="acoes-perfil" style="display: flex; gap: 10px; align-items: center">
+          <!-- <button class="btn-mensagem" (click)="abrirMensagem()"><i class="bi bi-chat"></i></button> -->
+          <button class="btn-denunciar" (click)="denunciarConta()" title="Denunciar">
+            <i class="bi bi-flag"></i>
+          </button>
+          <button class="btn-seguir" [class.seguindo]="estaSeguindo()" (click)="toggleSeguir()">
+            @if (estaSeguindo()) {
+              <i class="bi bi-person-check-fill"></i> A Seguir
+            } @else {
+              <i class="bi bi-person-plus"></i> SEGUIR
+            }
           </button>
         </div>
       </div>
 
-      <div class="profile-details">
+      <div class="detalhes-perfil">
         <h1>{{ utilizador()!.nome }}</h1>
-        <span class="p-username">
+        <span class="nome-utilizador-p">
           &#64;{{ utilizador()!.nomeUtilizador }}
-          @if (utilizador()!.emblema === 'verified') { <i class="bi bi-patch-check-fill" style="color:var(--blue)"></i> }
-          @if (utilizador()!.emblema === 'creator')  { <span class="badge-creator">CREATOR</span> }
+          @if (utilizador()!.emblema === 'verified') {
+            <i class="bi bi-patch-check-fill" style="color: var(--blue)"></i>
+          }
+          @if (utilizador()!.emblema === 'creator') {
+            <span class="badge-criador">CREATOR</span>
+          }
         </span>
-        @if (utilizador()!.biografia) { <p class="p-bio">{{ utilizador()!.biografia }}</p> }
+        @if (utilizador()!.biografia) {
+          <p class="biografia-p">{{ utilizador()!.biografia }}</p>
+        }
 
-        <div class="p-stats">
-          <div class="p-stat"><strong>{{ postsDoPerfil().length }}</strong><span>Posts</span></div>
-          <div class="p-stat"><strong>{{ utilizador()!.seguidores }}</strong><span>Seguidores</span></div>
-          <div class="p-stat"><strong>{{ utilizador()!.seguindo }}</strong><span>A Seguir</span></div>
+        <div class="estatisticas-p">
+          <div class="estatistica-p">
+            <strong>{{ postsDoPerfil().length }}</strong
+            ><span>Posts</span>
+          </div>
+          <div class="estatistica-p">
+            <strong>{{ utilizador()!.seguidores }}</strong
+            ><span>Seguidores</span>
+          </div>
+          <div class="estatistica-p">
+            <strong>{{ utilizador()!.seguindo }}</strong
+            ><span>A Seguir</span>
+          </div>
         </div>
       </div>
 
-      <div class="p-tabs">
-        <button [class.active]="tabActiva()==='posts'"  (click)="tabActiva.set('posts')">Publicações</button>
-        <button [class.active]="tabActiva()==='media'"  (click)="tabActiva.set('media')">Multimédia</button>
-        <button [class.active]="tabActiva()==='bazes'"  (click)="tabActiva.set('bazes')">Bazes</button>
+      <div class="abas-p">
+        <button [class.ativo]="tabActiva() === 'posts'" (click)="tabActiva.set('posts')">
+          Publicações
+        </button>
+        <button [class.ativo]="tabActiva() === 'media'" (click)="tabActiva.set('media')">
+          Multimédia
+        </button>
+        <button [class.ativo]="tabActiva() === 'bazes'" (click)="tabActiva.set('bazes')">
+          Bazes
+        </button>
       </div>
 
-      <div class="p-content">
+      <div class="conteudo-p">
         @if (tabActiva() === 'posts') {
-          @for (p of postsDoPerfil(); track p.id) { <app-post-card [post]="p"></app-post-card> }
-          @empty { <div class="empty-state"><i class="bi bi-pencil-square"></i><p>Sem publicações.</p></div> }
+          @for (p of postsDoPerfil(); track p.id) {
+            <app-post-card [post]="p"></app-post-card>
+          } @empty {
+            <div class="estado-vazio">
+              <i class="bi bi-pencil-square"></i>
+              <p>Sem publicações.</p>
+            </div>
+          }
         }
         @if (tabActiva() === 'media') {
-          @for (p of postsMedia(); track p.id) { <app-post-card [post]="p"></app-post-card> }
-          @empty { <div class="empty-state"><i class="bi bi-images"></i><p>Sem multimédia.</p></div> }
+          @for (p of postsMedia(); track p.id) {
+            <app-post-card [post]="p"></app-post-card>
+          } @empty {
+            <div class="estado-vazio">
+              <i class="bi bi-images"></i>
+              <p>Sem multimédia.</p>
+            </div>
+          }
         }
         @if (tabActiva() === 'bazes') {
-          @for (p of postsBazados(); track p.id) { <app-post-card [post]="p"></app-post-card> }
-          @empty { <div class="empty-state"><i class="bi bi-heart"></i><p>Sem bazes.</p></div> }
+          @for (p of postsBazados(); track p.id) {
+            <app-post-card [post]="p"></app-post-card>
+          } @empty {
+            <div class="estado-vazio">
+              <i class="bi bi-heart"></i>
+              <p>Sem bazes.</p>
+            </div>
+          }
         }
       </div>
-
     </div>
   }
 </div>

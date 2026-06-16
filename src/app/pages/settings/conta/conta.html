@@ -1,28 +1,28 @@
 <h2>CONTA</h2>
-<p class="section-desc">Actualiza os teus dados pessoais.</p>
+<p class="descricao-seccao">Actualiza os teus dados pessoais.</p>
 
-<div class="form-group">
+<div class="grupo-formulario">
   <label for="nome">Nome</label>
-  <input id="nome" type="text" [ngModel]="nome()" (ngModelChange)="nome.set($event)" class="form-input" autocomplete="name">
+  <input id="nome" type="text" [ngModel]="nome()" (ngModelChange)="nome.set($event)" class="input-formulario" autocomplete="name">
 </div>
 
-<div class="form-group">
+<div class="grupo-formulario">
   <label for="email">Email</label>
-  <input id="email" type="email" [ngModel]="email()" (ngModelChange)="email.set($event)" class="form-input" autocomplete="email">
+  <input id="email" type="email" [ngModel]="email()" (ngModelChange)="email.set($event)" class="input-formulario" autocomplete="email">
 </div>
 
-<div class="form-group">
+<div class="grupo-formulario">
   <label for="senha">Nova palavra-passe</label>
-  <input id="senha" type="password" [ngModel]="senha()" (ngModelChange)="senha.set($event)" class="form-input" placeholder="Deixar vazio para manter" autocomplete="new-password">
+  <input id="senha" type="password" [ngModel]="senha()" (ngModelChange)="senha.set($event)" class="input-formulario" placeholder="Deixar vazio para manter" autocomplete="new-password">
 </div>
 
 @if (salvo()) {
-  <div class="alert-success">
+  <div class="alerta-sucesso">
     <i class="bi bi-check-circle-fill"></i> Dados guardados com sucesso!
   </div>
 }
 
-<button class="save-btn" (click)="salvar()" [disabled]="salvando()">
+<button class="btn-salvar" (click)="salvar()" [disabled]="salvando()">
   @if (salvando()) {
     <span class="spinner"></span> A guardar...
   } @else {

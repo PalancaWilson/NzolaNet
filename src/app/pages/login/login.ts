@@ -1,12 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthLayout } from '../../layouts/auth-layout/auth-layout';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -18,28 +13,29 @@ import { AuthService } from '../../services/auth.service';
 export class Login {
   loginForm: FormGroup;
   mostrarPassword = signal(false);
-  carregando       = signal(false);
-  erroServidor     = signal('');
+  carregando = signal(false);
+  erroServidor = signal('');
 
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      senha: [
-        '',
-        [Validators.required, Validators.minLength(6), Validators.maxLength(64)],
-      ],
+      senha: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(64)]],
     });
   }
 
-  get emailCtrl()    { return this.loginForm.get('email')!; }
-  get passwordCtrl() { return this.loginForm.get('senha')!; }
+  get emailCtrl() {
+    return this.loginForm.get('email')!;
+  }
+  get passwordCtrl() {
+    return this.loginForm.get('senha')!;
+  }
 
   alternarPassword(): void {
-    this.mostrarPassword.update(v => !v);
+    this.mostrarPassword.update((v) => !v);
   }
 
   entrar(): void {
@@ -60,7 +56,7 @@ export class Login {
       error: (err) => {
         this.carregando.set(false);
         this.erroServidor.set(
-          err?.message ?? 'Erro ao iniciar sessão. Tenta novamente.'
+          err?.message ?? 'Erro ao iniciar sessão. Tenta novamente.',
         );
       },
     });

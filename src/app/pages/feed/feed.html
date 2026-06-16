@@ -1,8 +1,8 @@
-<div class="feed-layout">
+<div class="layout-feed">
 
-  <section class="feed-main content-area">
+  <section class="principal-feed area-conteudo">
 
-    <div class="page-header">
+    <div class="cabecalho-pagina">
       <p>// publicações da tua comunidade</p>
       <h1>FEED</h1>
     </div>
@@ -18,7 +18,7 @@
         @for (post of postService.publicacoes(); track post.id) {
           <app-post-card [post]="post"></app-post-card>
         } @empty {
-          <div class="empty-state">
+          <div class="estado-vazio">
             <i class="bi bi-wind"></i>
             <p>Nenhuma publicação ainda. Sê o primeiro a bazar!</p>
           </div>
@@ -28,7 +28,7 @@
 
   </section>
 
-  <aside class="right-col">
+  <aside class="coluna-direita">
     <app-right-sidebar></app-right-sidebar>
   </aside>
 

@@ -5,7 +5,7 @@
 <app-sidebar></app-sidebar>
 
 <!-- CONTEÚDO (router-outlet da página activa) -->
-<div class="shell-content">
+  <div class="conteudo-shell">
   <router-outlet></router-outlet>
 </div>
 
@@ -13,8 +13,8 @@
 <app-modal></app-modal>
 
 <!-- BOTTOM NAV (apenas mobile) -->
-<nav class="bottom-nav" aria-label="Navegação">
-  <div class="bottom-nav-inner">
+<nav class="navegacao-inferior" aria-label="Navegação">
+  <div class="interior-nav-inferior">
     <a routerLink="/feed"          routerLinkActive="active"><i class="bi bi-house-fill"></i>Feed</a>
     <a routerLink="/explorar"      routerLinkActive="active"><i class="bi bi-compass-fill"></i>Explorar</a>
     <a routerLink="/notifications" routerLinkActive="active"><i class="bi bi-bell-fill"></i>Notif.</a>

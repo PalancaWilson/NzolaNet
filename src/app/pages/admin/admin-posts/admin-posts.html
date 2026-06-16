@@ -1,10 +1,10 @@
-<div class="admin-page fade-in">
-  <div class="admin-header slide-down">
+<div class="pagina-admin fade-in">
+  <div class="cabecalho-admin slide-down">
     <h1><i class="bi bi-file-text-fill"></i> Moderação de Publicações</h1>
     <p>Visualizar e remover publicações da plataforma</p>
   </div>
 
-  <div class="admin-search-bar">
+  <div class="barra-pesquisa-admin">
     <i class="bi bi-search"></i>
     <input
       type="text"
@@ -13,7 +13,7 @@
       (ngModelChange)="pesquisa.set($event)"
     />
     @if (pesquisa()) {
-      <button class="btn-clear" (click)="pesquisa.set('')"><i class="bi bi-x"></i></button>
+      <button class="btn-limpar" (click)="pesquisa.set('')"><i class="bi bi-x"></i></button>
     }
   </div>
 
@@ -22,55 +22,55 @@
       @for (_ of [1, 2, 3, 4]; track $index) {
         <div class="skeleton-card" style="animation-delay: {{ $index * 0.1 }}s">
           <div class="skeleton skeleton-avatar"></div>
-          <div class="skeleton-lines">
-            <div class="skeleton-line w-60"></div>
-            <div class="skeleton-line w-80"></div>
+          <div class="linhas-skeleton">
+            <div class="linha-skeleton w-60"></div>
+            <div class="linha-skeleton w-80"></div>
           </div>
         </div>
       }
     </div>
   } @else {
-    <div class="posts-list">
+    <div class="lista-publicacoes">
       @for (p of publicacoesFiltradas; track p.id) {
-        <div class="post-mod-item fade-in-row" style="animation-delay: {{ 0.05 * $index }}s">
-          <div class="post-mod-header">
-            <a [routerLink]="'/profile/' + p.autor.id" class="post-author">
+        <div class="item-mod-publicacao fade-in-linha" style="animation-delay: {{ 0.05 * $index }}s">
+          <div class="cabecalho-mod-publicacao">
+            <a [routerLink]="'/profile/' + p.autor.id" class="autor-publicacao">
               @if (p.autor.avatar) {
                 <img [src]="p.autor.avatar" [alt]="p.autor.nome" class="mini-avatar" />
               } @else {
-                <div class="mini-avatar initials">{{ p.autor.nome.charAt(0) }}</div>
+                <div class="mini-avatar iniciais">{{ p.autor.nome.charAt(0) }}</div>
               }
               <div>
-                <div class="author-name">{{ p.autor.nome }}</div>
-                <div class="post-time">{{ p.tempoDecorrido }}</div>
+                <div class="nome-autor">{{ p.autor.nome }}</div>
+                <div class="tempo-publicacao">{{ p.tempoDecorrido }}</div>
               </div>
             </a>
-            <div class="post-stats-badges">
-              <span class="post-stat"><i class="bi bi-heart-fill"></i> {{ p.gostos }}</span>
-              <span class="post-stat"><i class="bi bi-chat-fill"></i> {{ p.comentarios }}</span>
+            <div class="badges-estatisticas-publicacao">
+              <span class="estatistica-publicacao"><i class="bi bi-heart-fill"></i> {{ p.gostos }}</span>
+              <span class="estatistica-publicacao"><i class="bi bi-chat-fill"></i> {{ p.comentarios }}</span>
             </div>
           </div>
 
-          <div class="post-mod-body" [routerLink]="'/post/' + p.id">
-            <p class="post-text">{{ p.conteudo }}</p>
+          <div class="corpo-mod-publicacao" [routerLink]="'/post/' + p.id">
+            <p class="texto-publicacao">{{ p.conteudo }}</p>
             @if (p.imagem) {
-              <div class="post-thumb">
+              <div class="miniatura-publicacao">
                 <img [src]="p.imagem" alt="Imagem da publicação" />
               </div>
             }
           </div>
 
-          <div class="post-mod-actions">
-            <a class="btn-view" [routerLink]="'/post/' + p.id" title="Ver publicação">
+          <div class="acoes-mod-publicacao">
+            <a class="btn-visualizar" [routerLink]="'/post/' + p.id" title="Ver publicação">
               <i class="bi bi-eye"></i> Ver
             </a>
-            <button class="btn-action btn-danger" (click)="confirmarRemover(p)" title="Remover">
+            <button class="btn-acao btn-danger" (click)="confirmarRemover(p)" title="Remover">
               <i class="bi bi-trash3-fill"></i> Remover
             </button>
           </div>
         </div>
       } @empty {
-        <div class="empty-cell">
+        <div class="celula-vazia">
           <i class="bi bi-file-text"></i>
           <p>Nenhuma publicação encontrada.</p>
         </div>

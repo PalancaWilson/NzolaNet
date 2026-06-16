@@ -1,14 +1,14 @@
-.admin-page {
+.pagina-admin {
   max-width: 800px;
   margin: 0 auto;
   padding: 24px 16px;
 }
 
-.admin-header {
+.cabecalho-admin {
   margin-bottom: 24px;
 }
 
-.admin-header h1 {
+.cabecalho-admin h1 {
   font-size: 1.6rem;
   margin: 0 0 4px;
   display: flex;
@@ -17,22 +17,22 @@
   color: var(--text);
 }
 
-.admin-header h1 i {
+.cabecalho-admin h1 i {
   color: var(--purple);
 }
 
-.admin-header p {
+.cabecalho-admin p {
   margin: 0;
   color: var(--text-muted);
   font-size: 0.9rem;
 }
 
-.admin-search-bar {
+.barra-pesquisa-admin {
   position: relative;
   margin-bottom: 20px;
 }
 
-.admin-search-bar i {
+.barra-pesquisa-admin i {
   position: absolute;
   left: 14px;
   top: 50%;
@@ -41,7 +41,7 @@
   font-size: 1rem;
 }
 
-.admin-search-bar input {
+.barra-pesquisa-admin input {
   width: 100%;
   padding: 10px 36px 10px 40px;
   border: 1px solid var(--border);
@@ -53,11 +53,11 @@
   box-sizing: border-box;
 }
 
-.admin-search-bar input:focus {
+.barra-pesquisa-admin input:focus {
   border-color: var(--purple);
 }
 
-.btn-clear {
+.btn-limpar {
   position: absolute;
   right: 10px;
   top: 50%;
@@ -69,27 +69,27 @@
   padding: 4px;
 }
 
-.comments-list {
+.lista-comentarios {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.comment-mod-item {
+.item-mod-comentario {
   background: var(--bg-card, #fff);
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 16px;
 }
 
-.comment-mod-header {
+.cabecalho-mod-comentario {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 8px;
 }
 
-.comment-author {
+.autor-comentario {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -103,7 +103,7 @@
   flex-shrink: 0;
 }
 
-.mini-avatar.initials {
+.mini-avatar.iniciais {
   background: var(--purple);
   color: #fff;
   display: flex;
@@ -113,18 +113,18 @@
   font-size: 0.75rem;
 }
 
-.author-name {
+.nome-autor {
   font-weight: 600;
   font-size: 0.85rem;
   color: var(--text);
 }
 
-.comment-time {
+.tempo-comentario {
   font-size: 0.75rem;
   color: var(--text-muted);
 }
 
-.comment-bazes {
+.bazes-comentario {
   font-size: 0.8rem;
   color: var(--text-muted);
   display: flex;
@@ -132,19 +132,19 @@
   gap: 4px;
 }
 
-.comment-bazes i {
+.bazes-comentario i {
   color: #ef4444;
   font-size: 0.75rem;
 }
 
-.comment-text {
+.texto-comentario {
   margin: 0 0 10px;
   font-size: 0.95rem;
   line-height: 1.5;
   color: var(--text);
 }
 
-.comment-context {
+.contexto-comentario {
   display: flex;
   align-items: flex-start;
   gap: 6px;
@@ -156,12 +156,12 @@
   margin-bottom: 12px;
 }
 
-.comment-context i {
+.contexto-comentario i {
   margin-top: 2px;
   flex-shrink: 0;
 }
 
-.comment-mod-actions {
+.acoes-mod-comentario {
   display: flex;
   gap: 8px;
   justify-content: flex-end;
@@ -169,7 +169,7 @@
   border-top: 1px solid var(--border);
 }
 
-.btn-view {
+.btn-visualizar {
   padding: 8px 16px;
   border-radius: 8px;
   border: 1px solid var(--border);
@@ -184,11 +184,11 @@
   transition: background 0.2s;
 }
 
-.btn-view:hover {
+.btn-visualizar:hover {
   background: var(--purple-light);
 }
 
-.btn-action {
+.btn-acao {
   padding: 8px 16px;
   border-radius: 8px;
   border: 1px solid var(--border);
@@ -201,36 +201,36 @@
   transition: all 0.2s;
 }
 
-.btn-action.btn-danger {
+.btn-acao.btn-danger {
   color: #dc2626;
   border-color: #fecaca;
 }
 
-.btn-action.btn-danger:hover {
+.btn-acao.btn-danger:hover {
   background: #fee2e2;
 }
 
-.empty-cell {
+.celula-vazia {
   text-align: center;
   padding: 48px 16px;
   color: var(--text-muted);
 }
 
-.empty-cell i {
+.celula-vazia i {
   font-size: 2rem;
   display: block;
   margin-bottom: 8px;
 }
 
-.empty-cell p {
+.celula-vazia p {
   margin: 0;
 }
 
-.loading-skeleton {
+.skeleton-carregamento {
   padding: 16px 0;
 }
 
-.skeleton-row {
+.linha-skeleton {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -251,23 +251,23 @@
   flex-shrink: 0;
 }
 
-.skeleton-text-lines {
+.skeleton-texto-linhas {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.skeleton-line {
+.linha-skeleton {
   height: 14px;
   width: 100%;
 }
 
-.skeleton-line.short {
+.linha-skeleton.curto {
   width: 60%;
 }
 
-.skeleton-btn {
+.skeleton-botao {
   width: 80px;
   height: 34px;
 }
@@ -289,7 +289,7 @@
 .slide-down {
   animation: slideDown 0.35s ease-out;
 }
-.fade-in-row {
+.fade-in-linha {
   animation: fadeIn 0.3s ease-out both;
 }
 @keyframes fadeIn {
@@ -328,13 +328,13 @@
   gap: 14px;
   animation: shimmer 1.4s infinite;
 }
-.skeleton-lines {
+.linhas-skeleton {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-.skeleton-line {
+.linha-skeleton {
   height: 12px;
   border-radius: 6px;
   background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
@@ -357,21 +357,21 @@
 }
 
 /* ── Hover nos cards ──────────────────────────────────── */
-.comment-mod-item {
+.item-mod-comentario {
   transition: all 0.25s ease;
 }
-.comment-mod-item:hover {
+.item-mod-comentario:hover {
   border-color: var(--purple-light, #d8b4fe);
   box-shadow: 0 2px 12px rgba(124, 58, 237, 0.08);
 }
 
 /* ── Botões com transição ─────────────────────────────── */
-.btn-action {
+.btn-acao {
   transition: all 0.2s ease;
 }
-.btn-action:hover {
+.btn-acao:hover {
   transform: translateY(-1px);
 }
-.btn-action:active {
+.btn-acao:active {
   transform: translateY(0);
 }

@@ -1,12 +1,12 @@
 <header class="topbar">
   <div class="topbar-left">
-    <button class="menu-hamburger" (click)="alternarMenu()" aria-label="Menu">
+    <button class="menu-hamburguer" (click)="alternarMenu()" aria-label="Menu">
       <i class="bi bi-list"></i>
     </button>
     <a routerLink="/feed" class="logo">NZOLANET</a>
   </div>
 
-  <div class="search-box">
+  <div class="caixa-pesquisa">
     <i class="bi bi-search" (click)="pesquisar()"></i>
     <input
       type="text"
@@ -20,9 +20,9 @@
   <div class="topbar-right">
     <a routerLink="/profile" class="avatar-link" title="{{ userService.nome() }}">
       @if (userService.fotoPerfil()) {
-        <img [src]="userService.fotoPerfil()" [alt]="userService.nome()" class="topbar-avatar">
+        <img [src]="userService.fotoPerfil()" [alt]="userService.nome()" class="avatar-topbar">
       } @else {
-        <div class="topbar-initials">{{ userService.iniciais() }}</div>
+        <div class="iniciais-topbar">{{ userService.iniciais() }}</div>
       }
     </a>
   </div>

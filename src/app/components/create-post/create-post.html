@@ -1,12 +1,12 @@
-<div class="create-post-card">
-  <div class="post-top">
+<div class="cartao-criar-publicacao">
+  <div class="topo-publicacao">
     @if (userService.fotoPerfil()) {
       <img [src]="userService.fotoPerfil()" [alt]="userService.nome()" class="avatar">
     } @else {
-      <div class="avatar avatar-initials">{{ userService.iniciais() }}</div>
+      <div class="avatar iniciais-avatar">{{ userService.iniciais() }}</div>
     }
 
-    <div class="textarea-wrap">
+    <div class="area-texto">
       <textarea
         [ngModel]="text()"
         (ngModelChange)="text.set($event)"
@@ -16,31 +16,31 @@
       ></textarea>
 
       @if (selectedImage(); as img) {
-        <div class="preview-wrap">
-          <img [src]="img" class="preview-img">
-          <button class="btn-remove-preview" (click)="removerImagem()" type="button">&times;</button>
+        <div class="area-pre-visualizacao">
+          <img [src]="img" class="pre-visualizacao-img">
+          <button class="btn-remover-pre-visualizacao" (click)="removerImagem()" type="button">&times;</button>
         </div>
       }
 
       @if (selectedVideo(); as vid) {
-        <div class="preview-wrap">
-          <video [src]="vid" class="preview-video" controls></video>
-          <button class="btn-remove-preview" (click)="removerVideo()" type="button">&times;</button>
+        <div class="area-pre-visualizacao">
+          <video [src]="vid" class="pre-visualizacao-video" controls></video>
+          <button class="btn-remover-pre-visualizacao" (click)="removerVideo()" type="button">&times;</button>
         </div>
       }
     </div>
   </div>
 
   @if (showEmojiPicker()) {
-    <div class="emoji-picker">
+    <div class="seletor-emoji">
       @for (e of emojis; track e) {
-        <button type="button" class="emoji-btn" (click)="inserirEmoji(e)">{{ e }}</button>
+        <button type="button" class="btn-emoji" (click)="inserirEmoji(e)">{{ e }}</button>
       }
     </div>
   }
 
-  <div class="post-bottom">
-    <div class="actions">
+  <div class="fundo-publicacao">
+    <div class="acoes">
       <button type="button" title="Imagem" (click)="imgInput.click()">
         <i class="bi bi-image"></i>
       </button>
@@ -58,10 +58,10 @@
         <i class="bi bi-geo-alt"></i>
       </button>
     </div>
-    <div class="post-info">
-      <span class="counter" [class.danger]="quaseNoLimite">{{ restantes }}</span>
+    <div class="info-publicacao">
+      <span class="contador" [class.perigo]="quaseNoLimite">{{ restantes }}</span>
       <button
-        class="publish-btn"
+        class="btn-publicar"
         type="button"
         [disabled]="!text().trim() || publicando()"
         (click)="publicar()"
@@ -72,8 +72,8 @@
   </div>
 </div>
 
-<div class="feed-tabs">
-  <button class="active">Para ti</button>
+<div class="abas-feed">
+  <button class="ativo">Para ti</button>
   <button>A seguir</button>
   <button>Em alta</button>
 </div>

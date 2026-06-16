@@ -1,15 +1,15 @@
 @if (modal.aberto()) {
-  <div class="modal-overlay" (click)="cancelar()">
-    <div class="modal-card" (click)="$event.stopPropagation()">
+  <div class="sobreposicao-modal" (click)="cancelar()">
+    <div class="cartao-modal" (click)="$event.stopPropagation()">
 
-      <div class="modal-header">
+      <div class="cabecalho-modal">
         <h3>{{ cfg()?.titulo }}</h3>
-        <button class="modal-close" (click)="cancelar(); $event.stopPropagation()" aria-label="Fechar">
+        <button class="fechar-modal" (click)="cancelar(); $event.stopPropagation()" aria-label="Fechar">
           <i class="bi bi-x-lg"></i>
         </button>
       </div>
 
-      <div class="modal-body">
+      <div class="corpo-modal">
         <p>{{ cfg()?.mensagem }}</p>
 
         @if (cfg()?.modo === 'prompt') {
@@ -17,13 +17,13 @@
             #promptInput
             [(ngModel)]="valorInput"
             [placeholder]="cfg()?.placeholder ?? 'Escreve aqui...'"
-            class="modal-input"
+            class="input-modal"
             (keyup.enter)="confirmar()"
           >
         }
       </div>
 
-      <div class="modal-footer">
+      <div class="rodape-modal">
         @if (cfg()?.modo === 'alert') {
           <button class="btn btn-primary" (click)="confirmar()">
             {{ cfg()?.botoes?.confirmar ?? 'OK' }}

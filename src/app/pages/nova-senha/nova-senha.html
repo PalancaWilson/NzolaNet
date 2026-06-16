@@ -1,45 +1,89 @@
-<div class="auth-page">
+<div class="pagina-auth">
   <app-auth-layout></app-auth-layout>
-  <div class="auth-right">
-    <form class="auth-form" [formGroup]="form" (ngSubmit)="guardar()">
-      <span class="small-text">// NOVA SENHA</span>
-      <h1>DEFINE UMA<br>NOVA SENHA</h1>
+  <div class="auth-direito">
+    <form class="formulario-auth" [formGroup]="form" (ngSubmit)="guardar()">
+      <span class="texto-pequeno">// NOVA SENHA</span>
+      <h1>DEFINE UMA<br />NOVA SENHA</h1>
       <p>Escolhe uma senha forte com pelo menos 8 caracteres.</p>
 
-      @if (sucesso()) {
-        <div class="alert-success">
+      @if (erro()) {
+        <div
+          style="
+            background: rgba(249, 24, 128, 0.08);
+            border: 1px solid rgba(249, 24, 128, 0.3);
+            border-radius: 12px;
+            color: #f91880;
+            padding: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+          "
+        >
+          <i class="bi bi-exclamation-triangle-fill"></i>
+          {{ erro() }}
+        </div>
+        <div class="link-registo">
+          <a routerLink="/recuperar-senha"><i class="bi bi-arrow-left"></i> Pedir novo código</a>
+        </div>
+      } @else if (sucesso()) {
+        <div class="alerta-sucesso">
           <i class="bi bi-check-circle-fill"></i>
           Senha alterada! A redirecionar para o login...
         </div>
       } @else {
-
         <label>NOVA SENHA</label>
-        <div class="input-group" [class.input-error]="form.get('senha')?.touched && form.get('senha')?.invalid">
+        <div
+          class="grupo-input"
+          [class.erro-input]="form.get('senha')?.touched && form.get('senha')?.invalid"
+        >
           <i class="bi bi-lock"></i>
-          <input [type]="mostrar() ? 'text' : 'password'" placeholder="Mínimo 8 caracteres" formControlName="senha">
-          <i class="bi" [class.bi-eye]="!mostrar()" [class.bi-eye-slash]="mostrar()"
-             style="cursor:pointer" (click)="mostrar.update(v=>!v)"></i>
+          <input
+            [type]="mostrar() ? 'text' : 'password'"
+            placeholder="Mínimo 8 caracteres"
+            formControlName="senha"
+          />
+          <i
+            class="bi"
+            [class.bi-eye]="!mostrar()"
+            [class.bi-eye-slash]="mostrar()"
+            style="cursor: pointer"
+            (click)="mostrar.update((v) => !v)"
+          ></i>
         </div>
         @if (form.get('senha')?.touched && form.get('senha')?.errors?.['minlength']) {
-          <small class="error">Mínimo 8 caracteres.</small>
+          <small class="erro">Mínimo 8 caracteres.</small>
         }
 
-        <label style="margin-top:20px">CONFIRMAR SENHA</label>
-        <div class="input-group" [class.input-error]="form.get('confirmar')?.touched && form.errors?.['diferentes']">
+        <label style="margin-top: 20px">CONFIRMAR SENHA</label>
+        <div
+          class="grupo-input"
+          [class.erro-input]="form.get('confirmar')?.touched && form.errors?.['diferentes']"
+        >
           <i class="bi bi-lock-fill"></i>
-          <input [type]="mostrar() ? 'text' : 'password'" placeholder="Repete a senha" formControlName="confirmar">
+          <input
+            [type]="mostrar() ? 'text' : 'password'"
+            placeholder="Repete a senha"
+            formControlName="confirmar"
+          />
         </div>
         @if (form.get('confirmar')?.touched && form.errors?.['diferentes']) {
-          <small class="error">As senhas não coincidem.</small>
+          <small class="erro">As senhas não coincidem.</small>
         }
 
-        <button class="login-btn" type="submit" [disabled]="carregando()">
-          @if (carregando()) { <span class="spinner"></span> A guardar... }
-          @else { <i class="bi bi-shield-lock-fill"></i> GUARDAR SENHA }
+        <button class="btn-entrar" type="submit" [disabled]="carregando()">
+          @if (carregando()) {
+            <span class="spinner"></span> A guardar...
+          } @else {
+            <i class="bi bi-shield-lock-fill"></i> GUARDAR SENHA
+          }
         </button>
       }
 
-      <div class="register-link"><a routerLink="/login"><i class="bi bi-arrow-left"></i> Voltar ao login</a></div>
+      <div class="link-registo">
+        <a routerLink="/login"><i class="bi bi-arrow-left"></i> Voltar ao login</a>
+      </div>
     </form>
   </div>
 </div>

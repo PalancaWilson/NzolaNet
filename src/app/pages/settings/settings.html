@@ -5,12 +5,12 @@
     <h1>DEFINIÇÕES</h1>
   </div>
 
-  <div class="settings-layout">
+  <div class="layout-definicoes">
 
-    <aside class="settings-menu">
+    <aside class="menu-definicoes">
       <div
-        class="menu-item"
-        [class.active]="estaActiva('conta')"
+        class="item-menu"
+        [class.ativo]="estaActiva('conta')"
         (click)="navegar('conta')"
       >
         <i class="bi bi-person"></i>
@@ -18,8 +18,8 @@
       </div>
 
       <div
-        class="menu-item"
-        [class.active]="estaActiva('notificacoes')"
+        class="item-menu"
+        [class.ativo]="estaActiva('notificacoes')"
         (click)="navegar('notificacoes')"
       >
         <i class="bi bi-bell"></i>
@@ -27,8 +27,8 @@
       </div>
 
       <div
-        class="menu-item"
-        [class.active]="estaActiva('privado')"
+        class="item-menu"
+        [class.ativo]="estaActiva('privado')"
         (click)="navegar('privado')"
       >
         <i class="bi bi-lock"></i>
@@ -36,8 +36,8 @@
       </div>
 
       <div
-        class="menu-item"
-        [class.active]="estaActiva('aparencia')"
+        class="item-menu"
+        [class.ativo]="estaActiva('aparencia')"
         (click)="navegar('aparencia')"
       >
         <i class="bi bi-palette"></i>
@@ -45,8 +45,8 @@
       </div>
 
       <div
-        class="menu-item"
-        [class.active]="estaActiva('idioma')"
+        class="item-menu"
+        [class.ativo]="estaActiva('idioma')"
         (click)="navegar('idioma')"
       >
         <i class="bi bi-globe"></i>
@@ -54,7 +54,7 @@
       </div>
     </aside>
 
-    <section class="settings-panel">
+    <section class="painel-definicoes">
       <router-outlet></router-outlet>
     </section>
 

@@ -1,5 +1,5 @@
 /* ── Overlay mobile ─────────────────────────────────────── */
-.sidebar-overlay {
+  .sobreposicao-sidebar {
   display: none;
   position: fixed;
   inset: 0;
@@ -35,7 +35,7 @@
 }
 
 /* ── Perfil do utilizador ──────────────────────────────── */
-.sb-user {
+.sb-utilizador {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -47,7 +47,7 @@
   border-radius: 12px;
 }
 
-.sb-user:hover {
+.sb-utilizador:hover {
   background: rgba(255, 255, 255, 0.04);
 }
 
@@ -59,7 +59,7 @@
   flex-shrink: 0;
 }
 
-.sb-avatar-initials {
+.iniciais-sb-avatar {
   background: linear-gradient(135deg, var(--purple), #7c3aed);
   color: #fff;
   font-weight: 700;
@@ -69,14 +69,14 @@
   justify-content: center;
 }
 
-.sb-user-info {
+.info-sb-utilizador {
   display: flex;
   flex-direction: column;
   min-width: 0;
   flex: 1;
 }
 
-.sb-user-name {
+.nome-sb-utilizador {
   font-weight: 700;
   font-size: 14px;
   color: #f0f0f5;
@@ -85,7 +85,7 @@
   text-overflow: ellipsis;
 }
 
-.sb-user-handle {
+.handle-sb-utilizador {
   font-size: 12px;
   color: rgba(240, 240, 245, 0.5);
   white-space: nowrap;
@@ -182,7 +182,7 @@
   box-shadow: 0 4px 20px rgba(201, 45, 241, 0.35);
 }
 
-.btn-logout {
+.btn-sair {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -198,7 +198,7 @@
   transition: all 0.2s;
 }
 
-.btn-logout:hover {
+.btn-sair:hover {
   background: rgba(255, 75, 75, 0.15);
   border-color: #ff6b6b;
   color: #ff4757;
@@ -226,7 +226,7 @@
 
 /* ── Responsivo mobile ────────────────────────────────── */
 @media (max-width: 768px) {
-  .sidebar-overlay {
+.sobreposicao-sidebar {
     display: block;
   }
 

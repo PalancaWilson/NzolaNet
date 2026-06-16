@@ -1,4 +1,4 @@
-.modal-overlay {
+.sobreposicao-modal {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
@@ -15,7 +15,7 @@
   to { opacity: 1; }
 }
 
-.modal-card {
+.cartao-modal {
   background: var(--bg);
   border-radius: 20px;
   width: 90%;
@@ -29,21 +29,21 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
-.modal-header {
+.cabecalho-modal {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px 24px 0;
 }
 
-.modal-header h3 {
+.cabecalho-modal h3 {
   font-size: 18px;
   font-weight: 800;
   color: var(--text);
   margin: 0;
 }
 
-.modal-close {
+.fechar-modal {
   background: none;
   border: none;
   color: var(--text-muted);
@@ -58,23 +58,23 @@
   transition: background 0.2s, color 0.2s;
 }
 
-.modal-close:hover {
+.fechar-modal:hover {
   background: var(--purple-light);
   color: var(--purple);
 }
 
-.modal-body {
+.corpo-modal {
   padding: 16px 24px;
 }
 
-.modal-body p {
+.corpo-modal p {
   font-size: 15px;
   line-height: 1.5;
   color: var(--text-sub);
   margin: 0;
 }
 
-.modal-input {
+.input-modal {
   width: 100%;
   border: 1.5px solid var(--border);
   border-radius: 12px;
@@ -88,12 +88,12 @@
   background: #fafafd;
 }
 
-.modal-input:focus {
+.input-modal:focus {
   border-color: var(--purple);
   background: var(--bg);
 }
 
-.modal-footer {
+.rodape-modal {
   display: flex;
   gap: 10px;
   justify-content: flex-end;

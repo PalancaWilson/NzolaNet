@@ -1,24 +1,25 @@
 <h2>IDIOMA E REGIÃO</h2>
-<p class="section-desc">Define as tuas preferências linguísticas.</p>
+<p class="descricao-seccao">Define as tuas preferências linguísticas.</p>
 
-<div class="setting-row">
-  <div class="setting-label">
+<div class="linha-definicao">
+  <div class="rotulo-definicao">
     <span>Idioma</span>
     <small>Idioma da interface</small>
   </div>
-  <select class="form-select" [ngModel]="settings.idioma()" (ngModelChange)="atualizar('idioma', $event)">
+  <select class="select-formulario" [ngModel]="settings.idioma()" (ngModelChange)="atualizar('idioma', $event)">
     <option value="Português">Português</option>
     <option value="English">English</option>
     <option value="Français">Français</option>
+    <option value="Espanhol">Espanhol</option>
   </select>
 </div>
 
-<div class="setting-row">
-  <div class="setting-label">
+<div class="linha-definicao">
+  <div class="rotulo-definicao">
     <span>Região</span>
     <small>Formato de data e hora</small>
   </div>
-  <select class="form-select" [ngModel]="settings.regiao()" (ngModelChange)="atualizar('regiao', $event)">
+  <select class="select-formulario" [ngModel]="settings.regiao()" (ngModelChange)="atualizar('regiao', $event)">
     <option value="Angola">Angola</option>
     <option value="Brasil">Brasil</option>
     <option value="Portugal">Portugal</option>

@@ -5,7 +5,7 @@
     background: var(--bg-body);
 }
 
-.main-content {
+.conteudo-principal {
     display: flex;
     margin-top: 0;
     min-height: calc(100vh - 70px);
@@ -28,7 +28,7 @@
     gap: 16px;
 }
 
-.page-header .feed-header-info {
+.page-header .info-cabecalho-feed {
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -51,7 +51,7 @@
     margin: 4px 0 0 0;
 }
 
-.mark-all-btn {
+.btn-marcar-todas {
     background: var(--bg);
     border: 1px solid var(--border);
     padding: 6px 16px;
@@ -66,13 +66,13 @@
     gap: 6px;
 }
 
-.mark-all-btn:hover {
+.btn-marcar-todas:hover {
     background: color-mix(in srgb, var(--purple) 8%, transparent);
     border-color: var(--purple);
     color: var(--purple);
 }
 
-.notifications-layout {
+.layout-notificacoes {
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -81,7 +81,7 @@
     padding-right: 8px;
 }
 
-.notifications-sidebar {
+.sidebar-notificacoes {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -89,18 +89,18 @@
     gap: 8px;
 }
 
-.filter-section {
+.seccao-filtro {
     width: 100%;
 }
 
-.filter-nav {
+.nav-filtro {
     display: flex;
     flex-direction: row;
     gap: 8px;
     flex-wrap: wrap;
 }
 
-.filter-link {
+.link-filtro {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -114,36 +114,36 @@
     white-space: nowrap;
 }
 
-.filter-link i {
+.link-filtro i {
     font-size: 16px;
     color: var(--text-muted);
 }
 
-.filter-link:hover {
+.link-filtro:hover {
     background: color-mix(in srgb, var(--purple) 8%, transparent);
     color: var(--purple);
 }
 
-.filter-link:hover i {
+.link-filtro:hover i {
     color: var(--purple);
 }
 
-.filter-link.active {
+.link-filtro.ativo {
     background: var(--purple-light);
     color: var(--purple);
 }
 
-.filter-link.active i {
+.link-filtro.ativo i {
     color: var(--purple);
 }
 
-.notifications-list {
+.lista-notificacoes {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.notification-item {
+.item-notificacao {
     display: flex;
     align-items: flex-start;
     gap: 12px;
@@ -157,30 +157,30 @@
     box-shadow: var(--shadow);
 }
 
-.notification-item:hover {
+.item-notificacao:hover {
     transform: translateX(2px);
     border-color: var(--border);
     box-shadow: 0 1px 4px color-mix(in srgb, var(--text) 5%, transparent);
 }
 
-.notification-item.unread {
+.item-notificacao.nao-lida {
     background: var(--purple-light);
     border-left: 3px solid var(--purple);
 }
 
-.notification-avatar {
+.avatar-notificacao {
     position: relative;
     flex-shrink: 0;
 }
 
-.notification-avatar img {
+.avatar-notificacao img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.notification-icon-badge {
+.badge-icone-notificacao {
     position: absolute;
     bottom: -2px;
     right: -2px;
@@ -193,49 +193,49 @@
     border: 2px solid var(--bg);
 }
 
-.notification-icon-badge i {
+.badge-icone-notificacao i {
     font-size: 9px;
     color: white;
 }
 
-.notification-details {
+.detalhes-notificacao {
     flex: 1;
 }
 
-.notification-text {
+.texto-notificacao {
     font-size: 13px;
     color: var(--text);
     line-height: 1.4;
     margin-bottom: 4px;
 }
 
-.notification-text strong {
+.texto-notificacao strong {
     color: var(--text);
     font-weight: 700;
 }
 
-.notif-username,
-.username {
+.nome-utilizador-notif,
+.nome-utilizador {
     color: var(--text-muted);
     font-size: 12px;
     margin-left: 4px;
 }
 
-.post-title {
+.titulo-publicacao {
     color: var(--purple);
     font-weight: 500;
     margin-left: 4px;
     font-size: 12px;
 }
 
-.comment-text {
+.texto-comentario {
     color: var(--text-sub);
     font-style: italic;
     margin-left: 4px;
     font-size: 12px;
 }
 
-.notification-time {
+.tempo-notificacao {
     font-size: 11px;
     color: var(--text-muted);
     display: flex;
@@ -243,11 +243,11 @@
     gap: 4px;
 }
 
-.notification-time i {
+.tempo-notificacao i {
     font-size: 10px;
 }
 
-.unread-dot {
+.ponto-nao-lido {
     width: 8px;
     height: 8px;
     border-radius: 50%;
@@ -270,21 +270,21 @@
     }
 }
 
-.empty-state {
+.estado-vazio {
     text-align: center;
     padding: 40px 20px;
     background: var(--bg);
     border-radius: 12px;
 }
 
-.empty-state i {
+.estado-vazio i {
     font-size: 48px;
     color: var(--purple);
     opacity: 0.3;
     margin-bottom: 12px;
 }
 
-.empty-state p {
+.estado-vazio p {
     color: var(--text-muted);
     font-size: 13px;
 }
@@ -307,11 +307,11 @@
         left: 0;
     }
 
-    .notifications-layout {
+    .layout-notificacoes {
         gap: 20px;
     }
 
-    .filter-link {
+    .link-filtro {
         padding: 6px 14px;
         background: var(--bg);
         border-radius: 30px;
@@ -333,27 +333,27 @@
         font-size: 20px;
     }
 
-    .mark-all-btn {
+    .btn-marcar-todas {
         width: 100%;
         justify-content: center;
     }
 
-    .notification-item {
+    .item-notificacao {
         padding: 10px;
         gap: 10px;
     }
 
-    .notification-avatar img {
+    .avatar-notificacao img {
         width: 36px;
         height: 36px;
     }
 
-    .notification-text {
+    .texto-notificacao {
         font-size: 12px;
     }
 
-    .notif-username,
-    .username {
+    .nome-utilizador-notif,
+    .nome-utilizador {
         display: inline-block;
         margin-left: 4px;
     }

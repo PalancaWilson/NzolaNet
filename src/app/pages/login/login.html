@@ -1,24 +1,24 @@
-<div class="login-container">
+<div class="container-login">
 
   <app-auth-layout></app-auth-layout>
 
-  <div class="right-side">
+  <div class="lado-direito">
 
-    <form class="form-container" [formGroup]="loginForm" (ngSubmit)="entrar()">
+    <form class="container-formulario" [formGroup]="loginForm" (ngSubmit)="entrar()">
 
-      <span class="small-text">// ACESSO</span>
+      <span class="texto-pequeno">// ACESSO</span>
       <h1>BEM-VINDO<br>AO NZOLANET</h1>
       <p>Conexão é simbolo de amor, faça parte da melhor rede social de Angola.</p>
 
       @if (erroServidor()) {
-        <div class="alert-error">
+        <div class="alerta-erro">
           <i class="bi bi-exclamation-circle"></i>
           <span>{{ erroServidor() }}</span>
         </div>
       }
 
       <label for="email">EMAIL</label>
-      <div class="input-group" [class.input-error]="emailCtrl.touched && emailCtrl.invalid">
+      <div class="grupo-input" [class.erro-input]="emailCtrl.touched && emailCtrl.invalid">
         <i class="bi bi-envelope"></i>
         <input
           id="email"
@@ -31,15 +31,15 @@
 
       @if (emailCtrl.touched && emailCtrl.invalid) {
         @if (emailCtrl.errors?.['required']) {
-          <small class="error">O email é obrigatório.</small>
+          <small class="erro">O email é obrigatório.</small>
         }
         @if (emailCtrl.errors?.['email']) {
-          <small class="error">Introduz um email válido.</small>
+          <small class="erro">Introduz um email válido.</small>
         }
       }
 
       <label for="senha">PALAVRA-PASSE</label>
-      <div class="input-group" [class.input-error]="passwordCtrl.touched && passwordCtrl.invalid">
+      <div class="grupo-input" [class.erro-input]="passwordCtrl.touched && passwordCtrl.invalid">
         <i class="bi bi-lock"></i>
         <input
           id="senha"
@@ -48,25 +48,25 @@
           formControlName="senha"
           autocomplete="current-password"
         >
-        <button type="button" class="toggle-pw" (click)="alternarPassword()" aria-label="Alternar visibilidade da senha">
+        <button type="button" class="alternar-senha" (click)="alternarPassword()" aria-label="Alternar visibilidade da senha">
           <i class="bi" [class.bi-eye]="!mostrarPassword()" [class.bi-eye-slash]="mostrarPassword()"></i>
         </button>
       </div>
 
       @if (passwordCtrl.touched && passwordCtrl.invalid) {
         @if (passwordCtrl.errors?.['required']) {
-          <small class="error">A palavra-passe é obrigatória.</small>
+          <small class="erro">A palavra-passe é obrigatória.</small>
         }
         @if (passwordCtrl.errors?.['minlength']) {
-          <small class="error">Mínimo 6 caracteres.</small>
+          <small class="erro">Mínimo 6 caracteres.</small>
         }
       }
 
-      <div class="forgot-password">
+      <div class="esqueci-senha">
         <a routerLink="/recuperar-senha">Esqueceste a senha?</a>
       </div>
 
-      <button class="login-btn" type="submit" [disabled]="carregando()">
+      <button class="btn-entrar" type="submit" [disabled]="carregando()">
         @if (carregando()) {
           <span class="spinner"></span>
           A entrar...
@@ -76,7 +76,7 @@
         }
       </button>
 
-      <div class="register-link">
+      <div class="link-registo">
         Ainda não tens conta?
         <a routerLink="/register">Cria uma agora</a>
       </div>

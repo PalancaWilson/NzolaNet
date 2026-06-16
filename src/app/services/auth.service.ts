@@ -29,12 +29,21 @@ export class AuthService {
     this.restaurarSessao();
   }
 
+  private extrairMensagemErro(err: any, accao: string): string {
+    if (err.status === 0) return 'Servidor indisponível. Verifica a tua ligação.';
+    if (err.status === 401) return 'Email ou senha incorretos.';
+    if (err.status === 422) return err.error?.mensagem ?? 'Dados inválidos. Verifica os campos.';
+    if (err.status === 429) return 'Muitas tentativas. Aguarda um momento e tenta novamente.';
+    if (err.status >= 500) return 'Erro no servidor. Tenta novamente mais tarde.';
+    return err.error?.mensagem ?? `Erro ao ${accao}. Tenta novamente.`;
+  }
+
   iniciarSessao(payload: LoginPayload): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.API_URL}/auth/login`, payload).pipe(
       tap((res) => this.guardarSessao(res)),
       catchError((err) => {
         console.error('Erro no login:', err);
-        return throwError(() => new Error('Falha no login. Tente novamente.'));
+        return throwError(() => new Error(this.extrairMensagemErro(err, 'iniciar sessão')));
       }),
     );
   }
@@ -43,8 +52,8 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.API_URL}/auth/registar`, payload).pipe(
       tap((res) => this.guardarSessao(res)),
       catchError((err) => {
-        const msg = err?.error?.mensagem ?? err?.message ?? 'Falha no registo. Tente novamente.';
-        return throwError(() => new Error(msg));
+        console.error('Erro no registo:', err);
+        return throwError(() => new Error(this.extrairMensagemErro(err, 'registar')));
       }),
     );
   }

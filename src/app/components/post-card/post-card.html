@@ -1,41 +1,41 @@
-<div class="post-card" (click)="fecharMenu()">
+<div class="cartao-publicacao" (click)="fecharMenu()">
   <!-- Cabeçalho -->
-  <div class="post-header" routerLink="/profile/{{ post.autor.id }}" style="cursor: pointer">
+  <div class="cabecalho-publicacao" routerLink="/profile/{{ post.autor.id }}" style="cursor: pointer">
     @if (post.autor.avatar) {
-      <img class="avatar avatar-img" [src]="post.autor.avatar" [alt]="post.autor.nome" />
+      <img class="avatar img-avatar" [src]="post.autor.avatar" [alt]="post.autor.nome" />
     } @else {
       <div class="avatar">{{ getInitials() }}</div>
     }
 
-    <div class="user-info">
-      <div class="user-nome">
+    <div class="info-utilizador">
+      <div class="nome-utilizador">
         {{ post.autor.nome }}
         @if (post.autor.emblema === 'verified') {
-          <i class="bi bi-patch-check-fill verified-badge"></i>
+          <i class="bi bi-patch-check-fill badge-verificado"></i>
         }
         @if (post.autor.emblema === 'creator') {
-          <span class="badge-creator">CREATOR</span>
+          <span class="badge-criador">CREATOR</span>
         }
         <span>&#64;{{ post.autor.nomeUtilizador }}</span>
       </div>
-      <div class="post-time">{{ post.tempoDecorrido }}</div>
+      <div class="tempo-publicacao">{{ post.tempoDecorrido }}</div>
     </div>
 
     @if (isOwner) {
-      <div class="post-menu-container">
+      <div class="container-menu-publicacao">
         <button
-          class="menu-trigger"
+          class="gatilho-menu"
           (click)="toggleMenu(); $event.stopPropagation()"
           title="Mais opções"
         >
           <i class="bi bi-three-dots"></i>
         </button>
         @if (menuAberto()) {
-          <div class="menu-dropdown" (click)="$event.stopPropagation()">
-            <button class="menu-item" (click)="iniciarEdicao()">
+          <div class="dropdown-menu-publicacao" (click)="$event.stopPropagation()">
+            <button class="item-menu" (click)="iniciarEdicao()">
               <i class="bi bi-pencil"></i> Editar
             </button>
-            <button class="menu-item menu-item-danger" (click)="apagar()">
+            <button class="item-menu item-menu-perigo" (click)="apagar()">
               <i class="bi bi-trash3"></i> Apagar
             </button>
           </div>
@@ -46,11 +46,11 @@
 
   @if (!editando()) {
     <!-- Conteúdo -->
-    <div class="post-content" routerLink="/post/{{ post.id }}" style="cursor: pointer">
-      <div class="post-text">{{ post.conteudo }}</div>
+    <div class="conteudo-publicacao" routerLink="/post/{{ post.id }}" style="cursor: pointer">
+      <div class="texto-publicacao">{{ post.conteudo }}</div>
 
       @if (post.etiquetas?.length) {
-        <div class="post-tags">
+        <div class="tags-publicacao">
           @for (tag of post.etiquetas; track tag) {
             <span class="tag">#{{ tag }}</span>
           }
@@ -58,30 +58,30 @@
       }
 
       @if (post.imagem) {
-        <div class="post-media">
+        <div class="media-publicacao">
           <img [src]="post.imagem" [alt]="'Imagem de ' + post.autor.nome" />
         </div>
       }
     </div>
 
     <!-- Ações -->
-    <div class="post-actions">
-      <button class="action-btn like-btn" [class.liked]="post.gostou" (click)="toggleLike()">
+    <div class="acoes-publicacao">
+      <button class="btn-acao btn-baze" [class.bazado]="post.gostou" (click)="toggleLike()">
         <i class="bi" [class.bi-heart]="!post.gostou" [class.bi-heart-fill]="post.gostou"></i>
         <span>Bazar</span>
       </button>
 
-      <button class="action-btn comment-btn" (click)="onComment()">
+      <button class="btn-acao btn-comentario" (click)="onComment()">
         <i class="bi bi-chat"></i>
         <span>Comentar</span>
       </button>
 
-      <button class="action-btn retweet-btn" (click)="repostar()">
+      <button class="btn-acao btn-repostar" (click)="repostar()">
         <i class="bi bi-repeat"></i>
         <span>Repostar</span>
       </button>
 
-      <button class="action-btn save-btn" [class.saved]="post.guardado" (click)="toggleGuardar()">
+      <button class="btn-acao btn-guardar" [class.guardado]="post.guardado" (click)="toggleGuardar()">
         <i
           class="bi"
           [class.bi-bookmark]="!post.guardado"
@@ -90,35 +90,35 @@
         <span>Guardar</span>
       </button>
 
-      <button class="action-btn share-btn" (click)="onShare()">
+      <button class="btn-acao btn-partilhar" (click)="onShare()">
         <i class="bi bi-share"></i>
         <span>Partilhar</span>
       </button>
 
-      <button class="action-btn report-btn" (click)="denunciar()">
+      <button class="btn-acao btn-denunciar" (click)="denunciar()">
         <i class="bi bi-flag"></i>
         <span>Denunciar</span>
       </button>
     </div>
 
     <!-- Estatísticas -->
-    <div class="post-stats">
-      <div class="stat">
+    <div class="estatisticas-publicacao">
+      <div class="estatistica">
         <i class="bi bi-heart"></i>
         <strong>{{ post.gostos }}</strong>
         <span>bazes</span>
       </div>
-      <div class="stat">
+      <div class="estatistica">
         <i class="bi bi-chat"></i>
         <strong>{{ post.comentarios }}</strong>
         <span>comentários</span>
       </div>
-      <div class="stat">
+      <div class="estatistica">
         <i class="bi bi-repeat"></i>
         <strong>{{ post.partilhas }}</strong>
         <span>repostas</span>
       </div>
-      <div class="stat">
+      <div class="estatistica">
         <i class="bi bi-flag"></i>
         <strong>0</strong>
         <span>Denuncias</span>
@@ -126,41 +126,41 @@
     </div>
   } @else {
     <!-- Edição inline -->
-    <div class="post-edit-area" (click)="$event.stopPropagation()">
+    <div class="area-edicao-publicacao" (click)="$event.stopPropagation()">
       <textarea
         [(ngModel)]="editText"
         [maxlength]="limite"
         rows="3"
-        class="edit-textarea"
+        class="textarea-edicao"
         placeholder="Altera o texto da tua publicação..."
       ></textarea>
 
-      <div class="edit-char-count" [class.danger]="quaseNoLimite">
+      <div class="contagem-caracteres-edicao" [class.perigo]="quaseNoLimite">
         {{ restantes }}
       </div>
 
       @if (post.imagem && !removerImagem() && !editNovaImagem()) {
-        <div class="edit-image-preview">
+        <div class="preview-imagem-edicao">
           <img [src]="post.imagem" alt="Imagem atual" />
-          <button class="btn-remove-edit-img" (click)="removerEditImagem()" type="button">
+          <button class="btn-remover-img-edicao" (click)="removerEditImagem()" type="button">
             &times;
           </button>
         </div>
       }
 
       @if (editNovaImagem(); as img) {
-        <div class="edit-image-preview">
+        <div class="preview-imagem-edicao">
           <img [src]="img" alt="Nova imagem" />
-          <button class="btn-remove-edit-img" (click)="removerEditImagem()" type="button">
+          <button class="btn-remover-img-edicao" (click)="removerEditImagem()" type="button">
             &times;
           </button>
         </div>
       }
 
-      <div class="edit-actions">
+      <div class="acoes-edicao">
         <button
           type="button"
-          class="edit-action-btn"
+          class="btn-acao-edicao"
           title="Alterar imagem"
           (click)="editImgInput.click()"
         >
@@ -174,12 +174,12 @@
           hidden
         />
 
-        <div class="edit-save-group">
-          <button class="btn-cancel-edit" (click)="cancelarEdicao()" [disabled]="salvando()">
+        <div class="grupo-salvar-edicao">
+          <button class="btn-cancelar-edicao" (click)="cancelarEdicao()" [disabled]="salvando()">
             Cancelar
           </button>
           <button
-            class="btn-save-edit"
+            class="btn-salvar-edicao"
             (click)="guardarEdicao()"
             [disabled]="!editText().trim() || salvando()"
           >

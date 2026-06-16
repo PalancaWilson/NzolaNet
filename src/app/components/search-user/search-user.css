@@ -1,4 +1,4 @@
-.search-overlay {
+.sobreposicao-pesquisa {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
@@ -15,7 +15,7 @@
   to { opacity: 1; }
 }
 
-.search-card {
+.cartao-pesquisa {
   background: var(--bg);
   border-radius: 20px;
   width: 90%;
@@ -32,14 +32,14 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
-.search-header {
+.cabecalho-pesquisa {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px 24px 0;
 }
 
-.search-header h3 {
+.cabecalho-pesquisa h3 {
   font-size: 18px;
   font-weight: 800;
   color: var(--text);
@@ -49,11 +49,11 @@
   gap: 8px;
 }
 
-.search-header h3 i {
+.cabecalho-pesquisa h3 i {
   color: var(--purple);
 }
 
-.search-close {
+.fechar-pesquisa {
   background: none;
   border: none;
   color: var(--text-muted);
@@ -68,12 +68,12 @@
   transition: background 0.2s, color 0.2s;
 }
 
-.search-close:hover {
+.fechar-pesquisa:hover {
   background: var(--purple-light);
   color: var(--purple);
 }
 
-.search-field {
+.campo-pesquisa {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -85,17 +85,17 @@
   background: #fafafd;
 }
 
-.search-field:focus-within {
+.campo-pesquisa:focus-within {
   border-color: var(--purple);
   background: var(--bg);
 }
 
-.search-field i {
+.campo-pesquisa i {
   color: var(--text-muted);
   font-size: 16px;
 }
 
-.search-field input {
+.campo-pesquisa input {
   flex: 1;
   border: none;
   outline: none;
@@ -105,7 +105,7 @@
   background: transparent;
 }
 
-.search-results {
+.resultados-pesquisa {
   overflow-y: auto;
   padding: 0 24px 20px;
   display: flex;
@@ -113,7 +113,7 @@
   gap: 2px;
 }
 
-.search-item {
+.item-pesquisa {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -127,18 +127,18 @@
   width: 100%;
 }
 
-.search-item:hover {
+.item-pesquisa:hover {
   background: var(--purple-light);
 }
 
-.search-avatar {
+.avatar-pesquisa {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
 }
-.search-avatar-initials {
+.iniciais-avatar-pesquisa {
   background: linear-gradient(135deg, var(--purple), #8b5cf6);
   color: #fff;
   font-weight: 700;
@@ -148,23 +148,23 @@
   justify-content: center;
 }
 
-.si-info {
+.info-item-pesquisa {
   display: flex;
   flex-direction: column;
 }
 
-.si-nome {
+.nome-item-pesquisa {
   font-weight: 700;
   font-size: 14px;
   color: var(--text);
 }
 
-.si-user {
+.utilizador-item-pesquisa {
   font-size: 12px;
   color: var(--text-muted);
 }
 
-.search-empty {
+.vazio-pesquisa {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -173,11 +173,11 @@
   color: var(--text-muted);
 }
 
-.search-empty i {
+.vazio-pesquisa i {
   font-size: 32px;
 }
 
-.search-empty p {
+.vazio-pesquisa p {
   margin: 0;
   font-size: 14px;
 }

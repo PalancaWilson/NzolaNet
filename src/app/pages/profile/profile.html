@@ -1,94 +1,100 @@
-<main class="profile-container">
-
-  <section class="profile-header">
-
-    <div class="cover-photo" [style.background-image]="capaPreview() ? 'url(' + capaPreview() + ')' : null">
-      <button class="cover-btn" title="Alterar capa" (click)="capaInput.click()">
+<main class="container-perfil">
+  <section class="cabecalho-perfil">
+    <div
+      class="foto-capa"
+      [style.background-image]="capaPreview() ? 'url(' + capaPreview() + ')' : null"
+    >
+      <button class="btn-capa" title="Alterar capa" (click)="capaInput.click()">
         <i class="bi bi-camera"></i>
       </button>
-      <input #capaInput type="file" accept="image/*" (change)="onCapaSelected($event)" hidden>
+      <input #capaInput type="file" accept="image/*" (change)="onCapaSelected($event)" hidden />
     </div>
 
-    <div class="profile-info">
-
-      <div class="avatar-container">
+    <div class="info-perfil">
+      <div class="container-avatar">
         @if (userService.fotoPerfil()) {
-          <img [src]="userService.fotoPerfil()" [alt]="userService.nome()" class="avatar">
+          <img [src]="userService.fotoPerfil()" [alt]="userService.nome()" class="avatar" />
         } @else {
-          <div class="avatar avatar-initials-lg">{{ userService.iniciais() }}</div>
+          <div class="avatar iniciais-avatar-g">{{ userService.iniciais() }}</div>
         }
-        <button class="avatar-btn" title="Alterar foto" (click)="avatarInput.click()">
+        <button class="btn-avatar" title="Alterar foto" (click)="avatarInput.click()">
           <i class="bi bi-camera-fill"></i>
         </button>
-        <input #avatarInput type="file" accept="image/*" (change)="onAvatarSelected($event)" hidden>
+        <input
+          #avatarInput
+          type="file"
+          accept="image/*"
+          (change)="onAvatarSelected($event)"
+          hidden
+        />
       </div>
 
-      <div class="profile-details">
-
+      <div class="detalhes-perfil">
         <h1>{{ userService.nome() | uppercase }}</h1>
 
-        <span class="username">
+        <span class="nome-utilizador">
           @{{ userService.nome().toLowerCase().replace(' ', '_') }}
           @if (userService.perfil()?.privacidade === 'privado') {
-            <i class="bi bi-lock-fill privacy-badge"></i>
+            <i class="bi bi-lock-fill badge-privacidade"></i>
           }
           · MEMBRO DESDE {{ userService.perfil()?.membro_desde | uppercase }}
         </span>
 
         @if (userService.biografia()) {
-          <p class="bio">{{ userService.biografia() }}</p>
+          <p class="biografia">{{ userService.biografia() }}</p>
         }
 
-        <div class="profile-meta">
+        <div class="meta-perfil">
           @if (dataFormatada) {
             <span><i class="bi bi-cake2"></i> {{ dataFormatada }}</span>
           }
           @if (generoLabel) {
             <span><i class="bi bi-person"></i> {{ generoLabel }}</span>
           }
-          <span><i class="bi bi-calendar3"></i> Membro desde {{ userService.perfil()?.membro_desde }}</span>
+          <span
+            ><i class="bi bi-calendar3"></i> Membro desde
+            {{ userService.perfil()?.membro_desde }}</span
+          >
         </div>
 
-        <div class="stats">
-          <button class="stat" (click)="abrirLista('seguidores')">
+        <div class="estatisticas">
+          <button class="estatistica" (click)="abrirLista('seguidores')">
             <h2>{{ publicacoesContagem }}</h2>
             <p>PUBLICAÇÕES</p>
           </button>
-          <button class="stat" (click)="abrirLista('seguidores')">
+          <button class="estatistica" (click)="abrirLista('seguidores')">
             <h2>{{ userService.perfil()?.seguidores ?? 0 }}</h2>
             <p>SEGUIDORES</p>
           </button>
-          <button class="stat" (click)="abrirLista('a_seguir')">
+          <button class="estatistica" (click)="abrirLista('a_seguir')">
             <h2>{{ userService.perfil()?.a_seguir ?? 0 }}</h2>
             <p>A SEGUIR</p>
           </button>
-          <button class="stat">
+          <button class="estatistica">
             <h2>{{ userService.perfil()?.bazes_total ?? 0 }}</h2>
             <p>BAZES</p>
           </button>
         </div>
 
-        <a routerLink="/settings" class="edit-btn">
+        <a routerLink="/settings" class="btn-editar">
           <i class="bi bi-pencil-square"></i> Editar perfil
         </a>
-
       </div>
-
     </div>
   </section>
 
   <!-- Lista de seguidores / a seguir (TODO: carregar do backend) -->
   @if (mostrarLista()) {
-    <section class="user-list-card">
-      <div class="user-list-header">
+    <section class="cartao-lista-utilizadores">
+      <div class="cabecalho-lista-utilizadores">
         <h3>
           <i class="bi bi-people-fill"></i>
           {{ mostrarLista() === 'seguidores' ? 'Seguidores' : 'A seguir' }}
         </h3>
-        <button class="btn-close-list" (click)="fecharLista()"><i class="bi bi-x-lg"></i></button>
+        <button class="btn-fechar-lista" (click)="fecharLista()"><i class="bi bi-x-lg"></i></button>
       </div>
-      <div class="user-list-body">
-        <div class="empty-tab">
+      <div class="corpo-lista-utilizadores">
+        <div class="aba-vazia">
           <i class="bi bi-person"></i>
           <p>Carrega os seguidores da API</p>
         </div>
@@ -96,38 +102,29 @@
     </section>
   }
 
-  <section class="profile-tabs">
-    <button
-      [class.active]="tabActiva() === 'publicacoes'"
-      (click)="tabActiva.set('publicacoes')"
-    >
+  <section class="abas-perfil">
+    <button [class.ativo]="tabActiva() === 'publicacoes'" (click)="tabActiva.set('publicacoes')">
       Publicações
-      <span class="tab-count">{{ publicacoesContagem }}</span>
+      <span class="contagem-aba">{{ publicacoesContagem }}</span>
     </button>
-    <button
-      [class.active]="tabActiva() === 'multimédia'"
-      (click)="tabActiva.set('multimédia')"
-    >
+    <button [class.ativo]="tabActiva() === 'multimédia'" (click)="tabActiva.set('multimédia')">
       Multimédia
-      <span class="tab-count">{{ postsMultimedia.length }}</span>
+      <span class="contagem-aba">{{ postsMultimedia.length }}</span>
     </button>
-    <button
-      [class.active]="tabActiva() === 'bazes'"
-      (click)="tabActiva.set('bazes')"
-    >
+    <button [class.ativo]="tabActiva() === 'bazes'" (click)="tabActiva.set('bazes')">
       Bazes
-      <span class="tab-count">{{ postsBazados.length }}</span>
+      <span class="contagem-aba">{{ postsBazados.length }}</span>
     </button>
   </section>
 
-  <section class="posts-section">
+  <section class="seccao-publicacoes">
     @if (tabActiva() === 'publicacoes') {
       <app-create-post></app-create-post>
 
       @for (post of meusPosts; track post.id) {
         <app-post-card [post]="post"></app-post-card>
       } @empty {
-        <div class="empty-tab">
+        <div class="aba-vazia">
           <i class="bi bi-pencil-square"></i>
           <p>Ainda não publicaste nada. Escreve algo acima e baza!</p>
         </div>
@@ -136,11 +133,11 @@
 
     @if (tabActiva() === 'multimédia') {
       @if (postsMultimedia.length > 0) {
-        <div class="media-grid">
+        <div class="grade-media">
           @for (post of postsMultimedia; track post.id) {
-            <div class="media-item" [routerLink]="['/post', post.id]">
-              <img [src]="post.imagem" [alt]="'Imagem de ' + post.autor.nome" loading="lazy">
-              <div class="media-overlay">
+            <div class="item-media" [routerLink]="['/post', post.id]">
+              <img [src]="post.imagem" [alt]="'Imagem de ' + post.autor.nome" loading="lazy" />
+              <div class="sobreposicao-media">
                 <span><i class="bi bi-heart-fill"></i> {{ post.gostos }}</span>
                 <span><i class="bi bi-chat-fill"></i> {{ post.comentarios }}</span>
               </div>
@@ -148,7 +145,7 @@
           }
         </div>
       } @else {
-        <div class="empty-tab">
+        <div class="aba-vazia">
           <i class="bi bi-images"></i>
           <p>Sem publicações com imagens ainda.</p>
         </div>
@@ -159,12 +156,11 @@
       @for (post of postsBazados; track post.id) {
         <app-post-card [post]="post"></app-post-card>
       } @empty {
-        <div class="empty-tab">
+        <div class="aba-vazia">
           <i class="bi bi-heart"></i>
           <p>Ainda não deste baze a nenhuma publicação.</p>
         </div>
       }
     }
   </section>
-
 </main>

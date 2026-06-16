@@ -1,50 +1,50 @@
-<div class="mensagens-layout">
+<div class="layout-mensagens">
 
   @if (showSearch()) {
     <app-search-user (selected)="onUserSelected($event)"></app-search-user>
   }
 
   <!-- PAINEL ESQUERDO: lista de conversas -->
-  <aside class="conv-list" [class.oculto]="conversaActiva()">
+  <aside class="lista-conversas" [class.oculto]="conversaActiva()">
 
-    <div class="conv-header">
+    <div class="cabecalho-conversas">
       <h2>Mensagens
         @if (totalNaoLidas() > 0) {
           <span class="badge-count">{{ totalNaoLidas() }}</span>
         }
       </h2>
-      <button class="btn-new-msg" title="Nova mensagem" (click)="novaConversa()">
+      <button class="btn-nova-mensagem" title="Nova mensagem" (click)="novaConversa()">
         <i class="bi bi-pencil-square"></i>
       </button>
     </div>
 
-    <div class="conv-search">
+    <div class="pesquisa-conversas">
       <i class="bi bi-search"></i>
       <input type="text" placeholder="Pesquisar conversas..." [formControl]="pesqCtrl">
     </div>
 
-    <div class="conv-items">
+    <div class="itens-conversas">
       @for (c of conversasFiltradas(); track c.id) {
-        <div class="conv-item" [class.activo]="conversaActiva()?.id === c.id" (click)="abrirConversa(c)">
-          <div class="conv-avatar-wrap">
-            <img [src]="c.avatar" [alt]="c.nome" class="conv-avatar">
-            <span class="online-dot"></span>
+        <div class="item-conversa" [class.activo]="conversaActiva()?.id === c.id" (click)="abrirConversa(c)">
+          <div class="moldura-avatar-conv">
+            <img [src]="c.avatar" [alt]="c.nome" class="avatar-conv">
+            <span class="ponto-online"></span>
           </div>
-          <div class="conv-info">
-            <div class="conv-top">
-              <span class="conv-nome">{{ c.nome }}</span>
-              <span class="conv-tempo">{{ c.tempo }}</span>
+          <div class="info-conv">
+            <div class="topo-conv">
+              <span class="nome-conv">{{ c.nome }}</span>
+              <span class="tempo-conv">{{ c.tempo }}</span>
             </div>
-            <div class="conv-bottom">
-              <span class="conv-preview">{{ c.ultimaMensagem }}</span>
+            <div class="fundo-conv">
+              <span class="pre-visualizacao-conv">{{ c.ultimaMensagem }}</span>
               @if (c.naoLidas > 0) {
-                <span class="conv-badge">{{ c.naoLidas }}</span>
+                <span class="badge-conv">{{ c.naoLidas }}</span>
               }
             </div>
           </div>
         </div>
       } @empty {
-        <div class="empty-state" style="padding:40px 20px">
+        <div class="estado-vazio" style="padding:40px 20px">
           <i class="bi bi-chat-x"></i>
           <p>Nenhuma conversa encontrada.</p>
         </div>
@@ -54,10 +54,10 @@
   </aside>
 
   <!-- PAINEL DIREITO: chat activo -->
-  <section class="chat-area" [class.visivel]="conversaActiva()">
+  <section class="area-chat" [class.visivel]="conversaActiva()">
 
     @if (!conversaActiva()) {
-      <div class="chat-empty">
+      <div class="chat-vazio">
         <i class="bi bi-chat-dots"></i>
         <p>Selecciona uma conversa para começar</p>
       </div>
@@ -65,39 +65,39 @@
 
     @if (conversaActiva()) {
       <!-- Header do chat -->
-      <div class="chat-header">
-        <button class="btn-back-chat" (click)="conversaActiva.set(null)">
+      <div class="cabecalho-chat">
+        <button class="btn-voltar-chat" (click)="conversaActiva.set(null)">
           <i class="bi bi-arrow-left"></i>
         </button>
-        <a [routerLink]="['/profile', conversaActiva()!.id]" class="chat-user">
-          <img [src]="conversaActiva()!.avatar" [alt]="conversaActiva()!.nome" class="chat-avatar">
+        <a [routerLink]="['/profile', conversaActiva()!.id]" class="utilizador-chat">
+          <img [src]="conversaActiva()!.avatar" [alt]="conversaActiva()!.nome" class="avatar-chat">
           <div>
-            <span class="chat-nome">{{ conversaActiva()!.nome }}</span>
-            <span class="chat-status"><span class="online-dot-sm"></span> Online</span>
+            <span class="nome-chat">{{ conversaActiva()!.nome }}</span>
+            <span class="status-chat"><span class="ponto-online-p"></span> Online</span>
           </div>
         </a>
-        <button class="btn-chat-action" title="Perfil" (click)="irParaPerfil()"><i class="bi bi-person"></i></button>
+        <button class="btn-acao-chat" title="Perfil" (click)="irParaPerfil()"><i class="bi bi-person"></i></button>
       </div>
 
       <!-- Mensagens -->
-      <div class="chat-messages">
+      <div class="mensagens-chat">
         @for (m of conversaActiva()!.mensagens; track m.id) {
           <div class="msg" [class.minha]="m.minha" [class.deles]="!m.minha">
             @if (!m.minha) {
-              <img [src]="conversaActiva()!.avatar" class="msg-avatar">
+              <img [src]="conversaActiva()!.avatar" class="avatar-msg">
             }
-            <div class="msg-bubble">
+            <div class="bolha-msg">
               <p>{{ m.texto }}</p>
-              <span class="msg-tempo">{{ m.tempo }}</span>
+              <span class="tempo-msg">{{ m.tempo }}</span>
             </div>
           </div>
         }
       </div>
 
       <!-- Input de mensagem -->
-      <div class="chat-input-bar">
-        <button class="btn-attach" title="Anexar"><i class="bi bi-paperclip"></i></button>
-        <div class="chat-input-wrap">
+      <div class="barra-input-chat">
+        <button class="btn-anexar" title="Anexar"><i class="bi bi-paperclip"></i></button>
+        <div class="moldura-input-chat">
           <textarea
             [formControl]="msgCtrl"
             placeholder="Escreve uma mensagem..."
@@ -106,7 +106,7 @@
           ></textarea>
         </div>
         <button class="btn-emoji" title="Emoji"><i class="bi bi-emoji-smile"></i></button>
-        <button class="btn-send" (click)="enviar()" [disabled]="!msgCtrl.value?.trim()">
+        <button class="btn-enviar" (click)="enviar()" [disabled]="!msgCtrl.value?.trim()">
           <i class="bi bi-send-fill"></i>
         </button>
       </div>

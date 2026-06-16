@@ -17,18 +17,18 @@
 
 /* ── Classes globais de layout ──────────────────────────────── */
 
-.content-area {
+.area-conteudo {
   flex: 1;
   padding: 16px 32px 32px;
   max-width: 100%;
   overflow-y: auto;
 }
 
-.page-header {
+.cabecalho-pagina {
   margin-bottom: 16px;
 }
 
-.page-header h1 {
+.cabecalho-pagina h1 {
   font-family: 'Anton', sans-serif;
   font-size: clamp(26px, 3vw, 34px);
   font-weight: 400;
@@ -38,7 +38,7 @@
   margin: 0;
 }
 
-.page-header p {
+.cabecalho-pagina p {
   margin-top: 6px;
   color: var(--text-sub);
   font-size: 15px;
@@ -67,7 +67,7 @@
 
 .dark-mode .sidebar,
 .dark-mode .topbar,
-.dark-mode .bottom-nav {
+.dark-mode .navegacao-inferior {
   background: #16213e;
   border-color: #2a2a4a;
 }
@@ -95,7 +95,7 @@
 }
 
 .dark-mode .form-container h1,
-.dark-mode .page-header h1 {
+.dark-mode .cabecalho-pagina h1 {
   color: #e0e0e0;
 }
 

@@ -1,4 +1,4 @@
-.create-post-card {
+.cartao-criar-publicacao {
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 24px;
@@ -6,7 +6,7 @@
   box-shadow: var(--shadow);
 }
 
-.post-top {
+.topo-publicacao {
   display: flex;
   gap: 16px;
 }
@@ -19,7 +19,7 @@
   flex-shrink: 0;
 }
 
-.textarea-wrap {
+.area-texto {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -42,14 +42,14 @@ textarea::placeholder {
   color: var(--text-muted);
 }
 
-.preview-wrap {
+.area-pre-visualizacao {
   position: relative;
   border-radius: 16px;
   overflow: hidden;
 }
 
-.preview-img,
-.preview-video {
+.pre-visualizacao-img,
+.pre-visualizacao-video {
   width: 100%;
   max-height: 300px;
   object-fit: cover;
@@ -57,7 +57,7 @@ textarea::placeholder {
   display: block;
 }
 
-.btn-remove-preview {
+.btn-remover-pre-visualizacao {
   position: absolute;
   top: 8px;
   right: 8px;
@@ -75,14 +75,14 @@ textarea::placeholder {
   justify-content: center;
 }
 
-.emoji-picker {
+.seletor-emoji {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
   padding: 12px 0 0;
 }
 
-.emoji-btn {
+.btn-emoji {
   width: 40px;
   height: 40px;
   border: none;
@@ -93,11 +93,11 @@ textarea::placeholder {
   transition: background 0.2s;
 }
 
-.emoji-btn:hover {
+.btn-emoji:hover {
   background: var(--purple-light);
 }
 
-.post-bottom {
+.fundo-publicacao {
   margin-top: 20px;
   padding-top: 20px;
   border-top: 1px solid var(--border);
@@ -106,12 +106,12 @@ textarea::placeholder {
   align-items: center;
 }
 
-.actions {
+.acoes {
   display: flex;
   gap: 8px;
 }
 
-.actions button {
+.acoes button {
   width: 42px;
   height: 42px;
   border: none;
@@ -122,31 +122,31 @@ textarea::placeholder {
   cursor: pointer;
 }
 
-.actions button:hover {
+.acoes button:hover {
   background: var(--purple-light);
 }
 
-.actions i {
+.acoes i {
   font-size: 18px;
 }
 
-.post-info {
+.info-publicacao {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-.counter {
+.contador {
   font-size: 12px;
   color: var(--text-muted);
   font-weight: 700;
 }
 
-.counter.danger {
+.contador.perigo {
   color: var(--pink);
 }
 
-.publish-btn {
+.btn-publicar {
   border: none;
   padding: 12px 26px;
   border-radius: 999px;
@@ -157,22 +157,22 @@ textarea::placeholder {
   transition: 0.3s;
 }
 
-.publish-btn:hover {
+.btn-publicar:hover {
   transform: translateY(-2px);
 }
 
-.publish-btn:disabled {
+.btn-publicar:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
 
-.feed-tabs {
+.abas-feed {
   display: flex;
   gap: 12px;
   margin-top: 25px;
 }
 
-.feed-tabs button {
+.abas-feed button {
   border: none;
   padding: 12px 22px;
   border-radius: 999px;
@@ -183,17 +183,17 @@ textarea::placeholder {
   transition: 0.3s;
 }
 
-.feed-tabs button:hover {
+.abas-feed button:hover {
   background: var(--purple-light);
 }
 
-.feed-tabs .active {
+.abas-feed .ativo {
   background: var(--text);
   color: var(--bg);
 }
 
 @media (max-width: 480px) {
-  .create-post-card {
+.cartao-criar-publicacao {
     border-radius: 12px;
     padding: 12px;
   }

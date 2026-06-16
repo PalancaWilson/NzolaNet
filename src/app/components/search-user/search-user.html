@@ -1,12 +1,12 @@
-<div class="search-overlay" (click)="fechar()">
-  <div class="search-card" (click)="$event.stopPropagation()">
+<div class="sobreposicao-pesquisa" (click)="fechar()">
+  <div class="cartao-pesquisa" (click)="$event.stopPropagation()">
 
-    <div class="search-header">
+    <div class="cabecalho-pesquisa">
       <h3><i class="bi bi-person-plus"></i> Nova conversa</h3>
-      <button class="search-close" (click)="fechar()"><i class="bi bi-x-lg"></i></button>
+      <button class="fechar-pesquisa" (click)="fechar()"><i class="bi bi-x-lg"></i></button>
     </div>
 
-    <div class="search-field">
+    <div class="campo-pesquisa">
       <i class="bi bi-search"></i>
       <input
         [(ngModel)]="termo"
@@ -15,21 +15,21 @@
       >
     </div>
 
-    <div class="search-results">
+    <div class="resultados-pesquisa">
       @for (u of resultados(); track u.username) {
-        <button class="search-item" (click)="selecionar(u)">
+        <button class="item-pesquisa" (click)="selecionar(u)">
           @if (u.avatar) {
-            <img [src]="u.avatar" [alt]="u.nome" class="search-avatar">
+            <img [src]="u.avatar" [alt]="u.nome" class="avatar-pesquisa">
           } @else {
-            <div class="search-avatar search-avatar-initials">{{ u.nome[0] }}</div>
+            <div class="avatar-pesquisa iniciais-avatar-pesquisa">{{ u.nome[0] }}</div>
           }
-          <div class="si-info">
-            <span class="si-nome">{{ u.nome }}</span>
-            <span class="si-user">&#64;{{ u.username }}</span>
+          <div class="info-item-pesquisa">
+            <span class="nome-item-pesquisa">{{ u.nome }}</span>
+            <span class="utilizador-item-pesquisa">&#64;{{ u.username }}</span>
           </div>
         </button>
       } @empty {
-        <div class="search-empty">
+        <div class="vazio-pesquisa">
           <i class="bi bi-emoji-frown"></i>
           <p>Nenhum utilizador encontrado</p>
         </div>

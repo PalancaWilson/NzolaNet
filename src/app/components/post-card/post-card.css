@@ -1,4 +1,4 @@
-.post-card {
+.cartao-publicacao {
   max-width: 600px;
   width: 100%;
   background: white;
@@ -9,13 +9,13 @@
   margin: 0 auto;
 }
 
-.post-card:hover {
+.cartao-publicacao:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   transform: translateY(-1px);
 }
 
 /* Cabeçalho reduzido */
-.post-header {
+.cabecalho-publicacao {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -36,7 +36,7 @@
   flex-shrink: 0;
 }
 
-.user-info {
+.info-utilizador {
   flex: 1;
 }
 
@@ -56,24 +56,24 @@
   font-size: 13px;
 }
 
-.verified-badge {
+.badge-verificado {
   color: #1da1f2;
   font-size: 14px;
 }
 
-.post-time {
+.tempo-publicacao {
   color: #71767b;
   font-size: 11px;
   margin-top: 2px;
 }
 
 /* Conteúdo reduzido */
-.post-content {
+.conteudo-publicacao {
   margin-bottom: 12px;
   padding-left: 48px;
 }
 
-.post-text {
+.texto-publicacao {
   font-size: 14px;
   line-height: 1.4;
   color: #0f1419;
@@ -81,7 +81,7 @@
 }
 
 /* Imagem reduzida */
-.post-media {
+.media-publicacao {
   margin-top: 8px;
   border-radius: 12px;
   overflow: hidden;
@@ -89,11 +89,11 @@
   transition: transform 0.2s ease;
 }
 
-.post-media:hover {
+.media-publicacao:hover {
   transform: scale(1.01);
 }
 
-.post-media img {
+.media-publicacao img {
   width: 100%;
   height: auto;
   display: block;
@@ -102,7 +102,7 @@
 }
 
 /* Ações reduzidas */
-.post-actions {
+.acoes-publicacao {
   display: flex;
   justify-content: space-around;
   border-top: 1px solid #eff3f4;
@@ -111,7 +111,7 @@
   margin-bottom: 8px;
 }
 
-.action-btn {
+  .btn-acao {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -125,49 +125,49 @@
   transition: all 0.2s ease;
 }
 
-.action-btn i {
+  .btn-acao i {
   font-size: 16px;
   transition: transform 0.2s ease;
 }
 
-.action-btn:hover {
+.btn-acao:hover {
   background: rgba(201, 45, 241, 0.08);
   color: #c92df1;
 }
 
-.action-btn:hover i {
+.btn-acao:hover i {
   transform: scale(1.05);
 }
 
-.like-btn.liked {
+.btn-baze.bazado {
   color: #f91880;
 }
 
-.like-btn.liked i {
+.btn-baze.bazado i {
   color: #f91880;
 }
 
-.like-btn:hover {
+.btn-baze:hover {
   background: rgba(249, 24, 128, 0.08);
   color: #f91880;
 }
 
-.retweet-btn:hover {
+.btn-repostar:hover {
   background: rgba(0, 186, 124, 0.08);
   color: #00ba7c;
 }
 
-.share-btn:hover {
+.btn-partilhar:hover {
   background: rgba(29, 161, 242, 0.08);
   color: #1da1f2;
 }
 
-.action-btn:active {
+.btn-acao:active {
   transform: scale(0.96);
 }
 
 /* Estatísticas reduzidas */
-.post-stats {
+.estatisticas-publicacao {
   display: flex;
   gap: 16px;
   padding-left: 48px;
@@ -175,42 +175,42 @@
   color: #536471;
 }
 
-.stat {
+.estatistica {
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-.stat strong {
+  .estatistica strong {
   color: #0f1419;
   font-weight: 600;
   font-size: 13px;
 }
 
-.stat i {
+.estatistica i {
   font-size: 13px;
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
-  .post-card {
+  .cartao-publicacao {
     padding: 10px;
   }
 
-  .post-content,
-  .post-stats {
+  .conteudo-publicacao,
+  .estatisticas-publicacao {
     padding-left: 0;
   }
 
-  .action-btn span {
+  .btn-acao span {
     display: none;
   }
 
-  .action-btn i {
+.btn-acao i {
     font-size: 18px;
   }
 
-  .action-btn {
+.btn-acao {
     padding: 6px;
   }
 
@@ -220,36 +220,36 @@
     font-size: 14px;
   }
 
-  .post-text {
+  .texto-publicacao {
     font-size: 13px;
   }
 }
 
 @media (max-width: 480px) {
-  .user-name {
+.nome-utilizador {
     font-size: 13px;
   }
 
-  .user-name span {
+  .nome-utilizador span {
     font-size: 11px;
   }
 
-  .post-text {
+  .texto-publicacao {
     font-size: 13px;
   }
 
-  .post-stats {
+  .estatisticas-publicacao {
     font-size: 12px;
     gap: 12px;
   }
 
-  .stat strong {
+.estatistica strong {
     font-size: 12px;
   }
 }
 
 /* Adições para o PostCard melhorado */
-.avatar-img {
+.img-avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -257,7 +257,7 @@
   flex-shrink: 0;
 }
 
-.badge-creator {
+.badge-criador {
   background: linear-gradient(135deg, #c92df1, #8b5cf6);
   color: #fff;
   font-size: 9px;
@@ -267,7 +267,7 @@
   letter-spacing: 0.5px;
 }
 
-.post-tags {
+.tags-publicacao {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
@@ -285,21 +285,21 @@
   text-decoration: underline;
 }
 
-.save-btn.saved {
+.btn-guardar.guardado {
   color: #c92df1;
 }
-.save-btn:hover {
+.btn-guardar:hover {
   background: rgba(201, 45, 241, 0.08);
   color: #c92df1;
 }
 
 /* ── Menu de opções (editar/apagar) ───────────────────── */
-.post-menu-container {
+.container-menu-publicacao {
   position: relative;
   flex-shrink: 0;
 }
 
-.menu-trigger {
+.gatilho-menu {
   background: none;
   border: none;
   color: var(--text-muted);
@@ -315,12 +315,12 @@
     color 0.2s;
 }
 
-.menu-trigger:hover {
+.gatilho-menu:hover {
   background: var(--purple-light);
   color: var(--purple);
 }
 
-.menu-dropdown {
+.dropdown-menu-publicacao {
   position: absolute;
   right: 0;
   top: 100%;
@@ -333,7 +333,7 @@
   overflow: hidden;
 }
 
-.menu-item {
+.item-menu {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -348,27 +348,27 @@
   transition: background 0.15s;
 }
 
-.menu-item:hover {
+.item-menu:hover {
   background: var(--purple-light);
 }
 
-.menu-item-danger {
+.item-menu-perigo {
   color: var(--pink);
 }
 
-.menu-item-danger:hover {
+.item-menu-perigo:hover {
   background: rgba(249, 24, 128, 0.08);
 }
 
 /* ── Edição inline ──────────────────────────── */
-.post-edit-area {
+  .area-edicao-publicacao {
   padding-left: 48px;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.edit-textarea {
+.textarea-edicao {
   width: 100%;
   border: 2px solid var(--purple-light);
   border-radius: 12px;
@@ -383,28 +383,28 @@
   transition: border-color 0.2s;
 }
 
-.edit-textarea:focus {
+.textarea-edicao:focus {
   border-color: var(--purple);
 }
 
-.edit-char-count {
+.contagem-caracteres-edicao {
   font-size: 12px;
   color: var(--text-muted);
   font-weight: 700;
   text-align: right;
 }
 
-.edit-char-count.danger {
+.contagem-caracteres-edicao.perigo {
   color: var(--pink);
 }
 
-.edit-image-preview {
+.preview-imagem-edicao {
   position: relative;
   border-radius: 12px;
   overflow: hidden;
 }
 
-.edit-image-preview img {
+.preview-imagem-edicao img {
   width: 100%;
   max-height: 250px;
   object-fit: cover;
@@ -412,7 +412,7 @@
   border-radius: 12px;
 }
 
-.btn-remove-edit-img {
+.btn-remover-img-edicao {
   position: absolute;
   top: 8px;
   right: 8px;
@@ -430,13 +430,13 @@
   justify-content: center;
 }
 
-.edit-actions {
+.acoes-edicao {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.edit-action-btn {
+.btn-acao-edicao {
   width: 42px;
   height: 42px;
   border: none;
@@ -450,20 +450,20 @@
   justify-content: center;
 }
 
-.edit-action-btn:hover {
+.btn-acao-edicao:hover {
   background: var(--purple-light);
 }
 
-.edit-action-btn i {
+.btn-acao-edicao i {
   font-size: 18px;
 }
 
-.edit-save-group {
+.grupo-salvar-edicao {
   display: flex;
   gap: 8px;
 }
 
-.btn-cancel-edit,
+.btn-cancelar-edicao,
 .btn-save-edit {
   padding: 8px 20px;
   border-radius: 999px;
@@ -474,12 +474,12 @@
   border: none;
 }
 
-.btn-cancel-edit {
+.btn-cancelar-edicao {
   background: transparent;
   color: var(--text-muted);
 }
 
-.btn-cancel-edit:hover {
+.btn-cancelar-edicao:hover {
   background: var(--purple-light);
   color: var(--text);
 }
@@ -489,19 +489,19 @@
   color: white;
 }
 
-.btn-save-edit:hover {
+.btn-salvar-edicao:hover {
   transform: translateY(-1px);
 }
 
-.btn-save-edit:disabled,
-.btn-cancel-edit:disabled {
+.btn-salvar-edicao:disabled,
+.btn-cancelar-edicao:disabled {
   opacity: 0.4;
   cursor: not-allowed;
   transform: none;
 }
 
 @media (max-width: 768px) {
-  .post-edit-area {
+.area-edicao-publicacao {
     padding-left: 0;
   }
 }

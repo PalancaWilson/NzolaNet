@@ -1,11 +1,11 @@
-<div class="admin-page fade-in">
-  <div class="admin-header slide-down">
+<div class="pagina-admin fade-in">
+  <div class="cabecalho-admin slide-down">
     <h1><i class="bi bi-flag-fill"></i> Gestão de Denúncias</h1>
     <p>Revisa e trata as denúncias enviadas pela comunidade</p>
   </div>
 
-  <div class="admin-toolbar">
-    <div class="search-box">
+  <div class="barra-ferramentas-admin">
+    <div class="caixa-pesquisa">
       <i class="bi bi-search"></i>
       <input
         type="text"
@@ -14,19 +14,19 @@
         (ngModelChange)="pesquisa.set($event)"
       />
     </div>
-    <div class="filter-tabs">
-      <button [class.active]="filtroStatus() === ''" (click)="filtroStatus.set('')">Todas</button>
-      <button [class.active]="filtroStatus() === 'pendente'" (click)="filtroStatus.set('pendente')">
+    <div class="abas-filtro">
+      <button [class.ativo]="filtroStatus() === ''" (click)="filtroStatus.set('')">Todas</button>
+      <button [class.ativo]="filtroStatus() === 'pendente'" (click)="filtroStatus.set('pendente')">
         <i class="bi bi-exclamation-circle"></i> Pendentes
       </button>
       <button
-        [class.active]="filtroStatus() === 'resolvido'"
+        [class.ativo]="filtroStatus() === 'resolvido'"
         (click)="filtroStatus.set('resolvido')"
       >
         <i class="bi bi-check-circle"></i> Resolvidas
       </button>
       <button
-        [class.active]="filtroStatus() === 'rejeitado'"
+        [class.ativo]="filtroStatus() === 'rejeitado'"
         (click)="filtroStatus.set('rejeitado')"
       >
         <i class="bi bi-x-circle"></i> Rejeitadas
@@ -38,14 +38,14 @@
     <div class="skeleton-list">
       @for (_ of [1, 2, 3, 4]; track $index) {
         <div class="skeleton-card" style="animation-delay: {{ $index * 0.1 }}s">
-          <div class="skeleton-line w-30"></div>
-          <div class="skeleton-line w-60"></div>
-          <div class="skeleton-line w-80"></div>
+          <div class="linha-skeleton w-30"></div>
+          <div class="linha-skeleton w-60"></div>
+          <div class="linha-skeleton w-80"></div>
         </div>
       }
     </div>
   } @else if (denunciasFiltradas.length === 0) {
-    <div class="empty-state">
+    <div class="estado-vazio">
       <i class="bi bi-flag"></i>
       <h3>Nenhuma denúncia encontrada</h3>
       <p>
@@ -53,20 +53,20 @@
       </p>
     </div>
   } @else {
-    <div class="denuncias-list">
+    <div class="lista-denuncias">
       @for (d of denunciasFiltradas; track d.id) {
         <div
-          class="denuncia-card"
+          class="cartao-denuncia"
           [class.status-pendente]="d.status === 'pendente'"
           [class.status-resolvido]="d.status === 'resolvido'"
           [class.status-rejeitado]="d.status === 'rejeitado'"
         >
-          <div class="denuncia-header">
-            <div class="denuncia-type-badge" [class]="d.conteudo?.tipo">
+          <div class="cabecalho-denuncia">
+            <div class="badge-tipo-denuncia" [class]="d.conteudo?.tipo">
               <i class="bi {{ iconPorTipo(d.conteudo?.tipo ?? '') }}"></i>
               <span>{{ d.conteudo?.tipo }}</span>
             </div>
-            <span class="denuncia-status" [class]="d.status">
+            <span class="status-denuncia" [class]="d.status">
               @if (d.status === 'pendente') {
                 <i class="bi bi-exclamation-circle"></i> Pendente
               } @else if (d.status === 'resolvido') {
@@ -77,29 +77,29 @@
             </span>
           </div>
 
-          <div class="denuncia-conteudo">
+          <div class="conteudo-denuncia">
             @if (d.conteudo?.tipo === 'publicacao' || d.conteudo?.tipo === 'comentario') {
-              <p class="conteudo-texto">"{{ d.conteudo?.texto }}"</p>
+              <p class="texto-conteudo">"{{ d.conteudo?.texto }}"</p>
               @if (d.conteudo?.autor) {
-                <span class="conteudo-autor">
+                <span class="autor-conteudo">
                   <i class="bi bi-person"></i> {{ d.conteudo?.autor?.nome }}
                 </span>
               }
             } @else if (d.conteudo?.tipo === 'utilizador') {
-              <p class="conteudo-texto">
+              <p class="texto-conteudo">
                 <i class="bi bi-person"></i> {{ d.conteudo?.nome }}
                 <span class="text-muted">({{ d.conteudo?.email }})</span>
               </p>
             }
           </div>
 
-          <div class="denuncia-motivo">
+          <div class="motivo-denuncia">
             <strong>Motivo:</strong>
             <p>{{ d.motivo }}</p>
           </div>
 
-          <div class="denuncia-footer">
-            <div class="denuncia-meta">
+          <div class="rodape-denuncia">
+            <div class="meta-denuncia">
               @if (d.denunciante) {
                 <span class="denunciante">
                   <i class="bi bi-flag"></i> Denunciado por {{ d.denunciante.nome }}
@@ -109,9 +109,9 @@
             </div>
 
             @if (d.status === 'pendente') {
-              <div class="denuncia-actions">
+              <div class="acoes-denuncia">
                 <button
-                  class="btn-action btn-remove"
+                  class="btn-acao btn-remover"
                   (click)="removerConteudo(d)"
                   [disabled]="acaoId() === d.id"
                 >
@@ -123,14 +123,14 @@
                   Remover conteúdo
                 </button>
                 <button
-                  class="btn-action btn-resolve"
+                  class="btn-acao btn-resolver"
                   (click)="resolver(d)"
                   [disabled]="acaoId() === d.id"
                 >
                   <i class="bi bi-check-lg"></i> Resolver
                 </button>
                 <button
-                  class="btn-action btn-reject"
+                  class="btn-acao btn-rejeitar"
                   (click)="rejeitar(d)"
                   [disabled]="acaoId() === d.id"
                 >
@@ -138,7 +138,7 @@
                 </button>
               </div>
             } @else {
-              <div class="denuncia-resolved-info">
+              <div class="info-resolvido-denuncia">
                 <i class="bi bi-check2-all"></i>
                 Denúncia {{ d.status === 'resolvido' ? 'resolvida' : 'rejeitada' }}
               </div>

@@ -1,4 +1,4 @@
-.notif-item {
+.item-notificacao {
     display: flex;
     align-items: center;
     gap: 14px;
@@ -9,19 +9,19 @@
     transition: background .15s;
 }
 
-.notif-item:hover {
+.item-notificacao:hover {
     background: var(--gray-50);
 }
 
-.notif-item.unread {
+.item-notificacao.nao-lida {
     background: #FBF4FF;
 }
 
-.notif-item:last-child {
+.item-notificacao:last-child {
     border-bottom: none;
 }
 
-.unread-dot {
+.ponto-nao-lido {
     position: absolute;
     left: 8px;
     top: 50%;
@@ -32,21 +32,21 @@
     background: var(--purple);
 }
 
-.notif-avatar-wrap {
+.moldura-avatar-notificacao {
     position: relative;
     width: 46px;
     height: 46px;
     flex-shrink: 0;
 }
 
-.notif-avatar {
+.avatar-notificacao {
     width: 46px;
     height: 46px;
     border-radius: var(--radius-full);
     object-fit: cover;
 }
 
-.notif-type-icon {
+.icone-tipo-notificacao {
     position: absolute;
     bottom: -2px;
     right: -2px;
@@ -59,48 +59,48 @@
     justify-content: center;
 }
 
-.type-baze {
+.tipo-baze {
     background: var(--purple);
     color: var(--white);
 }
 
-.type-follow {
+.tipo-seguir {
     background: #1D9BF0;
     color: var(--white);
 }
 
-.type-comment {
+.tipo-comentario {
     background: var(--gray-700);
     color: var(--white);
 }
 
-.type-mention {
+.tipo-mencao {
     background: #FF6B35;
     color: var(--white);
 }
 
-.notif-content {
+.conteudo-notificacao {
     flex: 1;
     min-width: 0;
 }
 
-.notif-text {
+.texto-notificacao {
     font-size: 14px;
     line-height: 1.5;
     color: var(--text);
     margin-bottom: 3px;
 }
 
-.notif-text strong {
+.texto-notificacao strong {
     font-weight: 600;
 }
 
-.notif-post-title {
+.titulo-publicacao-notificacao {
     color: var(--text-soft);
     font-style: italic;
 }
 
-.notif-time {
+.tempo-notificacao {
     font-size: 12px;
     color: var(--text-muted);
     font-weight: 500;
@@ -108,7 +108,7 @@
     text-transform: uppercase;
 }
 
-.btn-follow {
+.btn-seguir {
     background: var(--black);
     color: var(--white);
     border-radius: var(--radius-full);
@@ -120,6 +120,6 @@
     transition: background .2s;
 }
 
-.btn-follow:hover {
+.btn-seguir:hover {
     background: var(--purple);
 }

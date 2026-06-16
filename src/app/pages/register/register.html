@@ -1,62 +1,62 @@
-<div class="login-container">
+<div class="container-login">
 
   <app-auth-layout></app-auth-layout>
 
-  <div class="right-side">
-    <form class="form-container" [formGroup]="registerForm" (ngSubmit)="criar()">
+  <div class="lado-direito">
+    <form class="container-formulario" [formGroup]="registerForm" (ngSubmit)="criar()">
 
-      <!-- CABEÇALHO -->
-      <span class="small-text">// REGISTO · ETAPA {{ etapaActual() }} DE 2</span>
+      <!-- Cabelaho -->
+      <span class="texto-pequeno">// REGISTO · ETAPA {{ etapaActual() }} DE 2</span>
       <h1>{{ etapaActual() === 1 ? 'CRIA A TUA CONTA' : 'O TEU PERFIL' }}</h1>
       <p>{{ etapaActual() === 1 ? 'Dados de acesso à plataforma.' : 'Personaliza como apareces na Baze.' }}</p>
 
-      <!-- INDICADOR DE PROGRESSO -->
-      <div class="progress-bar">
-        <div class="progress-fill" [class.half]="etapaActual() === 1" [class.full]="etapaActual() === 2"></div>
+      <!-- Indicador de progresso -->
+      <div class="barra-progresso">
+        <div class="preenchimento-progresso" [class.metade]="etapaActual() === 1" [class.completo]="etapaActual() === 2"></div>
       </div>
 
-      <!-- SUCESSO -->
+      <!-- Sucesso -->
       @if (sucessoRegisto()) {
-        <div class="alert-success">
+        <div class="alerta-sucesso">
           <i class="bi bi-check-circle-fill"></i>
           Conta criada! A entrar na Baze...
         </div>
       }
 
-      <!-- ERRO -->
+      <!-- Erro -->
       @if (erroServidor()) {
-        <div class="alert-error">
+        <div class="alerta-erro">
           <i class="bi bi-exclamation-circle"></i>
           {{ erroServidor() }}
         </div>
       }
-      <!-- ETAPA 1 — DADOS DE ACESSO                                   -->
+      <!-- Etapa 1 — Dados de acesso  -->
 
       @if (etapaActual() === 1) {
 
-        <!-- NOME COMPLETO -->
+        <!-- Nome completo-->
         <label for="nome">NOME COMPLETO</label>
-        <div class="input-group" [class.input-error]="campo('nome').touched && campo('nome').invalid">
+        <div class="grupo-input" [class.erro-input]="campo('nome').touched && campo('nome').invalid">
           <i class="bi bi-person"></i>
           <input id="nome" type="text" placeholder="Ex: João Silva" formControlName="nome" autocomplete="name">
         </div>
         @if (campo('nome').touched && campo('nome').errors?.['required']) {
-          <small class="error">Nome obrigatório.</small>
+          <small class="erro">Nome obrigatório.</small>
         }
         @if (campo('nome').touched && campo('nome').errors?.['minlength']) {
-          <small class="error">Mínimo 2 caracteres.</small>
+          <small class="erro">Mínimo 2 caracteres.</small>
         }
         
         @if (campo('nome').touched && campo('nome').pending) {
-          <small class="hint">
+          <small class="dica">
             <i class="bi bi-hourglass-split"></i>
             A verificar...
           </small>
         }
 
-        <!-- EMAIL -->
+        <!-- Email -->
         <label for="email">EMAIL</label>
-        <div class="input-group" [class.input-error]="campo('email').touched && campo('email').invalid">
+        <div class="grupo-input" [class.erro-input]="campo('email').touched && campo('email').invalid">
           <i class="bi bi-envelope"></i>
           <input
             id="email"
@@ -66,29 +66,29 @@
             autocomplete="email"
           >
           @if (campo('email').valid && campo('email').value) {
-            <i class="bi bi-check-circle-fill input-valid-icon"></i>
+            <i class="bi bi-check-circle-fill icone-valido-input"></i>
           }
         </div>
         @if (campo('email').touched) {
-          @if (campo('email').errors?.['required'])       { <small class="error">Email obrigatório.</small> }
-          @if (campo('email').errors?.['email'])          { <small class="error">Email inválido.</small> }
+          @if (campo('email').errors?.['required'])       { <small class="erro">Email obrigatório.</small> }
+          @if (campo('email').errors?.['email'])          { <small class="erro">Email inválido.</small> }
           @if (campo('email').errors?.['emailDuplicado']) {
-            <small class="error">
+            <small class="erro">
               <i class="bi bi-exclamation-triangle"></i>
               Email já registado. <a routerLink="/login">Entra aqui.</a>
             </small>
           }
           @if (campo('email').pending) {
-            <small class="hint">
+            <small class="dica">
               <i class="bi bi-hourglass-split"></i>
               A verificar...
             </small>
           }
         }
 
-        <!-- SENHA -->
+        <!-- Senha -->
         <label for="senha">SENHA</label>
-        <div class="input-group" [class.input-error]="campo('senha').touched && campo('senha').invalid">
+        <div class="grupo-input" [class.erro-input]="campo('senha').touched && campo('senha').invalid">
           <i class="bi bi-lock"></i>
           <input
             id="senha"
@@ -98,25 +98,25 @@
             autocomplete="new-password"
           >
           <i
-            class="bi toggle-pw"
+            class="bi alternar-senha"
             [class.bi-eye]="!mostrarSenha()"
             [class.bi-eye-slash]="mostrarSenha()"
             (click)="alternarSenha()"
           ></i>
         </div>
-        @if (campo('senha').touched && campo('senha').errors?.['required'])    { <small class="error">Senha obrigatória.</small> }
-        @if (campo('senha').touched && campo('senha').errors?.['minlength'])   { <small class="error">Mínimo 8 caracteres.</small> }
-        @if (campo('senha').touched && campo('senha').errors?.['semMaiuscula']) { <small class="error">Deve ter pelo menos uma maiúscula.</small> }
-        @if (campo('senha').touched && campo('senha').errors?.['semNumero'])    { <small class="error">Deve ter pelo menos um número.</small> }
-        @if (campo('senha').touched && campo('senha').errors?.['semEspecial'])  { <small class="error">Deve ter pelo menos um carácter especial.</small> }
+        @if (campo('senha').touched && campo('senha').errors?.['required'])    { <small class="erro">Senha obrigatória.</small> }
+        @if (campo('senha').touched && campo('senha').errors?.['minlength'])   { <small class="erro">Mínimo 8 caracteres.</small> }
+        @if (campo('senha').touched && campo('senha').errors?.['semMaiuscula']) { <small class="erro">Deve ter pelo menos uma maiúscula.</small> }
+        @if (campo('senha').touched && campo('senha').errors?.['semNumero'])    { <small class="erro">Deve ter pelo menos um número.</small> }
+        @if (campo('senha').touched && campo('senha').errors?.['semEspecial'])  { <small class="erro">Deve ter pelo menos um carácter especial.</small> }
 
-        <!-- INDICADOR DE FORÇA -->
+        <!-- Indicador de força-->
         @if (campo('senha').value) {
-          <div class="password-strength">
-            <div class="strength-bar">
-              <div class="strength-fill" [class]="forcaSenha"></div>
+          <div class="forca-senha">
+            <div class="barra-forca">
+              <div class="preenchimento-forca" [class]="forcaSenha"></div>
             </div>
-            <small class="strength-label" [class]="forcaSenha">
+            <small class="rotulo-forca" [class]="forcaSenha">
               @if (forcaSenha === 'fraca') { Senha fraca }
               @else if (forcaSenha === 'media') { Senha média }
               @else { Senha forte ✓ }
@@ -124,10 +124,10 @@
           </div>
         }
 
-        <!-- CONFIRMAR SENHA -->
+        <!-- Confirmar senha-->
         <label for="confirmarSenha">CONFIRMAR SENHA</label>
-        <div class="input-group"
-          [class.input-error]="campo('confirmarSenha').touched && registerForm.errors?.['senhasDiferentes']">
+        <div class="grupo-input"
+          [class.erro-input]="campo('confirmarSenha').touched && registerForm.errors?.['senhasDiferentes']">
           <i class="bi bi-lock-fill"></i>
           <input
             id="confirmarSenha"
@@ -138,27 +138,27 @@
           >
         </div>
         @if (campo('confirmarSenha').touched && registerForm.errors?.['senhasDiferentes']) {
-          <small class="error">As senhas não coincidem.</small>
+          <small class="erro">As senhas não coincidem.</small>
         }
 
-        <!-- BOTÃO AVANÇAR -->
-        <button class="login-btn" type="button" (click)="avancarEtapa()">
+        <!-- Botão avançar -->
+        <button class="btn-entrar" type="button" (click)="avancarEtapa()">
           CONTINUAR <i class="bi bi-arrow-right"></i>
         </button>
 
-        <div class="register-link">
+        <div class="link-registo">
           Já tens conta? <a routerLink="/login">Entra aqui</a>
         </div>
 
       }
 
-      <!-- ETAPA 2 — PERFIL                                            -->
+      <!-- Etapa 2 — Perfil                                            -->
 
       @if (etapaActual() === 2) {
 
         <!-- FOTO DE PERFIL -->
-        <div class="profile-upload">
-          <div class="profile-preview">
+        <div class="upload-perfil">
+          <div class="pre-visualizacao-perfil">
             <img [src]="fotoPreview()" alt="Foto de perfil">
             <label for="foto_upload" title="Alterar foto">
               <i class="bi bi-camera-fill"></i>
@@ -174,20 +174,20 @@
           <span>Foto de perfil <small>(máx. 20 MB)</small></span>
         </div>
 
-        <!-- DATA DE NASCIMENTO + GÉNERO -->
-        <div class="form-row">
+        <!-- Data de nascimento e género -->
+        <div class="linha-formulario">
 
-          <div class="form-field">
+          <div class="campo-formulario">
             <label for="data_nascimento">DATA DE NASCIMENTO</label>
-            <div class="input-group">
+            <div class="grupo-input">
               <i class="bi bi-calendar-event"></i>
               <input id="data_nascimento" type="date" formControlName="data_nascimento">
             </div>
           </div>
 
-          <div class="form-field">
+          <div class="campo-formulario">
             <label for="genero">GÉNERO</label>
-            <div class="input-group select-group">
+            <div class="grupo-input grupo-select">
               <i class="bi bi-gender-ambiguous"></i>
               <select id="genero" formControlName="genero">
                 <option value="masculino">Masculino</option>
@@ -198,9 +198,9 @@
 
         </div>
 
-        <!-- BIO -->
+        <!-- Biografia -->
         <label for="bio">BIO</label>
-        <div class="input-group textarea-group" [class.input-error]="campo('bio').errors?.['maxlength']">
+        <div class="grupo-input grupo-textarea" [class.erro-input]="campo('bio').errors?.['maxlength']">
           <i class="bi bi-pencil-square"></i>
           <textarea
             id="bio"
@@ -209,22 +209,22 @@
             rows="3"
           ></textarea>
         </div>
-        <small class="counter-bio" [class.danger]="bioRestantes < 10">
+        <small class="contador-bio" [class.perigo]="bioRestantes < 10">
           {{ bioRestantes }} caracteres restantes
         </small>
 
-        <!-- PRIVACIDADE -->
+        <!-- Privacidade -->
         <label>PRIVACIDADE DA CONTA</label>
-        <div class="privacy-options">
+        <div class="opcoes-privacidade">
 
-          <label class="privacy-card" [class.selected]="campo('privacidade').value === 'publico'">
+          <label class="cartao-privacidade" [class.selecionado]="campo('privacidade').value === 'publico'">
             <input type="radio" formControlName="privacidade" value="publico">
             <i class="bi bi-globe2"></i>
             <span>Público</span>
             <small>Qualquer pessoa pode ver o teu perfil e publicações</small>
           </label>
 
-          <label class="privacy-card" [class.selected]="campo('privacidade').value === 'privado'">
+          <label class="cartao-privacidade" [class.selecionado]="campo('privacidade').value === 'privado'">
             <input type="radio" formControlName="privacidade" value="privado">
             <i class="bi bi-lock-fill"></i>
             <span>Privado</span>
@@ -233,13 +233,13 @@
 
         </div>
 
-        <!-- BOTÕES -->
-        <div class="btn-row">
-          <button class="btn-back" type="button" (click)="voltarEtapa()">
+        <!-- Botões de alternativas -->
+        <div class="linha-botoes">
+          <button class="btn-voltar" type="button" (click)="voltarEtapa()">
             <i class="bi bi-arrow-left"></i> Voltar
           </button>
           <button
-            class="login-btn btn-criar"
+            class="btn-entrar btn-criar"
             type="submit"
             [disabled]="carregando() || sucessoRegisto()"
           >

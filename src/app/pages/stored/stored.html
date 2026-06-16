@@ -5,12 +5,12 @@
     <h1>GUARDADOS</h1>
   </div>
 
-  <div class="posts-list">
+  <div class="lista-publicacoes">
     @for (post of postsGuardados(); track post.id) {
       <app-post-card [post]="post"></app-post-card>
     }
     @empty {
-      <div class="empty-state">
+      <div class="estado-vazio">
         <i class="bi bi-bookmark"></i>
         <p>Ainda não guardaste nenhuma publicação.</p>
       </div>

@@ -5,7 +5,7 @@
   background: var(--bg-body);
 }
 
-.main-content {
+.conteudo-principal {
   display: flex;
   margin-top: var(--topbar-h);
   min-height: calc(100vh - var(--topbar-h));
@@ -38,13 +38,13 @@
   font-size: 14px;
 }
 
-.settings-layout {
+.layout-definicoes {
   display: flex;
   gap: 28px;
   align-items: flex-start;
 }
 
-.settings-menu {
+.menu-definicoes {
   width: 240px;
   flex-shrink: 0;
   background: var(--bg);
@@ -54,7 +54,7 @@
   box-shadow: var(--shadow);
 }
 
-.menu-item {
+.item-menu {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -68,28 +68,28 @@
   color: var(--text);
 }
 
-.menu-item:hover {
+.item-menu:hover {
   background: var(--purple-light);
 }
 
-.menu-item.active {
+.item-menu.ativo {
   background: var(--purple-light);
   color: var(--purple);
   font-weight: 700;
 }
 
-.menu-item i {
+.item-menu i {
   font-size: 18px;
   color: var(--text-muted);
   transition: color 0.2s;
 }
 
-.menu-item.active i,
-.menu-item:hover i {
+.item-menu.ativo i,
+.item-menu:hover i {
   color: var(--purple);
 }
 
-.settings-panel {
+.painel-definicoes {
   flex: 1;
   background: var(--bg);
   border-radius: 16px;
@@ -104,11 +104,11 @@
     padding: 20px 16px;
   }
 
-  .settings-layout {
+  .layout-definicoes {
     flex-direction: column;
   }
 
-  .settings-menu {
+  .menu-definicoes {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -116,7 +116,7 @@
     padding: 8px;
   }
 
-  .menu-item {
+  .item-menu {
     flex: 1;
     min-width: 0;
     justify-content: center;
@@ -124,15 +124,15 @@
     font-size: 12px;
   }
 
-  .menu-item span {
+  .item-menu span {
     display: none;
   }
 
-  .menu-item i {
+  .item-menu i {
     font-size: 20px;
   }
 
-  .settings-panel {
+  .painel-definicoes {
     padding: 20px;
   }
 }

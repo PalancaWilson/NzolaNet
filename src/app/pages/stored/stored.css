@@ -5,7 +5,7 @@
   background: var(--bg-body);
 }
 
-.main-content {
+.conteudo-principal {
   display: flex;
   margin-top: var(--topbar-h);
   min-height: calc(100vh - var(--topbar-h));
@@ -37,13 +37,13 @@
   font-size: 14px;
 }
 
-.posts-list {
+.lista-publicacoes {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.empty-state {
+.estado-vazio {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,11 +52,11 @@
   color: var(--text-muted);
 }
 
-.empty-state i {
+.estado-vazio i {
   font-size: 48px;
   opacity: 0.3;
 }
 
-.empty-state p {
+.estado-vazio p {
   font-size: 15px;
 }

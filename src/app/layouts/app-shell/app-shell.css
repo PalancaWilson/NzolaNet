@@ -1,5 +1,5 @@
 /* ── Shell wrapper ─────────────────────────────────────── */
-.shell-content {
+  .conteudo-shell {
   padding-top: var(--topbar-h);
   padding-left: var(--sidebar-w);
   min-height: 100vh;
@@ -9,7 +9,7 @@
 }
 
 /* ── Bottom nav (mobile) ───────────────────────────────── */
-.bottom-nav {
+  .navegacao-inferior {
   display: none;
   position: fixed;
   bottom: 0;
@@ -21,13 +21,13 @@
   padding: 6px 0 env(safe-area-inset-bottom, 6px);
 }
 
-.bottom-nav-inner {
+.interior-nav-inferior {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
-.bottom-nav-inner a {
+.interior-nav-inferior a {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,26 +41,26 @@
   border-radius: 8px;
 }
 
-.bottom-nav-inner a i {
+.interior-nav-inferior a i {
   font-size: 20px;
 }
 
-.bottom-nav-inner a:hover {
+.interior-nav-inferior a:hover {
   color: rgba(240, 240, 245, 0.8);
 }
 
-.bottom-nav-inner a.active {
+.interior-nav-inferior a.active {
   color: var(--purple);
 }
 
 /* Mobile */
 @media (max-width: 768px) {
-  .shell-content {
+.conteudo-shell {
     padding-left: 0;
     padding-bottom: 64px;
   }
 
-  .bottom-nav {
+.navegacao-inferior {
     display: block;
   }
 }

@@ -8,13 +8,13 @@ h2 {
   margin: 0 0 4px;
 }
 
-.section-desc {
+.descricao-seccao {
   color: var(--text-sub);
   font-size: 14px;
   margin-bottom: 28px;
 }
 
-.setting-row {
+.linha-definicao {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,11 +22,11 @@ h2 {
   border-bottom: 1px solid var(--border);
 }
 
-.setting-row:last-child {
+.linha-definicao:last-child {
   border-bottom: none;
 }
 
-.setting-label span {
+.rotulo-definicao span {
   display: block;
   font-weight: 700;
   font-size: 15px;
@@ -34,7 +34,7 @@ h2 {
   margin-bottom: 4px;
 }
 
-.setting-label small {
+.rotulo-definicao small {
   font-size: 13px;
   color: var(--text-muted);
 }
