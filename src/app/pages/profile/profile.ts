@@ -117,7 +117,6 @@ export class Profile implements OnInit {
   get generoLabel(): string {
     const g: Record<string, string> = {
       masculino: 'Masculino', feminino: 'Feminino',
-      nao_binario: 'Não-binário', outro: 'Outro',
     };
     return g[this.userService.perfil()?.genero ?? ''] ?? '';
   }

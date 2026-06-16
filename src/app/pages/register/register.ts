@@ -1,18 +1,18 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { AuthLayout } from "../../layouts/auth-layout/auth-layout";
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Observable, of, timer } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap, map, catchError } from 'rxjs/operators';
+import { switchMap, map, catchError } from 'rxjs/operators';
 
-function senhasIguaisValidator(group: AbstractControl): ValidationErrors | null {
+function senhasIguais(group: AbstractControl): ValidationErrors | null {
   const senha    = group.get('senha')?.value;
   const confirma = group.get('confirmarSenha')?.value;
   return senha === confirma ? null : { senhasDiferentes: true };
 }
 
-function emailUnicoValidator(auth: AuthService): AsyncValidatorFn {
+function emailUnico(auth: AuthService): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     if (!control.value || control.errors) return of(null);
     return timer(400).pipe(
@@ -26,7 +26,7 @@ function emailUnicoValidator(auth: AuthService): AsyncValidatorFn {
   };
 }
 
-function nomeUnicoValidator(auth: AuthService): AsyncValidatorFn {
+function nomeUnico(auth: AuthService): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     if (!control.value || control.errors) return of(null);
     return timer(400).pipe(
@@ -40,7 +40,7 @@ function nomeUnicoValidator(auth: AuthService): AsyncValidatorFn {
   };
 }
 
-function senhaForteValidator(control: AbstractControl): ValidationErrors | null {
+function senhaForte(control: AbstractControl): ValidationErrors | null {
   const v = control.value ?? '';
   const erros: Record<string, boolean> = {};
   if (!/[A-Z]/.test(v)) erros['semMaiuscula'] = true;
@@ -75,19 +75,19 @@ export class Register {
     this.registerForm = this.fb.group(
       {
        
-        nome:            ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)], [nomeUnicoValidator(this.auth)]],
-        email:           ['', [Validators.required, Validators.email], [emailUnicoValidator(this.auth)]],
-        senha:           ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64), senhaForteValidator]],
+        nome:            ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)], [nomeUnico(this.auth)]],
+        email:           ['', [Validators.required, Validators.email], [emailUnico(this.auth)]],
+        senha:           ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64), senhaForte]],
         confirmarSenha:  ['', Validators.required],
 
       
         data_nascimento: [''],
         genero:          [''],
-        bio:             ['', Validators.maxLength(160)],
+        bio:             ['', Validators.maxLength(500)],
         privacidade:     ['publico'],
         foto_perfil:     [''],   
       },
-      { validators: senhasIguaisValidator }
+      { validators: senhasIguais }
     );
   }
 
@@ -107,23 +107,23 @@ export class Register {
   }
 
   get bioRestantes(): number {
-    return 160 - (this.campo('bio').value?.length ?? 0);
+    return 500 - (this.campo('bio').value?.length ?? 0);
   }
 
-  // ── Foto de perfil ──────────────────────────────────────────────────────────
+  // Foto de perfil 
 
   onFotoSelecionada(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file  = input.files?.[0];
     if (!file) return;
 
-    // Validar tipo e tamanho (máx 2 MB)
+    // Validar tipo e tamanho (máx 20 MB)
     if (!file.type.startsWith('image/')) {
       this.erroServidor.set('O ficheiro deve ser uma imagem.');
       return;
     }
-    if (file.size > 2 * 1024 * 1024) {
-      this.erroServidor.set('A imagem não pode exceder 2 MB.');
+    if (file.size > 20 * 1024 * 1024) {
+      this.erroServidor.set('A imagem não pode exceder 20 MB.');
       return;
     }
 
@@ -136,7 +136,7 @@ export class Register {
     reader.readAsDataURL(file);
   }
 
-  // ── Navegação entre etapas ──────────────────────────────────────────────────
+  // Navegação entre etapas 
 
   avancarEtapa(): void {
     // Marcar apenas os campos da etapa 1
@@ -156,7 +156,7 @@ export class Register {
 
   voltarEtapa(): void { this.etapaActual.set(1); }
 
-  // ── Submissão final ─────────────────────────────────────────────────────────
+  // Submissão final 
 
   criar(): void {
     this.erroServidor.set('');

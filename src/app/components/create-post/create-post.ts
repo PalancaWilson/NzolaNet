@@ -31,7 +31,7 @@ export class CreatePost {
     return this.limite - this.text().length;
   }
   get quaseNoLimite(): boolean {
-    return this.restantes <= 20;
+    return this.restantes <= 80;
   }
 
   onImageSelected(e: Event): void {
@@ -69,6 +69,9 @@ export class CreatePost {
     this.showEmojiPicker.update(v => !v);
   }
 
+  /**
+   * Para poder publicar a localização atual
+   */
   localizacao(): void {
     this.modal.alertar('Localização', 'Funcionalidade de localização em breve!');
   }

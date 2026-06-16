@@ -75,7 +75,6 @@ npx prettier . --write   # corrigir formatação
 | `AuthService`              | Login, registo, logout, sessão (token + localStorage) |
 | `UserService`              | Perfil do utilizador logado (carregar, actualizar)  |
 | `PostService`              | CRUD de publicações, bazes, guardar                 |
-| `MockDataService`          | Dados mock para desenvolvimento (hardcoded)         |
 | `SettingsService`          | Definições do utilizador                            |
 | `LayoutService`            | Estado do layout (sidebar visível, etc.)            |
 | `ModalService`             | Modal de confirmação/prompt/alert                   |
@@ -132,7 +131,6 @@ O frontend comunica com uma API Laravel 12 em `http://127.0.0.1:8000` via proxy 
 | Bazes (likes)        | ✅ API real           |
 | Seguir/Deixar seguir | ✅ API real           |
 | Notificações         | ✅ API real           |
-| Chat (mensagens)     | ✅ API real           |
 | Foto de perfil       | ✅ API real (base64)  |
 | Foto de capa         | ✅ API real (base64)  |
 | Definições           | ✅ API real           |
@@ -141,16 +139,6 @@ O frontend comunica com uma API Laravel 12 em `http://127.0.0.1:8000` via proxy 
 
 ---
 
-## Contas de teste (mock localStorage)
-
-| Email                 | Senha      |
-|-----------------------|------------|
-| joao@email.com        | 123456     |
-| maria@email.com       | 123456     |
-| admin@nzolanet.app    | Admin123   |
-| teste@nzolanet.app    | Teste123   |
-
----
 
 ## Testes
 

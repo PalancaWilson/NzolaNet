@@ -30,10 +30,7 @@
           {{ erroServidor() }}
         </div>
       }
-
-      <!-- ════════════════════════════════════════════════════════════ -->
       <!-- ETAPA 1 — DADOS DE ACESSO                                   -->
-      <!-- ════════════════════════════════════════════════════════════ -->
 
       @if (etapaActual() === 1) {
 
@@ -49,12 +46,7 @@
         @if (campo('nome').touched && campo('nome').errors?.['minlength']) {
           <small class="error">Mínimo 2 caracteres.</small>
         }
-        @if (campo('nome').touched && campo('nome').errors?.['nomeDuplicado']) {
-          <small class="error">
-            <i class="bi bi-exclamation-triangle"></i>
-            Nome de utilizador já existe.
-          </small>
-        }
+        
         @if (campo('nome').touched && campo('nome').pending) {
           <small class="hint">
             <i class="bi bi-hourglass-split"></i>
@@ -160,9 +152,7 @@
 
       }
 
-      <!-- ════════════════════════════════════════════════════════════ -->
       <!-- ETAPA 2 — PERFIL                                            -->
-      <!-- ════════════════════════════════════════════════════════════ -->
 
       @if (etapaActual() === 2) {
 
@@ -181,7 +171,7 @@
               (change)="onFotoSelecionada($event)"
             >
           </div>
-          <span>Foto de perfil <small>(máx. 2 MB)</small></span>
+          <span>Foto de perfil <small>(máx. 20 MB)</small></span>
         </div>
 
         <!-- DATA DE NASCIMENTO + GÉNERO -->
@@ -200,11 +190,8 @@
             <div class="input-group select-group">
               <i class="bi bi-gender-ambiguous"></i>
               <select id="genero" formControlName="genero">
-                <option value="">Prefiro não dizer</option>
                 <option value="masculino">Masculino</option>
                 <option value="feminino">Feminino</option>
-                <option value="nao_binario">Não-binário</option>
-                <option value="outro">Outro</option>
               </select>
             </div>
           </div>
@@ -218,7 +205,7 @@
           <textarea
             id="bio"
             formControlName="bio"
-            placeholder="Escreve algo sobre ti... (máx. 160 caracteres)"
+            placeholder="Escreve algo sobre ti... (máx. 500 caracteres)"
             rows="3"
           ></textarea>
         </div>

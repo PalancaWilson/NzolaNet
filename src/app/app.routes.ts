@@ -98,10 +98,7 @@ export const routes: Routes = [
       },
 
       // Edit-profile → redirect para settings/conta
-      {
-        path: 'edit-profile',
-        loadComponent: () => import('./pages/edit-profile/edit-profile').then((m) => m.EditProfile),
-      },
+      
 
       // Sobre
       {

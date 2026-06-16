@@ -7,7 +7,7 @@ import { AdminService, AdminDenuncia } from '../../../services/admin.service';
 @Component({
   selector: 'app-admin-denuncias',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule],
   templateUrl: './admin-denuncias.html',
   styleUrl: './admin-denuncias.css',
 })
