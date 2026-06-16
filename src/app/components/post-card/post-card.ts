@@ -1,7 +1,8 @@
-import { Component, Input, signal, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, Input, Output, EventEmitter, signal, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Post } from '../../models/post.model';
 import { PostService } from '../../services/post.service';
 import { UserService } from '../../services/user.service';
@@ -11,14 +12,23 @@ import { ModalService } from '../modal/modal.service';
 @Component({
   selector: 'app-post-card',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './post-card.html',
   styleUrls: ['./post-card.css'],
 })
 export class PostCard {
   @Input({ required: true }) post!: Post;
+  @Output() editado = new EventEmitter<Post>();
 
   menuAberto = signal(false);
+
+  editando = signal(false);
+  editText = signal('');
+  editNovaImagem = signal<string | null>(null);
+  removerImagem = signal(false);
+  salvando = signal(false);
+
+  readonly limite = 1024;
 
   constructor(
     private postService: PostService,
@@ -30,6 +40,13 @@ export class PostCard {
 
   get isOwner(): boolean {
     return this.post.autor.id === this.userService.perfil()?.id;
+  }
+
+  get restantes(): number {
+    return this.limite - this.editText().length;
+  }
+  get quaseNoLimite(): boolean {
+    return this.restantes <= 80;
   }
 
   getInitials(): string {
@@ -50,20 +67,58 @@ export class PostCard {
     this.menuAberto.set(false);
   }
 
-  editar(): void {
+  iniciarEdicao(): void {
     this.fecharMenu();
-    this.modal
-      .prompt(
-        'Editar publicação',
-        'Altera o texto da tua publicação:',
-        this.post.conteudo,
-        'Escreve o novo texto...',
-      )
-      .subscribe((novo) => {
-        if (novo && novo.trim() !== this.post.conteudo) {
-          this.postService.editarPost(this.post.id, novo.trim()).subscribe();
-        }
-      });
+    this.editText.set(this.post.conteudo);
+    this.editNovaImagem.set(null);
+    this.removerImagem.set(false);
+    this.editando.set(true);
+  }
+
+  cancelarEdicao(): void {
+    this.editando.set(false);
+    this.editText.set('');
+    this.editNovaImagem.set(null);
+    this.removerImagem.set(false);
+  }
+
+  onEditImageSelected(e: Event): void {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => this.editNovaImagem.set(reader.result as string);
+      reader.readAsDataURL(file);
+    }
+  }
+
+  removerEditImagem(): void {
+    this.editNovaImagem.set(null);
+    this.removerImagem.set(true);
+  }
+
+  guardarEdicao(): void {
+    const texto = this.editText().trim();
+    if (!texto || texto === this.post.conteudo) {
+      this.cancelarEdicao();
+      return;
+    }
+    this.salvando.set(true);
+    let imagem: string | null | undefined = undefined;
+    if (this.removerImagem()) {
+      imagem = null;
+    } else if (this.editNovaImagem()) {
+      imagem = this.editNovaImagem();
+    }
+    this.postService.editarPost(this.post.id, texto, imagem).subscribe({
+      next: (actualizado) => {
+        this.editado.emit(actualizado);
+        this.editando.set(false);
+        this.salvando.set(false);
+      },
+      error: () => {
+        this.salvando.set(false);
+      },
+    });
   }
 
   apagar(): void {

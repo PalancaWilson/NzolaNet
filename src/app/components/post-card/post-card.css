@@ -1,254 +1,252 @@
 .post-card {
-    max-width: 600px;
-    width: 100%;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    padding: 12px;
-    transition: all 0.2s ease;
-    margin: 0 auto;
+  max-width: 600px;
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  padding: 12px;
+  transition: all 0.2s ease;
+  margin: 0 auto;
 }
 
 .post-card:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-    transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
 }
 
 /* Cabeçalho reduzido */
 .post-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
 }
 
 .avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #c92df1, #8b5cf6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    font-size: 16px;
-    flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c92df1, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  flex-shrink: 0;
 }
 
 .user-info {
-    flex: 1;
+  flex: 1;
 }
 
 .user-name {
-    font-weight: 600;
-    font-size: 14px;
-    color: #1a1a1a;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    flex-wrap: wrap;
+  font-weight: 600;
+  font-size: 14px;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
 }
 
 .user-name span {
-    color: #71767b;
-    font-weight: 400;
-    font-size: 13px;
+  color: #71767b;
+  font-weight: 400;
+  font-size: 13px;
 }
 
 .verified-badge {
-    color: #1da1f2;
-    font-size: 14px;
+  color: #1da1f2;
+  font-size: 14px;
 }
 
 .post-time {
-    color: #71767b;
-    font-size: 11px;
-    margin-top: 2px;
+  color: #71767b;
+  font-size: 11px;
+  margin-top: 2px;
 }
 
 /* Conteúdo reduzido */
 .post-content {
-    margin-bottom: 12px;
-    padding-left: 48px;
+  margin-bottom: 12px;
+  padding-left: 48px;
 }
 
 .post-text {
-    font-size: 14px;
-    line-height: 1.4;
-    color: #0f1419;
-    margin-bottom: 8px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #0f1419;
+  margin-bottom: 8px;
 }
 
 /* Imagem reduzida */
 .post-media {
-    margin-top: 8px;
-    border-radius: 12px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.2s ease;
+  margin-top: 8px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 .post-media:hover {
-    transform: scale(1.01);
+  transform: scale(1.01);
 }
 
 .post-media img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    max-height: 350px;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-height: 350px;
 }
 
 /* Ações reduzidas */
 .post-actions {
-    display: flex;
-    justify-content: space-around;
-    border-top: 1px solid #eff3f4;
-    border-bottom: 1px solid #eff3f4;
-    padding: 4px 0;
-    margin-bottom: 8px;
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #eff3f4;
+  border-bottom: 1px solid #eff3f4;
+  padding: 4px 0;
+  margin-bottom: 8px;
 }
 
 .action-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: none;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 30px;
-    color: #536471;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 30px;
+  color: #536471;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .action-btn i {
-    font-size: 16px;
-    transition: transform 0.2s ease;
+  font-size: 16px;
+  transition: transform 0.2s ease;
 }
 
 .action-btn:hover {
-    background: rgba(201, 45, 241, 0.08);
-    color: #c92df1;
+  background: rgba(201, 45, 241, 0.08);
+  color: #c92df1;
 }
 
 .action-btn:hover i {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .like-btn.liked {
-    color: #f91880;
+  color: #f91880;
 }
 
 .like-btn.liked i {
-    color: #f91880;
+  color: #f91880;
 }
 
 .like-btn:hover {
-    background: rgba(249, 24, 128, 0.08);
-    color: #f91880;
+  background: rgba(249, 24, 128, 0.08);
+  color: #f91880;
 }
 
 .retweet-btn:hover {
-    background: rgba(0, 186, 124, 0.08);
-    color: #00ba7c;
+  background: rgba(0, 186, 124, 0.08);
+  color: #00ba7c;
 }
 
 .share-btn:hover {
-    background: rgba(29, 161, 242, 0.08);
-    color: #1da1f2;
+  background: rgba(29, 161, 242, 0.08);
+  color: #1da1f2;
 }
 
 .action-btn:active {
-    transform: scale(0.96);
+  transform: scale(0.96);
 }
 
 /* Estatísticas reduzidas */
 .post-stats {
-    display: flex;
-    gap: 16px;
-    padding-left: 48px;
-    font-size: 13px;
-    color: #536471;
+  display: flex;
+  gap: 16px;
+  padding-left: 48px;
+  font-size: 13px;
+  color: #536471;
 }
 
 .stat {
-    display: flex;
-    align-items: center;
-    gap: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .stat strong {
-    color: #0f1419;
-    font-weight: 600;
-    font-size: 13px;
+  color: #0f1419;
+  font-weight: 600;
+  font-size: 13px;
 }
 
 .stat i {
-    font-size: 13px;
+  font-size: 13px;
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
-    .post-card {
-        padding: 10px;
-    }
+  .post-card {
+    padding: 10px;
+  }
 
-    .post-content,
-    .post-stats {
-        padding-left: 0;
-    }
+  .post-content,
+  .post-stats {
+    padding-left: 0;
+  }
 
-    .action-btn span {
-        display: none;
-    }
+  .action-btn span {
+    display: none;
+  }
 
-    .action-btn i {
-        font-size: 18px;
-    }
+  .action-btn i {
+    font-size: 18px;
+  }
 
-    .action-btn {
-        padding: 6px;
-    }
+  .action-btn {
+    padding: 6px;
+  }
 
-    .avatar {
-        width: 36px;
-        height: 36px;
-        font-size: 14px;
-    }
+  .avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
 
-    .post-text {
-        font-size: 13px;
-    }
+  .post-text {
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 480px) {
-    .user-name {
-        font-size: 13px;
-    }
+  .user-name {
+    font-size: 13px;
+  }
 
-    .user-name span {
-        font-size: 11px;
-    }
+  .user-name span {
+    font-size: 11px;
+  }
 
-    .post-text {
-        font-size: 13px;
-    }
+  .post-text {
+    font-size: 13px;
+  }
 
-    .post-stats {
-        font-size: 12px;
-        gap: 12px;
-    }
+  .post-stats {
+    font-size: 12px;
+    gap: 12px;
+  }
 
-    .stat strong {
-        font-size: 12px;
-    }
+  .stat strong {
+    font-size: 12px;
+  }
 }
-
-
 
 /* Adições para o PostCard melhorado */
 .avatar-img {
@@ -283,9 +281,13 @@
   cursor: pointer;
 }
 
-.tag:hover { text-decoration: underline; }
+.tag:hover {
+  text-decoration: underline;
+}
 
-.save-btn.saved { color: #c92df1; }
+.save-btn.saved {
+  color: #c92df1;
+}
 .save-btn:hover {
   background: rgba(201, 45, 241, 0.08);
   color: #c92df1;
@@ -308,7 +310,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background .2s, color .2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 
 .menu-trigger:hover {
@@ -323,7 +327,7 @@
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0,0,0,.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   min-width: 150px;
   z-index: 50;
   overflow: hidden;
@@ -341,7 +345,7 @@
   font-weight: 500;
   color: var(--text);
   cursor: pointer;
-  transition: background .15s;
+  transition: background 0.15s;
 }
 
 .menu-item:hover {
@@ -353,5 +357,151 @@
 }
 
 .menu-item-danger:hover {
-  background: rgba(249, 24, 128, .08);
+  background: rgba(249, 24, 128, 0.08);
+}
+
+/* ── Edição inline ──────────────────────────── */
+.post-edit-area {
+  padding-left: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.edit-textarea {
+  width: 100%;
+  border: 2px solid var(--purple-light);
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 80px;
+  background: var(--bg);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.edit-textarea:focus {
+  border-color: var(--purple);
+}
+
+.edit-char-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-align: right;
+}
+
+.edit-char-count.danger {
+  color: var(--pink);
+}
+
+.edit-image-preview {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.edit-image-preview img {
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+}
+
+.btn-remove-edit-img {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.edit-action-btn {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--purple);
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-action-btn:hover {
+  background: var(--purple-light);
+}
+
+.edit-action-btn i {
+  font-size: 18px;
+}
+
+.edit-save-group {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-cancel-edit,
+.btn-save-edit {
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.btn-cancel-edit {
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.btn-cancel-edit:hover {
+  background: var(--purple-light);
+  color: var(--text);
+}
+
+.btn-save-edit {
+  background: linear-gradient(to right, var(--purple), var(--pink));
+  color: white;
+}
+
+.btn-save-edit:hover {
+  transform: translateY(-1px);
+}
+
+.btn-save-edit:disabled,
+.btn-cancel-edit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (max-width: 768px) {
+  .post-edit-area {
+    padding-left: 0;
+  }
 }

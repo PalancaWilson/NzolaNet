@@ -22,7 +22,6 @@ export class Sidebar {
   ) {}
 
   navegar(): void {
-    // fecha sidebar no mobile quando clica num link
     this.layout.fecharSidebar();
   }
 

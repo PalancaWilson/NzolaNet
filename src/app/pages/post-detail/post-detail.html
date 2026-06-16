@@ -9,7 +9,7 @@
 
   @if (post()) {
     <div class="post-main">
-      <app-post-card [post]="post()!"></app-post-card>
+      <app-post-card [post]="post()!" (editado)="post.set($event)"></app-post-card>
     </div>
 
     <div class="comment-box">
@@ -38,7 +38,7 @@
             maxlength="280"
           ></textarea>
           <div class="comment-footer">
-            <span class="char-count" [class.danger]="restantes < 20">{{ restantes }}</span>
+            <span class="char-count" [class.danger]="restantes < 200">{{ restantes }}</span>
             <button
               class="btn-send"
               (click)="enviarComentario()"

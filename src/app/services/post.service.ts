@@ -15,7 +15,7 @@ export class PostService {
 
   obterFeed(): Observable<Post[]> {
     return this.http.get<Post[]>(`${this.API_URL}/publicacoes`).pipe(
-      tap(posts => this._publicacoes.set(posts)),
+      tap((posts) => this._publicacoes.set(posts)),
       catchError(() => {
         this._publicacoes.set([]);
         return of([]);
@@ -28,23 +28,25 @@ export class PostService {
   }
 
   obterPorUtilizador(utilizadorId: string): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.API_URL}/utilizadores/${utilizadorId}/publicacoes`).pipe(
-      catchError(() => of([])),
-    );
+    return this.http
+      .get<Post[]>(`${this.API_URL}/utilizadores/${utilizadorId}/publicacoes`)
+      .pipe(catchError(() => of([])));
   }
 
   criarPost(conteudo: string, imagem?: string): Observable<Post> {
-    return this.http.post<Post>(`${this.API_URL}/publicacoes`, { conteudo, imagem }).pipe(
-      tap(novo => this._publicacoes.update(lista => [novo, ...lista])),
-    );
+    return this.http
+      .post<Post>(`${this.API_URL}/publicacoes`, { conteudo, imagem })
+      .pipe(tap((novo) => this._publicacoes.update((lista) => [novo, ...lista])));
   }
 
-  editarPost(postId: string, conteudo: string): Observable<Post> {
-    return this.http.put<Post>(`${this.API_URL}/publicacoes/${postId}`, { conteudo }).pipe(
-      tap(actualizado => {
-        this._publicacoes.update(lista =>
-          lista.map(p => (p.id === postId ? actualizado : p)),
-        );
+  editarPost(postId: string, conteudo: string, imagem?: string | null): Observable<Post> {
+    const body: any = { conteudo };
+    if (imagem !== undefined) {
+      body.imagem = imagem;
+    }
+    return this.http.put<Post>(`${this.API_URL}/publicacoes/${postId}`, body).pipe(
+      tap((actualizado) => {
+        this._publicacoes.update((lista) => lista.map((p) => (p.id === postId ? actualizado : p)));
       }),
     );
   }
@@ -52,7 +54,7 @@ export class PostService {
   apagarPost(postId: string): Observable<void> {
     return this.http.delete<void>(`${this.API_URL}/publicacoes/${postId}`).pipe(
       tap(() => {
-        this._publicacoes.update(lista => lista.filter(p => p.id !== postId));
+        this._publicacoes.update((lista) => lista.filter((p) => p.id !== postId));
       }),
     );
   }
@@ -60,8 +62,8 @@ export class PostService {
   toggleBaze(postId: string): Observable<void> {
     return this.http.post<void>(`${this.API_URL}/publicacoes/${postId}/baze`, {}).pipe(
       tap(() => {
-        this._publicacoes.update(lista =>
-          lista.map(p =>
+        this._publicacoes.update((lista) =>
+          lista.map((p) =>
             p.id === postId
               ? { ...p, gostou: !p.gostou, gostos: p.gostou ? p.gostos - 1 : p.gostos + 1 }
               : p,
@@ -73,10 +75,8 @@ export class PostService {
 
   toggleGuardar(postId: string): Observable<void> {
     // TODO: implementar endpoint de guardar quando o backend estiver pronto
-    this._publicacoes.update(lista =>
-      lista.map(p =>
-        p.id === postId ? { ...p, guardado: !p.guardado } : p,
-      ),
+    this._publicacoes.update((lista) =>
+      lista.map((p) => (p.id === postId ? { ...p, guardado: !p.guardado } : p)),
     );
     return of(void 0);
   }
@@ -84,18 +84,14 @@ export class PostService {
   repostar(postId: string): Observable<void> {
     return this.http.post<void>(`${this.API_URL}/publicacoes/${postId}/repostar`, {}).pipe(
       tap(() => {
-        this._publicacoes.update(lista =>
-          lista.map(p =>
-            p.id === postId ? { ...p, partilhas: p.partilhas + 1 } : p,
-          ),
+        this._publicacoes.update((lista) =>
+          lista.map((p) => (p.id === postId ? { ...p, partilhas: p.partilhas + 1 } : p)),
         );
       }),
       catchError(() => {
         // fallback local
-        this._publicacoes.update(lista =>
-          lista.map(p =>
-            p.id === postId ? { ...p, partilhas: p.partilhas + 1 } : p,
-          ),
+        this._publicacoes.update((lista) =>
+          lista.map((p) => (p.id === postId ? { ...p, partilhas: p.partilhas + 1 } : p)),
         );
         return of(void 0);
       }),
